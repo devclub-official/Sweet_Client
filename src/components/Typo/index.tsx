@@ -1,4 +1,4 @@
-import {TypoName} from '@/assets/fonts';
+import {TypoName} from '@/theme/fonts';
 import {Text, TextProps} from 'react-native';
 
 interface Props extends TextProps {

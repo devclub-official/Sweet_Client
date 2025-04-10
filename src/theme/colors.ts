@@ -1,0 +1,15 @@
+export const colors = {
+  BLACK: '#121212',
+  GRAY_50: '#FCFCFD',
+  GRAY_100: '#F2F4F7',
+  GRAY_200: '#E4E7EC',
+  GRAY_300: '#D0D5DD',
+  GRAY_400: '#ABB1BA',
+  GRAY_500: '#7A7F89',
+  GRAY_600: '#40444D',
+  GRAY_700: '#282B31',
+  GRAY_800: '#1D1F23',
+  GRAY_900: '#17181C',
+  PRIMARY: '#66FBEF',
+  SECONDARY: '#66FBA5',
+};

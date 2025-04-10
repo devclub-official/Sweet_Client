@@ -17,6 +17,7 @@ module.exports = {
           '@/apis': './src/apis',
           '@/hooks': './src/hooks',
           '@/stores': './src/stores',
+          '@/theme': './src/theme',
         },
       },
     ],

@@ -1,18 +1,41 @@
-import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {
-  CompositeScreenProps,
+  NavigatorScreenParams,
   ParamListBase,
-  StaticScreenProps,
+  RouteProp,
 } from '@react-navigation/native';
 import {StackScreenProps} from '@react-navigation/stack';
 
 export const enum RootStackScreenList {
+  MainTab = 'MainTab',
+  HomeTab = 'HomeTab',
+  FeedTab = 'FeedTab',
+  MyPageTab = 'MyPageTab',
+
   Home = 'Home',
   Login = 'Login',
+  FeedList = 'FeedList',
+  FeedDetail = 'FeedDetail',
+  MyPage = 'MyPage',
+}
+
+interface HomeTabParam {
+  [RootStackScreenList.Home]: undefined;
+}
+interface FeedTabParam {
+  [RootStackScreenList.FeedList]: undefined;
+  [RootStackScreenList.FeedDetail]: undefined;
+}
+interface MyPageTabParam {
+  [RootStackScreenList.MyPage]: undefined;
+}
+interface MainTabParam {
+  [RootStackScreenList.HomeTab]: NavigatorScreenParams<HomeTabParam>;
+  [RootStackScreenList.FeedTab]: NavigatorScreenParams<FeedTabParam>;
+  [RootStackScreenList.MyPageTab]: NavigatorScreenParams<MyPageTabParam>;
 }
 export interface RootStackParamList extends ParamListBase {
-  [RootStackScreenList.Home]: undefined;
-  [RootStackScreenList.Login]: {id: number};
+  [RootStackScreenList.MainTab]: NavigatorScreenParams<MainTabParam>;
+  [RootStackScreenList.Login]: undefined;
 }
 export type RootStackScreenProps<T extends keyof RootStackParamList> =
   StackScreenProps<RootStackParamList, T>;
@@ -22,13 +45,9 @@ export type HomeTabParamList = {
   Latest: undefined;
 };
 
-export type HomeTabScreenProps<T extends keyof HomeTabParamList> =
-  CompositeScreenProps<
-    BottomTabScreenProps<HomeTabParamList, T>,
-    RootStackScreenProps<keyof RootStackParamList>
-  >;
-export type ScreenProps<T extends RootStackScreenList> = StaticScreenProps<
-  RootStackParamList[T]
+export type RouteParams<T extends keyof RootStackParamList> = RouteProp<
+  RootStackParamList,
+  T
 >;
 
 declare global {

@@ -1,10 +1,10 @@
 import {Typo} from '@/components/Typo';
 import {View} from 'react-native';
 
-export const Login = () => {
+export const FeedDetail = () => {
   return (
     <View>
-      <Typo>login</Typo>
+      <Typo>feed detail</Typo>
     </View>
   );
 };

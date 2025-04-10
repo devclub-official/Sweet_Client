@@ -1,6 +1,6 @@
 import {Button} from '@/components/Button';
 import {Typo} from '@/components/Typo';
-import {useSweetNavigation} from '@/navigation/useNavigation';
+import {useSweetNavigation} from '@/hooks/useNavigation';
 import {useAuthStore} from '@/stores/useAuthStore';
 import {RootStackScreenList, RouteParams} from '@/types/navigation';
 import {useNavigation, useRoute} from '@react-navigation/native';

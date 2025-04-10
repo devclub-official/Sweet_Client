@@ -19,7 +19,3 @@ export const useSweetNavigation = () => {
 
   return {push, pop, reset};
 };
-
-type Type<T extends (...args: any) => any> = T extends (...args: infer P) => any
-  ? P
-  : never;

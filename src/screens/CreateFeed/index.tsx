@@ -1,4 +1,3 @@
-import {Input} from '@/components/Input';
 import {SafeAreaScreenWrapper} from '@/components/SafeAreaScreenWrapper';
 import {useMemo, useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
@@ -11,7 +10,6 @@ import {RootStackScreenList} from '@/types/navigation';
 import {Divider} from '@/components/Divider';
 import {Button} from '@/components/Button';
 import {Typo} from '@/components/Typo';
-import {colors} from '@/theme/colors';
 import {CreateFeedOption} from './components/CreateFeedOption';
 import {CreateFeedTextArea} from './components/CreateFeedTextArea';
 

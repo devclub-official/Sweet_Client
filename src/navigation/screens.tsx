@@ -1,3 +1,4 @@
+import {CreateFeed} from '@/screens/CreateFeed';
 import {FeedDetail} from '@/screens/FeedDetail';
 import {FeedList} from '@/screens/FeedList';
 import {Home} from '@/screens/Home';
@@ -24,6 +25,10 @@ const FeedTab = () => {
       <Stack.Screen
         name={RootStackScreenList.FeedDetail}
         component={FeedDetail}
+      />
+      <Stack.Screen
+        name={RootStackScreenList.CreateFeed}
+        component={CreateFeed}
       />
     </Stack.Navigator>
   );

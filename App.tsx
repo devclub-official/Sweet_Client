@@ -1,11 +1,20 @@
-import {NavigationContainer} from '@react-navigation/native';
+import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import {RootStack} from '@/navigation/screens';
 import './gesture-handler';
+import {colors} from '@/theme/colors';
+
+const defaultTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: colors.BLACK,
+  },
+};
 
 const App = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={defaultTheme}>
       <RootStack />
     </NavigationContainer>
   );

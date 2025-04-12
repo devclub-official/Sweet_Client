@@ -6,5 +6,5 @@ interface Props extends TextProps {
 }
 
 export const Typo = (props: Props) => {
-  return <Text {...props} />;
+  return <Text {...props} style={{color: 'white'}} />;
 };

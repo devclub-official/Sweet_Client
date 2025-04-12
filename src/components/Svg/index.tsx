@@ -1,5 +1,12 @@
-import {View} from 'react-native';
+import {svgMap} from '@/assets/svgs';
+import {SvgNames, SvgOptions} from '@/types/svg';
 
-export const Svg = () => {
-  return <View />;
+interface Props {
+  svgName: SvgNames;
+  options?: SvgOptions;
+}
+
+export const Svg = ({svgName, options}: Props) => {
+  const SvgComponent = svgMap[svgName];
+  return <SvgComponent {...options} />;
 };

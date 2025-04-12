@@ -1,5 +1,7 @@
-import {TextInput} from 'react-native';
+import {TextInput, TextInputProps} from 'react-native';
 
-export const Input = () => {
-  return <TextInput />;
+interface Props extends TextInputProps {}
+
+export const Input = (props: Props) => {
+  return <TextInput {...props} />;
 };

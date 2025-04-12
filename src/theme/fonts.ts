@@ -1,5 +1,3 @@
-import {TextStyle} from 'react-native';
-
 const FONT_WEIGHT = {
   light: {
     fontWeight: 300,
@@ -23,7 +21,7 @@ const FONT_WEIGHT = {
   },
 } as const;
 
-export const FONTS: Record<string, TextStyle> = {
+export const FONTS = {
   Placeholder: {
     fontSize: 14,
     lineHeight: 20,

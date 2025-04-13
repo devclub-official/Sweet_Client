@@ -1,11 +1,19 @@
+import {HeaderLeftBack} from '@/components/Headers/HeaderLeftBack';
+import {Svg} from '@/components/Svg';
 import {FeedDetail} from '@/screens/FeedDetail';
 import {FeedList} from '@/screens/FeedList';
 import {Home} from '@/screens/Home';
 import {Login} from '@/screens/Login';
 import {MyPage} from '@/screens/MyPage';
+import {colors} from '@/theme/colors';
 import {RootStackParamList, RootStackScreenList} from '@/types/navigation';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createStackNavigator} from '@react-navigation/stack';
+import {RouteProp} from '@react-navigation/native';
+import {
+  createStackNavigator,
+  StackNavigationOptions,
+  StackNavigationProp,
+} from '@react-navigation/stack';
 
 const Stack = createStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator();
@@ -17,6 +25,31 @@ const HomeTab = () => {
     </Stack.Navigator>
   );
 };
+
+const getDefaultHeaderOptions = ({
+  navigation,
+}: {
+  route: RouteProp<RootStackParamList>;
+  navigation: StackNavigationProp<RootStackParamList, string>;
+  theme: ReactNavigation.Theme;
+}): StackNavigationOptions => {
+  return {
+    headerLeft: () => <HeaderLeftBack navigation={navigation} />,
+    headerStyle: {
+      backgroundColor: colors.BLACK,
+    },
+    // FIXME: 밑 임시 스타일 수정
+    headerTintColor: 'white',
+    headerTitleStyle: {
+      fontWeight: '700',
+    },
+    headerRightContainerStyle: {paddingRight: 20},
+    headerLeftContainerStyle: {
+      paddingLeft: 20,
+    },
+  };
+};
+
 const FeedTab = () => {
   return (
     <Stack.Navigator>
@@ -59,9 +92,9 @@ const TabScreen = () => {
 
 export const RootStack = () => {
   return (
-    <Stack.Navigator initialRouteName="tab">
+    <Stack.Navigator initialRouteName={RootStackScreenList.MainTab}>
       <Stack.Screen
-        name="tab"
+        name={RootStackScreenList.MainTab}
         component={TabScreen}
         options={{headerShown: false}}
       />

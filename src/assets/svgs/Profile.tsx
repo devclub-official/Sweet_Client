@@ -1,6 +1,6 @@
-import * as React from 'react';
-import Svg, {SvgProps, Path} from 'react-native-svg';
-const SvgComponent = (props: SvgProps) => (
+import Svg, {Path} from 'react-native-svg';
+import {SvgOptions} from '@/types/svg';
+export const Profile = (props: SvgOptions) => (
   <Svg width={22} height={22} fill="none" viewBox="0 0 22 22" {...props}>
     <Path
       stroke="#FCFCFD"
@@ -16,4 +16,3 @@ const SvgComponent = (props: SvgProps) => (
     />
   </Svg>
 );
-export default SvgComponent;

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Svg, {Path} from 'react-native-svg';
 import {SvgOptions} from '@/types/svg';
 export const Profile = (props: SvgOptions) => (

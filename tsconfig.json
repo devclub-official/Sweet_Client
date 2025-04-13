@@ -14,7 +14,8 @@
       "@/apis": ["src/apis/*"],
       "@/stores": ["src/stores/*"],
       "@/hooks": ["src/hooks/*"],
-      "@/theme": ["src/theme/*"]
+      "@/theme": ["src/theme/*"],
+      "@/svgs": ["src/svgs/*"]
     }
   }
 }

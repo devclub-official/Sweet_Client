@@ -1,4 +1,4 @@
-import {Svg} from '@/components/Svg';
+import {HeaderLeftBack} from '@/components/Headers/HeaderLeftBack';
 import {screenTitle} from '@/constants/screen';
 import {CreateFeed} from '@/screens/CreateFeed';
 import {FeedDetail} from '@/screens/FeedDetail';
@@ -15,7 +15,6 @@ import {
   StackNavigationOptions,
   StackNavigationProp,
 } from '@react-navigation/stack';
-import {TouchableOpacity} from 'react-native';
 
 const Stack = createStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator();
@@ -28,20 +27,6 @@ const HomeTab = () => {
   );
 };
 
-const HeaderLeftComponent = ({
-  navigation,
-}: {
-  navigation: StackNavigationProp<RootStackParamList, string>;
-}) => {
-  return (
-    <TouchableOpacity
-      onPress={() => {
-        navigation.goBack();
-      }}>
-      <Svg svgName="ChevronLeft" />
-    </TouchableOpacity>
-  );
-};
 const getDefaultHeaderOptions = ({
   navigation,
 }: {
@@ -50,7 +35,7 @@ const getDefaultHeaderOptions = ({
   theme: ReactNavigation.Theme;
 }): StackNavigationOptions => {
   return {
-    headerLeft: () => <HeaderLeftComponent navigation={navigation} />,
+    headerLeft: () => <HeaderLeftBack navigation={navigation} />,
     headerStyle: {
       backgroundColor: colors.BLACK,
     },

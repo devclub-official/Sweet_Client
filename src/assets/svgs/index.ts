@@ -7,6 +7,7 @@ import { FeedDumbbell } from './FeedDumbbell';
 import { Heart } from './Heart';
 import {Home} from './Home';
 import {Location} from './Location';
+import { More } from './More';
 import {Profile} from './Profile';
 import { Share } from './Share';
 
@@ -22,4 +23,5 @@ export const svgMap = {
   Heart,
   Comment,
   Share,
+  More,
 };

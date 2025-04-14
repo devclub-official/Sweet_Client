@@ -1,12 +1,13 @@
 import { Typo } from '@/components/Typo';
 import React, { useCallback, useMemo } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import { BottomSheetBackdrop, BottomSheetBackdropProps, BottomSheetFlatList, BottomSheetFooter, BottomSheetFooterProps, BottomSheetHandle, BottomSheetHandleProps, BottomSheetModal, BottomSheetScrollView, BottomSheetTextInput, BottomSheetView } from '@gorhom/bottom-sheet';
+import { BottomSheetFlatList, BottomSheetFooter, BottomSheetFooterProps, BottomSheetHandle, BottomSheetHandleProps, BottomSheetModal, BottomSheetScrollView, BottomSheetTextInput, BottomSheetView } from '@gorhom/bottom-sheet';
 import { colors } from '@/theme/colors';
 import { Input } from '../Input';
 import { Strings } from './constants/strings';
 import { Svg } from '../Svg';
 import { Comment } from '@/models/feed';
+import { commonBottomSheetStyles, useBottomSheetCallbacks } from './bottomSheet';
 
 interface CommentBottomSheetProps {
     commentRef: React.RefObject<BottomSheetModal | null>;
@@ -20,14 +21,7 @@ export const CommentBottomSheet = (props: CommentBottomSheetProps) => {
     const snapPoints = useMemo(() => ['50%', '90%'], []);
 
     // renders
-    const renderBackdrop = useCallback((backdropProps: BottomSheetBackdropProps) => (
-        <BottomSheetBackdrop
-            {...backdropProps}
-            disappearsOnIndex={-1}
-            appearsOnIndex={1}
-            opacity={0.6}
-        />
-    ), []);
+    const { renderBackdrop } = useBottomSheetCallbacks();
     const renderHandle = useCallback((handleProps: BottomSheetHandleProps) => (
         <BottomSheetHandle {...handleProps}>
             <Typo style={styles.handleTitle}>{Strings.COMMENT}</Typo>
@@ -75,9 +69,9 @@ export const CommentBottomSheet = (props: CommentBottomSheetProps) => {
             ref={props.commentRef}
             snapPoints={snapPoints}
             enableDynamicSizing={false}
-            backgroundStyle={styles.background}
-            handleStyle={styles.handle}
-            handleIndicatorStyle={styles.handleIndicator}
+            backgroundStyle={commonBottomSheetStyles.background}
+            handleStyle={commonBottomSheetStyles.handle}
+            handleIndicatorStyle={commonBottomSheetStyles.handleIndicator}
             backdropComponent={renderBackdrop}
             handleComponent={renderHandle}
             footerComponent={renderFooter}

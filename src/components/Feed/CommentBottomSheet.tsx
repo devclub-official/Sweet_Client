@@ -1,7 +1,7 @@
 import { Typo } from '@/components/Typo';
 import React, { useCallback, useMemo } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import { BottomSheetFlatList, BottomSheetFooter, BottomSheetFooterProps, BottomSheetHandle, BottomSheetHandleProps, BottomSheetModal, BottomSheetScrollView, BottomSheetTextInput, BottomSheetView } from '@gorhom/bottom-sheet';
+import { BottomSheetFlatList, BottomSheetFooter, BottomSheetFooterProps, BottomSheetHandleProps, BottomSheetModal, BottomSheetScrollView, BottomSheetTextInput, BottomSheetView } from '@gorhom/bottom-sheet';
 import { colors } from '@/theme/colors';
 import { Input } from '../Input';
 import { Strings } from './constants/strings';
@@ -21,12 +21,7 @@ export const CommentBottomSheet = (props: CommentBottomSheetProps) => {
     const snapPoints = useMemo(() => ['50%', '90%'], []);
 
     // renders
-    const { renderBackdrop } = useBottomSheetCallbacks();
-    const renderHandle = useCallback((handleProps: BottomSheetHandleProps) => (
-        <BottomSheetHandle {...handleProps}>
-            <Typo style={styles.handleTitle}>{Strings.COMMENT}</Typo>
-        </BottomSheetHandle>
-    ), []);
+    const { renderBackdrop, renderHandle } = useBottomSheetCallbacks();
     const renderItem = ({ item }: { item: Comment }) => (
         <View style={styles.commentView}>
             <Image
@@ -73,7 +68,7 @@ export const CommentBottomSheet = (props: CommentBottomSheetProps) => {
             handleStyle={commonBottomSheetStyles.handle}
             handleIndicatorStyle={commonBottomSheetStyles.handleIndicator}
             backdropComponent={renderBackdrop}
-            handleComponent={renderHandle}
+            handleComponent={(handleProps: BottomSheetHandleProps) => renderHandle(handleProps, Strings.COMMENT)}
             footerComponent={renderFooter}
             detached={true}
         >
@@ -106,13 +101,6 @@ const styles = StyleSheet.create({
         borderWidth: 0,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
-    },
-    handleTitle: {
-        marginTop: 8,
-        marginBottom: 12.5,
-        width: "100%",
-        textAlign: "center",
-        color: "#F9F9F9",
     },
     handleIndicator: {
         backgroundColor: "white",

@@ -8,4 +8,5 @@ export const Strings = {
     HIDE_POST: "해당 게시물 숨기기",
     REPORT: "신고",
     ACCOUNT_PROFILE: "계정 프로필",
+    TAGGED_EXERCISES: "해당 이미지에 태그 된 운동",
 } as const;

@@ -101,4 +101,5 @@ export const FONTS: Record<string, TextStyle> = {
   },
 } as const;
 
-export type TypoName = keyof typeof FONTS;
+// export type TypoName = keyof typeof FONTS;
+export type TypoName = (typeof FONTS)[keyof typeof FONTS];

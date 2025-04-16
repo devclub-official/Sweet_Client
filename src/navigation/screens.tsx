@@ -36,7 +36,7 @@ const getDefaultHeaderOptions = ({
   return {
     headerLeft: () => <HeaderLeftBack navigation={navigation} />,
     headerStyle: {
-      backgroundColor: colors.BLACK,
+      backgroundColor: colors.B_BASE_PRI,
     },
     // FIXME: 밑 임시 스타일 수정
     headerTintColor: 'white',

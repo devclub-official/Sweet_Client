@@ -7,7 +7,7 @@ export const screenTitle: Record<RootStackScreenList, string> = {
   [RootStackScreenList.MyPageTab]: '',
   [RootStackScreenList.Home]: '',
   [RootStackScreenList.Login]: '',
-  [RootStackScreenList.FeedList]: '',
+  [RootStackScreenList.FeedMain]: '',
   [RootStackScreenList.FeedDetail]: '',
   [RootStackScreenList.MyPage]: '',
 };

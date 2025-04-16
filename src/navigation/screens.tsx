@@ -1,4 +1,6 @@
+import { Button } from '@/components/Button';
 import { HeaderLeftBack } from '@/components/Headers/HeaderLeftBack';
+import { Svg } from '@/components/Svg';
 import { FeedDetail } from '@/screens/FeedDetail';
 import { FeedMain } from '@/screens/FeedList';
 import { Home } from '@/screens/Home';
@@ -14,6 +16,7 @@ import {
   StackNavigationOptions,
   StackNavigationProp,
 } from '@react-navigation/stack';
+import { View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -44,7 +47,7 @@ const getDefaultHeaderOptions = ({
     headerTitleStyle: {
       fontWeight: '700',
     },
-    headerRightContainerStyle: {paddingRight: 20},
+    headerRightContainerStyle: { paddingRight: 20 },
     headerLeftContainerStyle: {
       paddingLeft: 20,
     },
@@ -54,10 +57,38 @@ const getDefaultHeaderOptions = ({
 const FeedTab = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name={RootStackScreenList.FeedList} component={FeedList} />
+      <Stack.Screen
+        name={RootStackScreenList.FeedMain}
+        component={FeedMain}
+        options={(props) => ({
+          ...getDefaultHeaderOptions(props),
+          headerLeft: undefined,
+          headerTitle: () => (
+            <Svg svgName="Logo" />
+          ),
+          headerRight: () => (
+            <View style={{ flexDirection: "row", gap: 12, }}>
+              <Button>
+                <Svg svgName="Plus" />
+              </Button>
+              <Button
+                onPress={() => {
+                  props.navigation.navigate(RootStackScreenList.FeedDetail);
+                }}
+              >
+                <Svg svgName="NewAlarm" />
+              </Button>
+            </View>
+          ),
+          headerTitleAlign: "center",
+        })}
+      />
       <Stack.Screen
         name={RootStackScreenList.FeedDetail}
         component={FeedDetail}
+        options={{
+          headerShown: false,
+        }}
       />
     </Stack.Navigator>
   );
@@ -101,9 +132,12 @@ export const RootStack = () => {
       <Stack.Screen
         name={RootStackScreenList.MainTab}
         component={TabScreen}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
-      <Stack.Screen name={RootStackScreenList.Login} component={Login} />
+      <Stack.Screen
+        name={RootStackScreenList.Login}
+        component={Login}
+      />
     </Stack.Navigator>
   );
 };

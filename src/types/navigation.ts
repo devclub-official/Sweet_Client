@@ -13,7 +13,7 @@ export const enum RootStackScreenList {
 
   Home = 'Home',
   Login = 'Login',
-  FeedList = 'FeedList',
+  FeedMain = 'FeedMain',
   FeedDetail = 'FeedDetail',
   MyPage = 'MyPage',
 }
@@ -22,7 +22,7 @@ interface HomeTabParam {
   [RootStackScreenList.Home]: undefined;
 }
 interface FeedTabParam {
-  [RootStackScreenList.FeedList]: undefined;
+  [RootStackScreenList.FeedMain]: undefined;
   [RootStackScreenList.FeedDetail]: undefined;
 }
 interface MyPageTabParam {

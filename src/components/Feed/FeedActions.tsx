@@ -7,17 +7,19 @@ import { SvgNames } from "@/types/svg";
 interface FeedActionsProps {
     style?: ViewStyle;
     likeCount: number;
-    commentCount: number
+    commentCount: number;
+    onPressComment: () => void;
 }
 
 interface ActionItemProps {
     svgName: SvgNames;
-    count?: number
+    count?: number;
+    onPress: () => void;
 }
 
-const ActionItem = ({ svgName, count }: ActionItemProps) => (
+const ActionItem = ({ svgName, count, onPress }: ActionItemProps) => (
     <View style={feedActionsStyles.actionItemView}>
-        <Button>
+        <Button onPress={onPress}>
             <Svg svgName={svgName} />
         </Button>
         <Typo style={feedActionsStyles.feedActionsTypo}>{count}</Typo>
@@ -26,9 +28,9 @@ const ActionItem = ({ svgName, count }: ActionItemProps) => (
 
 export const FeedActions = (props: FeedActionsProps) => (
     <View style={[feedActionsStyles.rootView, props.style]}>
-        <ActionItem svgName="Heart" count={props.likeCount} />
-        <ActionItem svgName="Comment" count={props.commentCount} />
-        <ActionItem svgName="Share" />
+        <ActionItem svgName="Heart" count={props.likeCount} onPress={() => { }} />
+        <ActionItem svgName="Comment" count={props.commentCount} onPress={props.onPressComment} />
+        <ActionItem svgName="Share" onPress={() => { }} />
     </View>
 );
 

@@ -7,22 +7,27 @@ import { useState } from "react";
 
 interface FeedImageProps {
     images: string[];
+    onPressMoreButton: () => void;
 }
 
 const FeedImageItem = (
     image: string,
     index: number,
+    onPressMoreButton: () => void,
 ) => (
     <View key={index}>
         <Image
             style={feedImageStyles.feedImage}
             source={{ uri: image }}
         />
-        <Button style={feedImageStyles.moreButton}>
+        <Button
+            style={feedImageStyles.moreButton}
+            onPress={onPressMoreButton}
+        >
             <Svg svgName="FeedDumbbell" />
         </Button>
     </View>
-);
+)
 
 export const FeedImage = (props: FeedImageProps) => {
     const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
@@ -35,7 +40,7 @@ export const FeedImage = (props: FeedImageProps) => {
                 onPageScroll={(event) => { setCurrentImageIndex(event.nativeEvent.position) }}>
                 {
                     props.images.map((image, index) => (
-                        FeedImageItem(image, index)
+                        FeedImageItem(image, index, props.onPressMoreButton)
                     ))
                 }
             </PagerView>

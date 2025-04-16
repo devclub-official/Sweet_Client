@@ -11,6 +11,6 @@ export const Divider = ({style}: Props) => {
 const styles = StyleSheet.create({
   divider: {
     height: 1,
-    backgroundColor: colors.GRAY_700,
+    backgroundColor: colors.B_700,
   },
 });

@@ -8,7 +8,7 @@ const defaultTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    background: colors.BLACK,
+    background: colors.B_BASE_PRI,
   },
 };
 

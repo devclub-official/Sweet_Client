@@ -32,7 +32,7 @@ export const Home = () => {
       </Button>
       <Button
         onPress={() => {
-          push(RootStackScreenList.Login);
+          push(RootStackScreenList.Onboard);
         }}>
         <Typo>스택 화면 이동</Typo>
       </Button>

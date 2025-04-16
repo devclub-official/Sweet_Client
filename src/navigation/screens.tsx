@@ -5,6 +5,7 @@ import {FeedList} from '@/screens/FeedList';
 import {Home} from '@/screens/Home';
 import {Login} from '@/screens/Login';
 import {MyPage} from '@/screens/MyPage';
+import {Onboard} from '@/screens/Onboard';
 import {colors} from '@/theme/colors';
 import {RootStackParamList, RootStackScreenList} from '@/types/navigation';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -99,6 +100,11 @@ export const RootStack = () => {
         options={{headerShown: false}}
       />
       <Stack.Screen name={RootStackScreenList.Login} component={Login} />
+      <Stack.Screen
+        name={RootStackScreenList.Onboard}
+        component={Onboard}
+        options={prop => ({...getDefaultHeaderOptions(prop), title: ''})}
+      />
     </Stack.Navigator>
   );
 };

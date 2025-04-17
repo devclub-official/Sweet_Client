@@ -5,11 +5,12 @@ import { Strings } from "./constants/strings";
 
 interface ViewAllCommentsButtonProps {
     style?: ViewStyle;
+    onPress: () => void;
 }
 
-export const ViewAllCommentsButton = (props: ViewAllCommentsButtonProps) => {
+export const ViewAllCommentsButton = ({ style, onPress }: ViewAllCommentsButtonProps) => {
     return (
-        <Button style={props.style}>
+        <Button style={style} onPress={onPress}>
             <Typo style={viewAllCommentsButtonStyle.typo}>{Strings.VIEW_ALL_COMMENTS}</Typo>
         </Button>
     );

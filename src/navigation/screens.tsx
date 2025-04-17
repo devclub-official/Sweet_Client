@@ -86,9 +86,10 @@ const FeedTab = () => {
       <Stack.Screen
         name={RootStackScreenList.FeedDetail}
         component={FeedDetail}
-        options={{
-          headerShown: false,
-        }}
+        options={(props) => ({
+          ...getDefaultHeaderOptions(props),
+          headerTitle: '',
+        })}
       />
     </Stack.Navigator>
   );

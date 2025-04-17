@@ -22,7 +22,7 @@ const renderItem = (item: Exercise, isLast: boolean) => (
 
 export const ExerciseBottomSheet = (props: ExerciseBottomSheetProps) => {
     //variables
-    const snapPoints = useMemo(() => ["54%", "90%"], []);
+    const snapPoints = useMemo(() => ['54%', '90%'], []);
 
     //renders
     const { renderBackdrop, renderHandle } = useBottomSheetCallbacks();
@@ -43,15 +43,15 @@ export const ExerciseBottomSheet = (props: ExerciseBottomSheetProps) => {
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
                 angle={107}
-                useAngle={true}
-                style={styles.container}>
+                useAngle={true}>
                 <BottomSheetFlatList
                     data={props.exercises}
                     renderItem={({ item, index }) => renderItem(item, index === props.exercises.length - 1)}
                     keyExtractor={(item) => item.id}
                     contentContainerStyle={{
                         padding: 16,
-                    }} />
+                    }}
+                    style={styles.container} />
             </LinearGradient>
 
 
@@ -67,23 +67,23 @@ const styles = StyleSheet.create({
         borderRadius: 20,
     },
     itemView: {
-        flexDirection: "row",
-        justifyContent: "space-between",
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         gap: 10,
         paddingVertical: 8,
         borderBottomWidth: 1,
-        borderBottomColor: colors.GRAY_50,
+        borderBottomColor: colors.B_50,
     },
     lastItemView: {
-        flexDirection: "row",
-        justifyContent: "space-between",
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         gap: 10,
         paddingVertical: 8,
     },
     exerciseNameTypo: {
-        color: colors.GRAY_700,
+        color: colors.B_700,
     },
     exerciseInfoTypo: {
-        color: colors.GRAY_700,
+        color: colors.B_700,
     },
 });

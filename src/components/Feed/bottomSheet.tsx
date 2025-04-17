@@ -37,21 +37,21 @@ export const commonBottomSheetStyles = StyleSheet.create({
     background: {
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
-        backgroundColor: colors.GRAY_700,
+        backgroundColor: colors.B_700,
     },
     handle: {
-        backgroundColor: colors.GRAY_700,
+        backgroundColor: colors.B_700,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
     },
     handleIndicator: {
-        backgroundColor: "white",
+        backgroundColor: colors.WHITE,
     },
     handleTypo: {
         marginTop: 8,
         marginBottom: 12.5,
-        width: "100%",
-        textAlign: "center",
-        color: "#F9F9F9",
+        width: '100%',
+        textAlign: 'center',
+        color: colors.CG1,
     },
 });

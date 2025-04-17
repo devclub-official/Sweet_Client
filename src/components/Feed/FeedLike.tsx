@@ -1,6 +1,7 @@
 import { Image, StyleSheet, View, ViewStyle } from "react-native";
 import { Typo } from "../Typo";
 import { Strings } from "./constants/strings";
+import { colors } from "@/theme/colors";
 
 interface FeedLikeProps {
     style?: ViewStyle;
@@ -25,8 +26,8 @@ export const FeedLike = (props: Readonly<FeedLikeProps>) => {
 
 const feedLikeStyles = StyleSheet.create({
     rootView: {
-        flexDirection: "row",
-        alignItems: "center",
+        flexDirection: 'row',
+        alignItems: 'center',
         gap: 7,
         marginBottom: 8,
     },
@@ -36,6 +37,6 @@ const feedLikeStyles = StyleSheet.create({
         borderRadius: 8.5,
     },
     likeTypo: {
-        color: "#F9F9F9",
+        color: colors.CG1,
     },
 });

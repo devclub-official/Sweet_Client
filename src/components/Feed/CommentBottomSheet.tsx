@@ -91,28 +91,28 @@ const styles = StyleSheet.create({
     background: {
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
-        backgroundColor: colors.GRAY_700,
+        backgroundColor: colors.B_700,
     },
     contentContainer: {
-        backgroundColor: colors.GRAY_700,
+        backgroundColor: colors.B_700,
     },
     handle: {
-        backgroundColor: colors.GRAY_700,
+        backgroundColor: colors.B_700,
         borderWidth: 0,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
     },
     handleIndicator: {
-        backgroundColor: "white",
+        backgroundColor: colors.WHITE,
     },
     footerContainer: {
-        flexDirection: "row",
-        alignItems: "center",
+        flexDirection: 'row',
+        alignItems: 'center',
         gap: 10,
         paddingHorizontal: 20,
         paddingTop: 10,
         paddingBottom: 30,
-        backgroundColor: colors.BLACK,
+        backgroundColor: colors.B_700,
     },
     footerProfileImage: {
         width: 32,
@@ -122,18 +122,18 @@ const styles = StyleSheet.create({
     footerCommentInput: {
         flex: 1,
         paddingHorizontal: 16,
-        backgroundColor: colors.BLACK,
+        backgroundColor: colors.B,
         borderRadius: 100,
-        borderColor: colors.GRAY_700,
+        borderColor: colors.B_700,
         borderWidth: 1,
-        color: "#9B9B9B",
+        color: '#9B9B9B',
     },
     commentList: {
         flex: 1,
     },
     commentView: {
-        flexDirection: "row",
-        width: "100%",
+        flexDirection: 'row',
+        width: '100%',
         paddingVertical: 8,
         paddingHorizontal: 20,
     },
@@ -147,13 +147,13 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     commentAuthorTypo: {
-        color: "#F9F9F9",
+        color: colors.CG1,
     },
     commentTypo: {
-        color: "#F9F9F9",
+        color: colors.CG1,
     },
     commentReplyTypo: {
         marginTop: 8,
-        color: "#F9F9F9",
+        color: colors.CG1,
     },
 });

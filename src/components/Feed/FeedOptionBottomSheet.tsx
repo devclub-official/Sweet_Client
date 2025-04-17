@@ -15,7 +15,7 @@ interface FeedOptionBottomSheetProps {
     type: FollowStatus;
 }
 
-const FeedOption = ({ icon, text, color = colors.GRAY_50 }: {
+const FeedOption = ({ icon, text, color = colors.B_50 }: {
     icon: SvgNames;
     text: string;
     color?: string;
@@ -27,7 +27,7 @@ const FeedOption = ({ icon, text, color = colors.GRAY_50 }: {
 );
 
 export const FeedOptionBottomSheet = (props: FeedOptionBottomSheetProps) => {
-    const snapPoints = useMemo(() => ["28%"], []);
+    const snapPoints = useMemo(() => ['20%'], []);
 
     //renders
     const { renderBackdrop } = useBottomSheetCallbacks();
@@ -64,17 +64,17 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginHorizontal: 20,
         marginBottom: 57,
-        backgroundColor: colors.GRAY_600,
+        backgroundColor: colors.B_600,
         borderRadius: 10,
     },
     feedOption: {
         flex: 1,
-        flexDirection: "row",
+        flexDirection: 'row',
         gap: 8,
         paddingHorizontal: 20,
-        alignItems: "center",
+        alignItems: 'center',
     },
     divider: {
-        backgroundColor: colors.GRAY_700,
+        backgroundColor: colors.B_700,
     },
 });

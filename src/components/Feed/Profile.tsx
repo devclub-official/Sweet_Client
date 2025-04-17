@@ -1,5 +1,6 @@
 import { Image, StyleSheet, View, ViewStyle } from "react-native";
 import { Typo } from "../Typo";
+import { colors } from "@/theme/colors";
 
 interface ProfileProps {
     style?: ViewStyle;
@@ -31,19 +32,19 @@ export const Profile = (props: ProfileProps) => {
 
 const profileStyles = StyleSheet.create({
     rootView: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "stretch",
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'stretch',
         paddingHorizontal: 12,
         paddingVertical: 9.5,
     },
     profileRow: {
-        flexDirection: "row",
-        alignItems: "center",
+        flexDirection: 'row',
+        alignItems: 'center',
         gap: 9,
     },
     profileColumn: {
-        flexDirection: "column",
+        flexDirection: 'column',
         gap: 1,
     },
     profileImage: {
@@ -52,10 +53,10 @@ const profileStyles = StyleSheet.create({
         borderRadius: 16,
     },
     nicknameText: {
-        color: "#F9F9F9",
+        color: colors.CG1,
     },
     dateText: {
-        color: "#F9F9F9",
+        color: colors.CG1,
     },
 });
 

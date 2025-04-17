@@ -36,16 +36,16 @@ export const FeedActions = (props: FeedActionsProps) => (
 
 const feedActionsStyles = StyleSheet.create({
     rootView: {
-        flexDirection: "row",
-        alignItems: "center",
+        flexDirection: 'row',
+        alignItems: 'center',
         gap: 16,
     },
     feedActionsTypo: {
         color: "#CDCDCD",
     },
     actionItemView: {
-        flexDirection: "row",
-        alignItems: "center",
+        flexDirection: 'row',
+        alignItems: 'center',
         gap: 4,
     },
 });

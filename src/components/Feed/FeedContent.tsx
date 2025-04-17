@@ -1,5 +1,6 @@
 import { StyleSheet, View, ViewStyle } from "react-native";
 import { Typo } from "../Typo";
+import { colors } from "@/theme/colors";
 
 interface FeedContentProps {
     style?: ViewStyle;
@@ -20,10 +21,10 @@ export const FeedContent = (props: FeedContentProps) => {
 
 const feedContentStyles = StyleSheet.create({
     nicknameTypo: {
-        color: "#F9F9F9",
+        color: colors.CG1,
     },
     contentTypo: {
         flex: 1,
-        color: "#F9F9F9",
+        color: colors.CG1,
     },
 });

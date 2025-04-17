@@ -59,23 +59,23 @@ export const FeedImage = (props: FeedImageProps) => {
 
 const feedImageStyles = StyleSheet.create({
     rootView: {
-        width: "100%",
+        width: '100%',
         aspectRatio: 1 / 0.95,
-        alignItems: "stretch",
+        alignItems: 'stretch',
     },
     feedImage: {
-        position: "relative",
+        position: 'relative',
         flex: 1,
     },
     moreButton: {
-        position: "absolute",
+        position: 'absolute',
         bottom: 10,
         left: 10,
     },
     indicator: {
-        flexDirection: "row",
-        width: "100%",
-        justifyContent: "center",
+        flexDirection: 'row',
+        width: '100%',
+        justifyContent: 'center',
         marginVertical: 8,
         gap: 5,
     },
@@ -83,7 +83,7 @@ const feedImageStyles = StyleSheet.create({
         width: 5,
         height: 5,
         borderRadius: 2.5,
-        backgroundColor: colors.PRIMARY,
+        backgroundColor: colors.PRI,
     },
     otherIndicatorItem: {
         width: 5,

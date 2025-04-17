@@ -53,7 +53,7 @@ export const FeedMain = () => {
 
   return (
     <SafeAreaScreenWrapper>
-      <AppStatusBar backgroundColor={colors.BLACK} />
+      <AppStatusBar backgroundColor={colors.B_BASE_PRI} />
 
       <TabView
         navigationState={{ index, routes }}
@@ -77,9 +77,9 @@ const styles = StyleSheet.create({
   },
   tabTypo: {
     margin: 10,
-    color: colors.GRAY_400,
+    color: colors.B_400,
   },
   tabIndicator: {
-    backgroundColor: colors.PRIMARY,
+    backgroundColor: colors.PRI,
   },
 });

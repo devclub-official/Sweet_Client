@@ -41,7 +41,32 @@ export const FeedList = ({ followStatus }: FeedListProps) => {
             mainCommenterProfileImage: "https://plus.unsplash.com/premium_photo-1732697815367-80c3262419be?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             mainCommenter: "chimchakman_",
             content: "오늘은 웨이트!",
-            comments: [],
+            comments: [
+                {
+                    id: "1",
+                    profileImage: "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=3269&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    commenter: "commenter1",
+                    content: "content1",
+                },
+                {
+                    id: "2",
+                    profileImage: "https://plus.unsplash.com/premium_photo-1732697815367-80c3262419be?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    commenter: "commenter2",
+                    content: "content2",
+                },
+                {
+                    id: "3",
+                    profileImage: "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=3269&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    commenter: "commenter3",
+                    content: "content3",
+                },
+                {
+                    id: "4",
+                    profileImage: "https://plus.unsplash.com/premium_photo-1732697815367-80c3262419be?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    commenter: "commenter4",
+                    content: "content4",
+                },
+            ],
             exercises: [
                 {
                     id: "1",
@@ -251,7 +276,7 @@ const styles = StyleSheet.create({
         paddingVertical: 16,
     },
     feedItemContainer: {
-        backgroundColor: colors.GRAY_700,
+        backgroundColor: colors.B_700,
         borderRadius: 20,
     },
     feedItemSeparator: {
@@ -263,7 +288,7 @@ const styles = StyleSheet.create({
         gap: 14,
     },
     followTypo: {
-        color: colors.PRIMARY,
+        color: colors.PRI,
     },
     feedActionsWithSingleImage: {
         marginHorizontal: 16,

@@ -49,4 +49,6 @@ export const colors = {
   B_700: '#282B31',
   B_800: '#1D1F23',
   B_900: '#17181C',
-};
+} as const;
+
+export type ColorName = keyof typeof colors;

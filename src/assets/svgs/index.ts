@@ -4,6 +4,7 @@ import {Dumbbell} from './Dumbbell';
 import {Eye} from './Eye';
 import {Home} from './Home';
 import {Location} from './Location';
+import { More } from './More';
 import {Profile} from './Profile';
 
 export const svgMap = {
@@ -14,4 +15,5 @@ export const svgMap = {
   ChevronRight,
   Location,
   Eye,
+  More,
 };

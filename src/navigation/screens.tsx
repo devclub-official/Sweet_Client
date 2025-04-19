@@ -7,6 +7,7 @@ import {Login} from '@/screens/Login';
 import {MyPage} from '@/screens/MyPage';
 import {colors} from '@/theme/colors';
 import {RootStackParamList, RootStackScreenList} from '@/types/navigation';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {RouteProp} from '@react-navigation/native';
 import {
@@ -14,6 +15,7 @@ import {
   StackNavigationOptions,
   StackNavigationProp,
 } from '@react-navigation/stack';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const Stack = createStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator();
@@ -70,23 +72,27 @@ const MyPageTab = () => {
 };
 const TabScreen = () => {
   return (
-    <Tab.Navigator>
-      <Tab.Screen
-        name={RootStackScreenList.HomeTab}
-        component={HomeTab}
-        options={{headerShown: false}}
-      />
-      <Tab.Screen
-        name={RootStackScreenList.FeedTab}
-        component={FeedTab}
-        options={{headerShown: false}}
-      />
-      <Tab.Screen
-        name={RootStackScreenList.MyPageTab}
-        component={MyPageTab}
-        options={{headerShown: false}}
-      />
-    </Tab.Navigator>
+    <GestureHandlerRootView>
+      <BottomSheetModalProvider>
+        <Tab.Navigator>
+          <Tab.Screen
+            name={RootStackScreenList.HomeTab}
+            component={HomeTab}
+            options={{headerShown: false}}
+          />
+          <Tab.Screen
+            name={RootStackScreenList.FeedTab}
+            component={FeedTab}
+            options={{headerShown: false}}
+          />
+          <Tab.Screen
+            name={RootStackScreenList.MyPageTab}
+            component={MyPageTab}
+            options={{headerShown: false}}
+          />
+        </Tab.Navigator>
+      </BottomSheetModalProvider>
+    </GestureHandlerRootView>
   );
 };
 

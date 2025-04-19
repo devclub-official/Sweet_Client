@@ -8,5 +8,6 @@ export const Strings = {
     ACCOUNT_PROFILE: '계정 프로필',
     HIDE_POST: '해당 게시물 숨기기',
     REPORT: '신고',
+    TAGGED_EXERCISES: '해당 이미지에 태그 된 운동',
     COMMENT_PLACEHOLDER: (nickname: string) => `${nickname}님께 댓글 추가`,
 } as const;

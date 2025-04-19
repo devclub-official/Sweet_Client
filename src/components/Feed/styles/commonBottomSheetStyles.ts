@@ -20,5 +20,6 @@ export const commonBottomSheetStyles = StyleSheet.create({
         marginBottom: 12.5,
         width: '100%',
         textAlign: 'center',
+        color: colors.CG1,
     },
 });

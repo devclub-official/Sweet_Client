@@ -23,7 +23,7 @@ const FONT_WEIGHT = {
   },
 } as const;
 
-export const FONTS: Record<string, TextStyle> = {
+export const FONTS = {
   HeadLargeB: {
     fontSize: 37,
     lineHeight: 42,

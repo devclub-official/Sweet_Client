@@ -40,7 +40,7 @@ export const Button = ({
         if (fill) {
           style.backgroundColor = colors.B_600;
         } else {
-          style.borderColor = colors.B_300;
+          style.borderColor = colors.B_50;
           style.borderWidth = 1;
         }
         break;

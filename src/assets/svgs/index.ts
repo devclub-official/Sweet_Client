@@ -1,8 +1,11 @@
 import {ChevronLeft} from './ChevronLeft';
 import {ChevronRight} from './ChevronRight';
+import { Comment } from './Comment';
 import {Dumbbell} from './Dumbbell';
 import {Eye} from './Eye';
 import { EyeSlash } from './EyeSlash';
+import { FeedDumbbell } from './FeedDumbbell';
+import { Heart } from './Heart';
 import {Home} from './Home';
 import {Location} from './Location';
 import { More } from './More';
@@ -10,6 +13,7 @@ import { OctagonWarning } from './OctagonWarning';
 import { PersonDash } from './PersonDash';
 import {Profile} from './Profile';
 import { ProfileCircle } from './ProfileCircle';
+import { Share } from './Share';
 
 export const svgMap = {
   ChevronLeft,
@@ -24,4 +28,5 @@ export const svgMap = {
   ProfileCircle,
   EyeSlash,
   OctagonWarning,
+  FeedDumbbell,
 };

@@ -10,4 +10,5 @@ export const Strings = {
     REPORT: '신고',
     TAGGED_EXERCISES: '해당 이미지에 태그 된 운동',
     COMMENT_PLACEHOLDER: (nickname: string) => `${nickname}님께 댓글 추가`,
+    LIKE_COUNT: (nickname: string, likeCount: number) => `${nickname} 님 외 ${likeCount}명이 좋아합니다.`,
 } as const;

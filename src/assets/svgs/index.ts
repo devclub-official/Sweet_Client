@@ -8,9 +8,12 @@ import { FeedDumbbell } from './FeedDumbbell';
 import { Heart } from './Heart';
 import {Home} from './Home';
 import {Location} from './Location';
+import { Logo } from './Logo';
 import { More } from './More';
+import { NewAlarm } from './NewAlarms';
 import { OctagonWarning } from './OctagonWarning';
 import { PersonDash } from './PersonDash';
+import { Plus } from './Plus';
 import {Profile} from './Profile';
 import { ProfileCircle } from './ProfileCircle';
 import { Share } from './Share';
@@ -32,4 +35,7 @@ export const svgMap = {
   Heart,
   Comment,
   Share,
+  Logo,
+  Plus,
+  NewAlarm,
 };

@@ -2,6 +2,7 @@ import {HeaderLeftBack} from '@/components/Headers/HeaderLeftBack';
 import {Svg} from '@/components/Svg';
 import {FeedDetail} from '@/screens/FeedDetail';
 import {FeedList} from '@/screens/FeedList';
+import { useFeedListCallbacks } from '@/screens/FeedList/hooks/useFeedListCallbacks';
 import {Home} from '@/screens/Home';
 import {Login} from '@/screens/Login';
 import {MyPage} from '@/screens/MyPage';
@@ -53,9 +54,20 @@ const getDefaultHeaderOptions = ({
 };
 
 const FeedTab = () => {
+  const { renderHeaderTitle, renderHeaderRight } = useFeedListCallbacks();
+
   return (
     <Stack.Navigator>
-      <Stack.Screen name={RootStackScreenList.FeedList} component={FeedList} />
+      <Stack.Screen
+        name={RootStackScreenList.FeedList}
+        component={FeedList}
+        options={(props) => ({
+          ...getDefaultHeaderOptions(props),
+          headerLeft: undefined,
+          headerTitleAlign: 'center',
+          headerTitle: renderHeaderTitle,
+          headerRight: () => renderHeaderRight(props.navigation),
+        })} />
       <Stack.Screen
         name={RootStackScreenList.FeedDetail}
         component={FeedDetail}

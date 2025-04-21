@@ -1,7 +1,6 @@
 //피드 컴포넌트 중 피드 이미지 페이저 영역입니다.
 
-import { Image, StyleSheet, View } from "react-native";
-import { Button } from "../Button";
+import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Svg } from "../Svg";
 import PagerView from "react-native-pager-view";
 import { colors } from "@/theme/colors";
@@ -22,12 +21,12 @@ const FeedImageItem = (
             style={styles.feedImage}
             source={{ uri: image }}
         />
-        <Button
+        <TouchableOpacity
             style={styles.moreButton}
             onPress={onPressMoreButton}
         >
             <Svg svgName="FeedDumbbell" />
-        </Button>
+        </TouchableOpacity>
     </View>
 )
 

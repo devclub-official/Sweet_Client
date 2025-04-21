@@ -3,11 +3,10 @@ import React, { useMemo } from "react";
 import { commonBottomSheetStyles } from "./styles/commonBottomSheetStyles";
 import { useBottomSheetCallbacks } from "./hooks/useBottomSheetCallbacks";
 import { Strings } from "./constants/strings";
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Like } from "@/models/Feed/like";
 import { Typo } from "../Typo";
 import { FollowStatus } from "@/models/Feed/common";
-import { Button } from "../Button";
 import { colors } from "@/theme/colors";
 
 interface LikeBottomSheetProps {
@@ -24,7 +23,7 @@ const renderLikeItem = (item: Like) => (
             }}
         />
         <Typo color="CG1" style={styles.itemNicknameTypo}>{item.nickname}</Typo>
-        {item.followStatus === FollowStatus.FOLLOWING ? <Button style={styles.itemFollowingButton}><Typo color="B_50">{Strings.FOLLOWING}</Typo></Button> : <Button style={styles.itemFollowButton}><Typo color="B_BASE_PRI">{Strings.FOLLOW}</Typo></Button>}
+        {item.followStatus === FollowStatus.FOLLOWING ? <TouchableOpacity style={styles.itemFollowingButton}><Typo color="B_50">{Strings.FOLLOWING}</Typo></TouchableOpacity> : <TouchableOpacity style={styles.itemFollowButton}><Typo color="B_BASE_PRI">{Strings.FOLLOW}</Typo></TouchableOpacity>}
     </View>
 );
 

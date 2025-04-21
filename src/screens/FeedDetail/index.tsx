@@ -1,4 +1,3 @@
-import { Button } from '@/components/Button';
 import { Divider } from '@/components/Divider';
 import { CommentBottomSheet } from '@/components/Feed/CommentBottomSheet';
 import { Strings } from '@/components/Feed/constants/strings';
@@ -24,7 +23,7 @@ import { colors } from '@/theme/colors';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useNavigation } from '@react-navigation/native';
 import { useLayoutEffect, useRef } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 const feed: Feed = {
   id: '1',
@@ -126,16 +125,16 @@ const comments: Comment[] = [
 ];
 
 export const FeedDetail = () => {
-  const renderFollowTypo = () => <Typo style={styles.followTypo}>{Strings.FOLLOW}</Typo>;
+  const renderFollowTypo = () => <Typo color="PRI">{Strings.FOLLOW}</Typo>;
 
   const renderRightHeader = () => (
     <View style={styles.headerRightContainer}>
-      <Button>
+      <TouchableOpacity>
         <Svg svgName="NewAlarm" />
-      </Button>
-      <Button onPress={() => handlePresentModalPress(feedOptionBottomSheetModalRef)}>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => handlePresentModalPress(feedOptionBottomSheetModalRef)}>
         <Svg svgName="More" />
-      </Button>
+      </TouchableOpacity>
     </View>
   );
 
@@ -263,9 +262,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 11.5,
     paddingTop: 20,
     paddingVertical: 36,
-  },
-  followTypo: {
-    color: colors.PRI,
   },
   actionsContainer: {
     flexDirection: 'row',

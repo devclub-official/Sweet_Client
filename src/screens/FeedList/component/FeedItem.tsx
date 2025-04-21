@@ -1,4 +1,3 @@
-import { Button } from "@/components/Button";
 import { CommentBottomSheet } from "@/components/Feed/CommentBottomSheet";
 import { Strings } from "@/components/Feed/constants/strings";
 import { ContentItem } from "@/components/Feed/ContentItem";
@@ -20,7 +19,7 @@ import { Like } from "@/models/Feed/like";
 import { colors } from "@/theme/colors";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useRef } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 
 const exercises: Exercise[] = [
     {
@@ -111,9 +110,9 @@ interface FeedItemProps {
 const renderFeedProfileRightComponent = (followStatus: FollowStatus, onPressOption: () => void) => (
     <View style={styles.profileRightContainer}>
         {followStatus === FollowStatus.NOT_FOLLOWING ? <Typo color="PRI">{Strings.FOLLOW}</Typo> : null}
-        <Button onPress={onPressOption}>
+        <TouchableOpacity onPress={onPressOption}>
             <Svg svgName="More" />
-        </Button>
+        </TouchableOpacity>
     </View>
 );
 

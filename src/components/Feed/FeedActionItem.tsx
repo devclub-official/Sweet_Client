@@ -1,7 +1,6 @@
 //피드 컴포넌트 중 좋아요/댓글/공유하기 버튼 영역입니다.
 
-import { StyleSheet, View } from "react-native";
-import { Button } from "../Button";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { Typo } from "../Typo";
 import { Svg } from "../Svg";
 import { SvgNames } from "@/types/svg";
@@ -14,9 +13,9 @@ interface FeedActionItemProps {
 
 export const FeedActionItem = ({ svgName, count, onPress }: FeedActionItemProps) => (
     <View style={styles.rootContainer}>
-        <Button onPress={onPress}>
+        <TouchableOpacity onPress={onPress}>
             <Svg svgName={svgName} />
-        </Button>
+        </TouchableOpacity>
         <Typo font="CaptionR">{count}</Typo>
     </View>
 );

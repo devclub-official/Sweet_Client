@@ -12,6 +12,7 @@ import {Button} from '@/components/Button';
 import {Typo} from '@/components/Typo';
 import {CreateFeedOption} from './components/CreateFeedOption';
 import {CreateFeedTextArea} from './components/CreateFeedTextArea';
+import {createFeed} from '@/apis/feed';
 
 export const CreateFeed = () => {
   const {push} = useSweetNavigation();
@@ -101,8 +102,17 @@ export const CreateFeed = () => {
         </View>
       </ScrollView>
       <View style={styles.uploadButtonWrapper}>
-        <Button>
-          <Typo>업로드</Typo>
+        <Button
+          type="primary"
+          onPress={() => {
+            console.log('good ==>');
+            try {
+              createFeed();
+            } catch (e) {
+              console.log(e);
+            }
+          }}>
+          업로드
         </Button>
       </View>
     </SafeAreaScreenWrapper>
@@ -120,7 +130,6 @@ const styles = StyleSheet.create({
   },
   uploadButtonWrapper: {
     padding: 10,
-    backgroundColor: 'rgba(157,157,157,0.9)',
   },
   optionTitle: {
     paddingVertical: 8,

@@ -1,9 +1,8 @@
-import {Button} from '@/components/Button';
 import {Svg} from '@/components/Svg';
 import {Typo} from '@/components/Typo';
 import {colors} from '@/theme/colors';
 import {SvgNames} from '@/types/svg';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 
 export interface CreateFeedAdditionalInfoButtonProps {
   title: string;
@@ -12,6 +11,7 @@ export interface CreateFeedAdditionalInfoButtonProps {
   onPress: () => void;
 }
 
+// TODO: CG1 #FFFFFF로 수정
 export const CreateFeedAdditionalInfoButton = ({
   title,
   description,
@@ -19,18 +19,18 @@ export const CreateFeedAdditionalInfoButton = ({
   onPress,
 }: CreateFeedAdditionalInfoButtonProps) => {
   return (
-    <Button onPress={onPress}>
+    <TouchableOpacity onPress={onPress}>
       <View style={styles.wrapper}>
         <View style={styles.left}>
           <Svg svgName={svgName} options={{width: '24', height: '24'}} />
-          <Typo>{title}</Typo>
+          <Typo color="CG1">{title}</Typo>
         </View>
         <View style={styles.right}>
-          <Typo>{description}</Typo>
+          <Typo color="CG1">{description}</Typo>
           <Svg svgName="ChevronRight" />
         </View>
       </View>
-    </Button>
+    </TouchableOpacity>
   );
 };
 
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     paddingHorizontal: 10,
     borderRadius: 10,
-    backgroundColor: colors.GRAY_700,
+    backgroundColor: colors.B_700,
   },
   left: {
     flexDirection: 'row',

@@ -3,7 +3,6 @@
 import { Image, StyleSheet, View, ViewStyle } from "react-native";
 import { Typo } from "../Typo";
 import { Strings } from "./constants/strings";
-import { colors } from "@/theme/colors";
 
 interface LikeContainerProps {
     style?: ViewStyle;
@@ -21,7 +20,7 @@ export const LikeContainer = ({ style, profileImage, nickname, likeCount }: Like
                     uri: profileImage,
                 }}
             />
-            <Typo style={feedLikeStyles.likeTypo}>{Strings.LIKE_COUNT(nickname, likeCount - 1)}</Typo>
+            <Typo color="CG1" font="BodySmallR">{Strings.LIKE_COUNT(nickname, likeCount - 1)}</Typo>
         </View>
     );
 };
@@ -36,8 +35,5 @@ const feedLikeStyles = StyleSheet.create({
         width: 17,
         height: 17,
         borderRadius: 8.5,
-    },
-    likeTypo: {
-        color: colors.CG1,
     },
 });

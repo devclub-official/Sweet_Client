@@ -8,6 +8,7 @@ import { colors } from "@/theme/colors";
 import { Comment } from "@/models/Feed/comment";
 import { Typo } from "../Typo";
 import { Svg } from "../Svg";
+import { FONTS } from '@/theme/fonts';
 
 interface CommentBottomSheetProps {
     bottomSheetRef: React.RefObject<BottomSheetModal | null>;
@@ -46,9 +47,9 @@ export const CommentBottomSheet = ({ bottomSheetRef, profileImage, feedAuthor, c
                 }}
             />
             <View style={styles.itemContentContainer}>
-                <Typo style={styles.itemAuthorTypo}>{item.commenter}</Typo>
-                <Typo style={styles.itemCommentTypo}>{item.content}</Typo>
-                <Typo style={styles.itemCommentReplyTypo}>{Strings.REPLY}</Typo>
+                <Typo color="CG1" font="ButtonSmallM">{item.commenter}</Typo>
+                <Typo color="CG1" font="BodySmallR">{item.content}</Typo>
+                <Typo color="CG1" style={styles.itemCommentReplyTypo}>{Strings.REPLY}</Typo>
             </View>
             <Svg svgName="More" />
         </View>
@@ -100,6 +101,7 @@ const styles = StyleSheet.create({
         borderColor: colors.B_700,
         paddingVertical: 11,
         paddingHorizontal: 16,
+        ...FONTS.BodySmallR,
         color: colors.CG1,
     },
     itemListContainer: {
@@ -120,14 +122,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 8,
         flex: 1,
     },
-    itemAuthorTypo: {
-        color: colors.CG1,
-    },
-    itemCommentTypo: {
-        color: colors.CG1,
-    },
     itemCommentReplyTypo: {
         marginTop: 8,
-        color: colors.CG1,
     },
 });

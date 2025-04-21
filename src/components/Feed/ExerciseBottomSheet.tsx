@@ -16,8 +16,8 @@ interface ExerciseBottomSheetProps {
 
 const renderItem = (item: Exercise, isLast: boolean) => (
     <View style={isLast ? styles.lastItemView : styles.itemView}>
-        <Typo style={styles.exerciseNameTypo}>{item.exerciseName}</Typo>
-        <Typo style={styles.exerciseInfoTypo}>{item.exerciseInfo}</Typo>
+        <Typo color="B_700">{item.exerciseName}</Typo>
+        <Typo color="B_700" font="SubSmallM">{item.exerciseInfo}</Typo>
     </View>
 );
 
@@ -79,11 +79,5 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         gap: 10,
         paddingVertical: 8,
-    },
-    exerciseNameTypo: {
-        color: colors.B_700,
-    },
-    exerciseInfoTypo: {
-        color: colors.B_700,
     },
 });

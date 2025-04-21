@@ -2,7 +2,6 @@
 
 import { Image, StyleSheet, View } from "react-native";
 import { Typo } from "../Typo";
-import { colors } from "@/theme/colors";
 
 interface FeedProfileProps {
     profileImage: string;
@@ -21,8 +20,8 @@ export const FeedProfile = ({ profileImage, author, date, rightComponent }: Feed
                 }}
             />
             <View style={styles.authorAndDateContainer}>
-                <Typo style={styles.nicknameText}>{author}</Typo>
-                <Typo style={styles.dateText}>{date}</Typo>
+                <Typo color="CG1" font="ButtonSmallM">{author}</Typo>
+                <Typo color="CG1">{date}</Typo>
             </View>
             {rightComponent()}
         </View>
@@ -46,11 +45,5 @@ const styles = StyleSheet.create({
         flex: 1,
         marginHorizontal: 9,
         gap: 1,
-    },
-    nicknameText: {
-        color: colors.CG1,
-    },
-    dateText: {
-        color: colors.CG1,
     },
 });

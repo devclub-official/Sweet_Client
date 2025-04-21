@@ -23,8 +23,8 @@ const renderLikeItem = (item: Like) => (
                 uri: item.profileImage,
             }}
         />
-        <Typo style={styles.itemNicknameTypo}>{item.nickname}</Typo>
-        {item.followStatus === FollowStatus.FOLLOWING ? <Button style={styles.itemFollowingButton}><Typo style={styles.itemFollowingTypo}>{Strings.FOLLOWING}</Typo></Button> : <Button style={styles.itemFollowButton}><Typo style={styles.itemFollowTypo}>{Strings.FOLLOW}</Typo></Button>}
+        <Typo color="CG1" style={styles.itemNicknameTypo}>{item.nickname}</Typo>
+        {item.followStatus === FollowStatus.FOLLOWING ? <Button style={styles.itemFollowingButton}><Typo color="B_50">{Strings.FOLLOWING}</Typo></Button> : <Button style={styles.itemFollowButton}><Typo color="B_BASE_PRI">{Strings.FOLLOW}</Typo></Button>}
     </View>
 );
 
@@ -67,7 +67,6 @@ const styles = StyleSheet.create({
     itemNicknameTypo: {
         marginHorizontal: 13,
         flex: 1,
-        color: colors.CG1,
     },
     itemFollowingButton: {
         borderRadius: 6,
@@ -81,11 +80,5 @@ const styles = StyleSheet.create({
         backgroundColor: colors.PRI_500,
         paddingVertical: 8,
         paddingHorizontal: 25,
-    },
-    itemFollowTypo: {
-        color: colors.B_BASE_PRI,
-    },
-    itemFollowingTypo: {
-        color: colors.B_50,
     },
 });

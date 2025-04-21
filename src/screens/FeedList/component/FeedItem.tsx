@@ -110,7 +110,7 @@ interface FeedItemProps {
 
 const renderFeedProfileRightComponent = (followStatus: FollowStatus, onPressOption: () => void) => (
     <View style={styles.profileRightContainer}>
-        {followStatus === FollowStatus.NOT_FOLLOWING ? <Typo style={styles.followTypo}>{Strings.FOLLOW}</Typo> : null}
+        {followStatus === FollowStatus.NOT_FOLLOWING ? <Typo color="PRI">{Strings.FOLLOW}</Typo> : null}
         <Button onPress={onPressOption}>
             <Svg svgName="More" />
         </Button>
@@ -178,6 +178,7 @@ export const FeedItem = ({ feed }: FeedItemProps) => {
             {
                 comments.length > 0 ?
                     <Typo
+                        font="CaptionR"
                         style={styles.viewAllCommentsTypo}
                         onPress={() => {
                             handlePresentModalPress(commentBottomSheetModalRef);
@@ -221,9 +222,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         gap: 14,
     },
-    followTypo: {
-        color: colors.PRI,
-    },
     actionsContainer: {
         flexDirection: 'row',
         paddingHorizontal: 16,
@@ -240,6 +238,5 @@ const styles = StyleSheet.create({
     viewAllCommentsTypo: {
         marginHorizontal: 16,
         marginTop: 4,
-        color: '#CDCDCD',
     },
 });

@@ -17,7 +17,7 @@ export const FeedActionItem = ({ svgName, count, onPress }: FeedActionItemProps)
         <Button onPress={onPress}>
             <Svg svgName={svgName} />
         </Button>
-        <Typo style={styles.feedActionsTypo}>{count}</Typo>
+        <Typo font="CaptionR">{count}</Typo>
     </View>
 );
 
@@ -26,8 +26,5 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         gap: 4,
-    },
-    feedActionsTypo: {
-        color: '#CDCDCD',
     },
 });

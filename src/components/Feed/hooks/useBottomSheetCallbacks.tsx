@@ -15,7 +15,7 @@ export const useBottomSheetCallbacks = () => {
 
     const renderHandle = useCallback((handleProps: BottomSheetHandleProps, title: string) => (
         <BottomSheetHandle {...handleProps}>
-            <Typo style={commonBottomSheetStyles.handleTypo}>{title}</Typo>
+            <Typo color="CG1" font="ButtonSmallM" style={commonBottomSheetStyles.handleTypo}>{title}</Typo>
         </BottomSheetHandle>
     ), []);
 

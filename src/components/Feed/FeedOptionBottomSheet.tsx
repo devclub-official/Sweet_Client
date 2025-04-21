@@ -2,7 +2,7 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useMemo } from "react";
 import { StyleSheet, View } from "react-native";
 import { Typo } from "../Typo";
-import { colors } from "@/theme/colors";
+import { ColorName, colors } from "@/theme/colors";
 import { Divider } from "../Divider";
 import { Svg } from "../Svg";
 import { Strings } from "./constants/strings";
@@ -16,19 +16,19 @@ interface FeedOptionBottomSheetProps {
     type: FollowStatus;
 }
 
-const FeedOption = ({ icon, text, color = colors.B_50 }: {
+const FeedOption = ({ icon, text, color = 'B_50' }: {
     icon: SvgNames;
     text: string;
-    color?: string;
+    color?: ColorName;
 }) => (
     <View style={styles.feedOptionContainer}>
         <Svg svgName={icon} />
-        <Typo style={{ color }}>{text}</Typo>
+        <Typo color={color} font="BodyMediumR">{text}</Typo>
     </View>
 );
 
 export const FeedOptionBottomSheet = (props: FeedOptionBottomSheetProps) => {
-    const snapPoints = useMemo(() => ['27%'], []);
+    const snapPoints = useMemo(() => ['28%'], []);
 
     //renders
     const { renderBackdrop } = useBottomSheetCallbacks();
@@ -53,7 +53,7 @@ export const FeedOptionBottomSheet = (props: FeedOptionBottomSheetProps) => {
                 <Divider style={styles.divider} />
                 <FeedOption icon="EyeSlash" text={Strings.HIDE_POST} />
                 <Divider style={styles.divider} />
-                <FeedOption icon="OctagonWarning" text={Strings.REPORT} color="#FF0034" />
+                <FeedOption icon="OctagonWarning" text={Strings.REPORT} />
             </View>
         </BottomSheetModal>
     );

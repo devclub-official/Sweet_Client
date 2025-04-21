@@ -2,7 +2,6 @@
 
 import { StyleSheet, View, ViewStyle } from "react-native";
 import { Typo } from "../Typo";
-import { colors } from "@/theme/colors";
 
 interface ContentItemProps {
     style?: ViewStyle;
@@ -13,8 +12,8 @@ interface ContentItemProps {
 export const ContentItem = ({ style, nickname, content }: ContentItemProps) => {
     return (
         <View style={[styles.rootContainer, style]}>
-            <Typo style={styles.contentTypo}>
-                <Typo style={styles.nicknameTypo}>{nickname}</Typo>
+            <Typo color="CG1" font="BodySmallR" style={styles.contentTypo}>
+                <Typo color="CG1">{nickname}</Typo>
                 {`  ${content}`}
             </Typo>
         </View>
@@ -26,11 +25,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
     },
-    nicknameTypo: {
-        color: colors.CG1,
-    },
     contentTypo: {
         flex: 1,
-        color: colors.CG1,
     },
 });

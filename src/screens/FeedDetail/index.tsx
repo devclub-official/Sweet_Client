@@ -219,6 +219,7 @@ export const FeedDetail = () => {
                 }
               </View>
               <Typo
+                font="CaptionR"
                 style={styles.viewAllCommentsTypo}
                 onPress={() => {
                   handlePresentModalPress(commentBottomSheetModalRef);
@@ -292,6 +293,5 @@ const styles = StyleSheet.create({
   viewAllCommentsTypo: {
     marginHorizontal: 10,
     marginTop: 4,
-    color: '#CDCDCD',
   },
 });

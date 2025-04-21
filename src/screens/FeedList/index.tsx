@@ -8,7 +8,6 @@ import { NavigationState, Route, SceneMap, SceneRendererProps, TabView } from 'r
 import { useState } from 'react';
 import { Strings as FeedCommonStrings } from '@/components/Feed/constants/strings';
 import { Strings as FeedListStrings } from './constants/strings';
-import { Button } from '@/components/Button';
 import { Divider } from '@/components/Divider';
 import { FeedFlatList } from './component/FeedFlatList';
 
@@ -37,13 +36,10 @@ export const FeedList = () => {
       <View style={styles.tabContainer}>
         {props.navigationState.routes.map((route: Route, i: number) => {
           return (
-            <Button
-              key={route.key}
-              onPress={() => setIndex(i)}
-            >
-              <Typo style={styles.tabTypo}>{route.title}</Typo>
+            <View key={route.key}>
+              <Typo onPress={() => setIndex(i)} color="B_400" font="SubSmallM" style={styles.tabTypo}>{route.title}</Typo>
               {index === i ? <Divider style={styles.tabIndicator} /> : null}
-            </Button>
+            </View>
           );
         })}
 
@@ -78,7 +74,6 @@ const styles = StyleSheet.create({
   },
   tabTypo: {
     margin: 10,
-    color: colors.B_400,
   },
   tabIndicator: {
     backgroundColor: colors.PRI,

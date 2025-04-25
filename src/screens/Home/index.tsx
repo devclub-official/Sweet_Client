@@ -1,3 +1,5 @@
+import {testF} from '@/apis/auth';
+import {api} from '@/apis/common';
 import {Button} from '@/components/Button';
 import {Typo} from '@/components/Typo';
 import {useSweetNavigation} from '@/hooks/useNavigation';
@@ -38,6 +40,7 @@ export const Home = () => {
         }}>
         스택 화면 이동
       </Button>
+
       <Typo>{accessToken}</Typo>
     </View>
   );

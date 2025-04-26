@@ -11,7 +11,6 @@ import { LikeBottomSheet } from "@/components/Feed/LikeBottomSheet";
 import { LikeContainer } from "@/components/Feed/LikeContainer";
 import { Svg } from "@/components/Svg";
 import { Typo } from "@/components/Typo";
-import { Comment } from "@/models/domain/Feed/comment";
 import { Exercise } from "@/models/domain/Feed/exercise";
 import { FeedSummary } from "@/models/domain/Feed/FeedSummary";
 import { FollowStatus } from "@/models/domain/Feed/FollowStatus";
@@ -76,33 +75,6 @@ const likes: Like[] = [
     },
 ];
 
-const comments: Comment[] = [
-    {
-        id: '1',
-        profileImage: 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=3269&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        commenter: 'commenter1',
-        content: 'content1',
-    },
-    {
-        id: '2',
-        profileImage: 'https://plus.unsplash.com/premium_photo-1732697815367-80c3262419be?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        commenter: 'commenter2',
-        content: 'content2',
-    },
-    {
-        id: '3',
-        profileImage: 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=3269&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        commenter: 'commenter3',
-        content: 'content3',
-    },
-    {
-        id: '4',
-        profileImage: 'https://plus.unsplash.com/premium_photo-1732697815367-80c3262419be?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        commenter: 'commenter4',
-        content: 'content4',
-    },
-];
-
 interface FeedItemProps {
     feed: FeedSummary;
     followStatus: FollowStatus;
@@ -146,16 +118,28 @@ export const FeedItem = ({ feed, followStatus }: FeedItemProps) => {
             />
 
             <View style={styles.actionsContainer}>
-                <FeedActionItem
-                    svgName="Heart"
-                    count={likes.length}
-                    onPress={() => {
-                        handlePresentModalPress(likeBottomSheetModalRef);
-                    }}
-                />
+                {
+                    feed.isLiked ? (
+                        <FeedActionItem
+                            svgName="HeartFilled"
+                            count={feed.likeCnt}
+                            onPress={() => {
+                                handlePresentModalPress(likeBottomSheetModalRef);
+                            }}
+                        />
+                    ) : (
+                        <FeedActionItem
+                            svgName="HeartOutline"
+                            count={feed.likeCnt}
+                            onPress={() => {
+                                handlePresentModalPress(likeBottomSheetModalRef);
+                            }}
+                        />
+                    )
+                }
                 <FeedActionItem
                     svgName="Comment"
-                    count={comments.length}
+                    count={feed.commentCnt}
                     onPress={() => {
                         handlePresentModalPress(commentBottomSheetModalRef);
                     }}
@@ -176,7 +160,7 @@ export const FeedItem = ({ feed, followStatus }: FeedItemProps) => {
                 content={feed.feedContent} />
 
             {
-                comments.length > 0 ?
+                feed.commentCnt > 0 ?
                     <Typo
                         font="CaptionR"
                         style={styles.viewAllCommentsTypo}
@@ -206,7 +190,7 @@ export const FeedItem = ({ feed, followStatus }: FeedItemProps) => {
                 bottomSheetRef={commentBottomSheetModalRef}
                 profileImage={feed.profileImage}
                 feedAuthor={feed.authorName}
-                comments={comments} />
+                comments={[]} />
         </View>
     );
 };

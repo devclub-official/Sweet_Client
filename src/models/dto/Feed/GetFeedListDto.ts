@@ -20,7 +20,7 @@ export interface ContentDto {
     feedContent: string;
     authorProfileImageUrl: string;
     imageUrls: string[];
-    visibility: string;
+    visibility: '비공개' | '일촌' | '공개';
     likeCount: number;
     isLikedByCurrentUser: boolean;
     firstLikedUserName: string;

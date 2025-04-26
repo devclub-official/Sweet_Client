@@ -1,3 +1,6 @@
+import Config from 'react-native-config';
+import {SweetError} from './error';
+
 interface ApiOptions {
   url: string;
   headers?: HeadersInit_;
@@ -39,39 +42,65 @@ const connectQueryParam = (param: object) => {
   return `?${queryParam}`;
 };
 
+const request = async (url: string, option: RequestInit) => {
+  const response = await fetch(url, option);
+
+  const data = await response.json();
+  if (response.status >= 200 && response.status < 400) {
+    return data;
+  }
+  if (response.status >= 400) {
+    // TODO: access token 만료됐을 때 refresh token 조회 후 갱신로직 추가
+    throw new SweetError({
+      message: data.message,
+      error: data.error,
+      statusCode: response.status,
+    });
+  }
+};
+
 class Api implements ApiParam {
   async get<T>(option: ApiOptions): Promise<T> {
-    const {url, param = {}, body = {}, headers = {}} = option;
+    const {url, param = {}, headers = {}} = option;
     const apiUrl = `${url}${connectQueryParam(param)}`;
-    await fetch(apiUrl, {
+
+    const res = request(`${Config.API_ORIGIN}${apiUrl}`, {
+      method: 'GET',
       headers: getHeaders(headers),
-      body: JSON.stringify(body),
     });
-    return {} as T;
+
+    return res as T;
   }
   async post<T = void>(option: ApiOptions): Promise<T> {
     const {url, body = {}, headers = {}} = option;
-    await fetch(url, {
+
+    const res = request(`${Config.API_ORIGIN}${url}`, {
+      method: 'POST',
       headers: getHeaders(headers),
       body: JSON.stringify(body),
     });
-    return {} as T;
+
+    return res as T;
   }
   async put<T = void>(option: ApiOptions): Promise<T> {
     const {url, body = {}, headers = {}} = option;
-    await fetch(url, {
+
+    const res = request(`${Config.API_ORIGIN}${url}`, {
+      method: 'PUT',
       headers: getHeaders(headers),
       body: JSON.stringify(body),
     });
-    return {} as T;
+    return res as T;
   }
   async delete<T = void>(option: ApiOptions): Promise<T> {
     const {url, body = {}, headers = {}} = option;
-    await fetch(url, {
+    const res = request(`${Config.API_ORIGIN}${url}`, {
+      method: 'DELETE',
       headers: getHeaders(headers),
       body: JSON.stringify(body),
     });
-    return {} as T;
+
+    return res as T;
   }
 }
 

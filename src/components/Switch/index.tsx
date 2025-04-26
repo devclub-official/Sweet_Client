@@ -42,12 +42,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 2,
     paddingVertical: 2,
     borderRadius: 18,
-    backgroundColor: colors.GRAY_200,
+    backgroundColor: colors.B_200,
   },
   circle: {
     width: 16,
     height: 16,
-    backgroundColor: colors.BLACK,
+    backgroundColor: colors.B_BASE_PRI,
     borderRadius: 8,
   },
 });

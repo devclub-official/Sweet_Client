@@ -1,3 +1,5 @@
+import {testF} from '@/apis/auth';
+import {api} from '@/apis/common';
 import {Button} from '@/components/Button';
 import {Typo} from '@/components/Typo';
 import {useSweetNavigation} from '@/hooks/useNavigation';
@@ -19,23 +21,26 @@ export const Home = () => {
         onPress={() => {
           setAccessToken('안녕하세요?');
         }}>
-        <Typo>로그인 토큰 테스트</Typo>
+        로그인 토큰 테스트
       </Button>
       <Button
+        size="medium"
         onPress={() => {
           push(RootStackScreenList.MainTab, {
             screen: RootStackScreenList.FeedTab,
             params: {screen: RootStackScreenList.FeedDetail},
           });
         }}>
-        <Typo>탭 화면 이동</Typo>
+        탭 화면 이동
       </Button>
       <Button
+        size="small"
         onPress={() => {
           push(RootStackScreenList.Onboard);
         }}>
-        <Typo>스택 화면 이동</Typo>
+        스택 화면 이동
       </Button>
+
       <Typo>{accessToken}</Typo>
     </View>
   );

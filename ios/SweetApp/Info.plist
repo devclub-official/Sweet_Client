@@ -55,5 +55,15 @@
 		<string>Pretendard-Medium.ttf</string>
 		<string>Pretendard-Regular.ttf</string>
 	</array>
+	<!-- 소셜 로그인 -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.sweet.ptpt</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

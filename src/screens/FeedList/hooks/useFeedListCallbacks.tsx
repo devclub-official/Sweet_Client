@@ -15,7 +15,12 @@ export const useFeedListCallbacks = () => {
                 <Svg svgName="Plus" />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => {
-                navigation.navigate(RootStackScreenList.FeedDetail);
+                navigation.navigate(
+                    RootStackScreenList.FeedDetail,
+                    {
+                        id: '3',
+                    }
+                );
             }}>
                 <Svg svgName="NewAlarm" />
             </TouchableOpacity>

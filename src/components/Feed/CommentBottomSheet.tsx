@@ -5,7 +5,7 @@ import { useBottomSheetCallbacks } from "./hooks/useBottomSheetCallbacks";
 import { Strings } from "./constants/strings";
 import { Image, StyleSheet, View } from "react-native";
 import { colors } from "@/theme/colors";
-import { Comment } from "@/models/Feed/comment";
+import { Comment } from "@/models/domain/Feed/comment";
 import { Typo } from "../Typo";
 import { Svg } from "../Svg";
 import { FONTS } from '@/theme/fonts';

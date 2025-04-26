@@ -1,4 +1,3 @@
-import { FollowStatus } from '@/models/Feed/common';
 import { Typo } from '@/components/Typo';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import { SafeAreaScreenWrapper } from '@/components/SafeAreaScreenWrapper';
@@ -10,12 +9,13 @@ import { Strings as FeedCommonStrings } from '@/components/Feed/constants/string
 import { Strings as FeedListStrings } from './constants/strings';
 import { Divider } from '@/components/Divider';
 import { FeedFlatList } from './component/FeedFlatList';
+import { FollowStatus } from '@/models/domain/Feed/FollowStatus';
 
 const FollowingRoute = () => (
   <FeedFlatList followStatus={FollowStatus.FOLLOWING} />
 );
 const SecondRoute = () => (
-  <FeedFlatList followStatus={FollowStatus.NOT_FOLLOWING} />
+  <FeedFlatList followStatus={FollowStatus.UNFOLLOWED} />
 );
 
 export const FeedList = () => {

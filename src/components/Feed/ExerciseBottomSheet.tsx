@@ -4,7 +4,7 @@ import { StyleSheet, View } from "react-native";
 import { Strings } from "./constants/strings";
 import { colors } from "@/theme/colors";
 import { Typo } from "../Typo";
-import { Exercise } from "@/models/Feed/exercise";
+import { Exercise } from "@/models/domain/Feed/exercise";
 import { useBottomSheetCallbacks } from "./hooks/useBottomSheetCallbacks";
 import { commonBottomSheetStyles } from "./styles/commonBottomSheetStyles";
 import LinearGradient from "react-native-linear-gradient";

@@ -7,9 +7,9 @@ import { Divider } from "../Divider";
 import { Svg } from "../Svg";
 import { Strings } from "./constants/strings";
 import { SvgNames } from "@/types/svg";
-import { FollowStatus } from "@/models/Feed/common";
 import { useBottomSheetCallbacks } from "./hooks/useBottomSheetCallbacks";
 import { commonBottomSheetStyles } from "./styles/commonBottomSheetStyles";
+import { FollowStatus } from "@/models/domain/Feed/FollowStatus";
 
 interface FeedOptionBottomSheetProps {
     bottomSheetRef: React.RefObject<BottomSheetModal | null>;

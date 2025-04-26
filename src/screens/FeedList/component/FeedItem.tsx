@@ -11,11 +11,11 @@ import { LikeBottomSheet } from "@/components/Feed/LikeBottomSheet";
 import { LikeContainer } from "@/components/Feed/LikeContainer";
 import { Svg } from "@/components/Svg";
 import { Typo } from "@/components/Typo";
-import { Comment } from "@/models/Feed/comment";
-import { FollowStatus } from "@/models/Feed/common";
-import { Exercise } from "@/models/Feed/exercise";
-import { Feed } from "@/models/Feed/feed"
-import { Like } from "@/models/Feed/like";
+import { Comment } from "@/models/domain/Feed/comment";
+import { Exercise } from "@/models/domain/Feed/exercise";
+import { FeedSummary } from "@/models/domain/Feed/FeedSummary";
+import { FollowStatus } from "@/models/domain/Feed/FollowStatus";
+import { Like } from "@/models/domain/Feed/like";
 import { colors } from "@/theme/colors";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useRef } from "react";
@@ -60,7 +60,7 @@ const likes: Like[] = [
         id: '2',
         profileImage: 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=3269&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         nickname: 'nickname2',
-        followStatus: FollowStatus.NOT_FOLLOWING,
+        followStatus: FollowStatus.UNFOLLOWED,
     },
     {
         id: '3',
@@ -72,7 +72,7 @@ const likes: Like[] = [
         id: '4',
         profileImage: 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=3269&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         nickname: 'nickname4',
-        followStatus: FollowStatus.NOT_FOLLOWING,
+        followStatus: FollowStatus.UNFOLLOWED,
     },
 ];
 
@@ -104,19 +104,20 @@ const comments: Comment[] = [
 ];
 
 interface FeedItemProps {
-    feed: Feed;
+    feed: FeedSummary;
+    followStatus: FollowStatus;
 }
 
 const renderFeedProfileRightComponent = (followStatus: FollowStatus, onPressOption: () => void) => (
     <View style={styles.profileRightContainer}>
-        {followStatus === FollowStatus.NOT_FOLLOWING ? <Typo color="PRI">{Strings.FOLLOW}</Typo> : null}
+        {followStatus === FollowStatus.UNFOLLOWED ? <Typo color="PRI">{Strings.FOLLOW}</Typo> : null}
         <TouchableOpacity onPress={onPressOption}>
             <Svg svgName="More" />
         </TouchableOpacity>
     </View>
 );
 
-export const FeedItem = ({ feed }: FeedItemProps) => {
+export const FeedItem = ({ feed, followStatus }: FeedItemProps) => {
     const feedOptionBottomSheetModalRef = useRef<BottomSheetModal>(null);
     const exerciseBottomSheetModalRef = useRef<BottomSheetModal>(null);
     const likeBottomSheetModalRef = useRef<BottomSheetModal>(null);
@@ -127,10 +128,10 @@ export const FeedItem = ({ feed }: FeedItemProps) => {
         <View style={styles.rootContainer}>
             <FeedProfile
                 profileImage={feed.profileImage}
-                author={feed.author}
+                author={feed.authorName}
                 date={feed.date}
                 rightComponent={() => renderFeedProfileRightComponent(
-                    feed.followStatus,
+                    followStatus,
                     () => {
                         handlePresentModalPress(feedOptionBottomSheetModalRef);
                     },
@@ -138,7 +139,7 @@ export const FeedItem = ({ feed }: FeedItemProps) => {
             />
 
             <FeedImagePager
-                images={feed.imageList}
+                images={feed.imageUrls}
                 onPressMoreButton={() => {
                     handlePresentModalPress(exerciseBottomSheetModalRef);
                 }}
@@ -171,8 +172,8 @@ export const FeedItem = ({ feed }: FeedItemProps) => {
 
             <ContentItem
                 style={styles.contentItemContainer}
-                nickname={feed.author}
-                content={feed.content} />
+                nickname={feed.authorName}
+                content={feed.feedContent} />
 
             {
                 comments.length > 0 ?
@@ -190,7 +191,7 @@ export const FeedItem = ({ feed }: FeedItemProps) => {
 
             <FeedOptionBottomSheet
                 bottomSheetRef={feedOptionBottomSheetModalRef}
-                type={feed.followStatus} />
+                type={followStatus} />
 
             <ExerciseBottomSheet
                 bottomSheetRef={exerciseBottomSheetModalRef}
@@ -204,7 +205,7 @@ export const FeedItem = ({ feed }: FeedItemProps) => {
             <CommentBottomSheet
                 bottomSheetRef={commentBottomSheetModalRef}
                 profileImage={feed.profileImage}
-                feedAuthor={feed.author}
+                feedAuthor={feed.authorName}
                 comments={comments} />
         </View>
     );

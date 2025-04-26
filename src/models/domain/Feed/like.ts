@@ -1,4 +1,4 @@
-import { FollowStatus } from "./common";
+import { FollowStatus } from "./FollowStatus";
 
 export interface Like {
     id: string;

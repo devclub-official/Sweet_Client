@@ -4,10 +4,10 @@ import { commonBottomSheetStyles } from "./styles/commonBottomSheetStyles";
 import { useBottomSheetCallbacks } from "./hooks/useBottomSheetCallbacks";
 import { Strings } from "./constants/strings";
 import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
-import { Like } from "@/models/Feed/like";
+import { Like } from "@/models/domain/Feed/like";
 import { Typo } from "../Typo";
-import { FollowStatus } from "@/models/Feed/common";
 import { colors } from "@/theme/colors";
+import { FollowStatus } from "@/models/domain/Feed/FollowStatus";
 
 interface LikeBottomSheetProps {
     bottomSheetRef: React.RefObject<BottomSheetModal | null>;

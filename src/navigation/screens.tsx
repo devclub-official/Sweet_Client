@@ -99,7 +99,14 @@ export const RootStack = () => {
         component={TabScreen}
         options={{headerShown: false}}
       />
-      <Stack.Screen name={RootStackScreenList.Login} component={Login} />
+      <Stack.Screen
+        name={RootStackScreenList.Login}
+        component={Login}
+        options={prop => ({
+          ...getDefaultHeaderOptions(prop),
+          headerShown: false,
+        })}
+      />
       <Stack.Screen
         name={RootStackScreenList.Onboard}
         component={Onboard}

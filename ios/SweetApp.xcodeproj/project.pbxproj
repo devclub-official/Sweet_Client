@@ -17,6 +17,8 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		9C8D8BE6674A4B31BE101335 /* Pretendard-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A17B05BCBE3C4AAFA72C4277 /* Pretendard-Regular.ttf */; };
 		A6E1C715EA6A4CFB84690B0E /* Pretendard-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4B021E94617A47A9A44D13D2 /* Pretendard-Black.ttf */; };
+		3BAE91E5278940598227079D /* DOSGothic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 996B66F1AD414B198AA6D11D /* DOSGothic.ttf */; };
+		60CB12820C7342B19273F0B0 /* DOSSaemmul.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5086B2C3B87246C5B79F577E /* DOSSaemmul.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		A17B05BCBE3C4AAFA72C4277 /* Pretendard-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Regular.ttf"; path = "../src/assets/fonts/Pretendard-Regular.ttf"; sourceTree = "<group>"; };
 		D4A0C934C5EB4734BEA3249C /* Pretendard-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Bold.ttf"; path = "../src/assets/fonts/Pretendard-Bold.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		996B66F1AD414B198AA6D11D /* DOSGothic.ttf */ = {isa = PBXFileReference; name = "DOSGothic.ttf"; path = "../src/assets/fonts/DOSGothic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5086B2C3B87246C5B79F577E /* DOSSaemmul.ttf */ = {isa = PBXFileReference; name = "DOSSaemmul.ttf"; path = "../src/assets/fonts/DOSSaemmul.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +114,8 @@
 				52AF23F2A5824C689F5FC586 /* Pretendard-Light.ttf */,
 				7F85C7246D584882B329FC47 /* Pretendard-Medium.ttf */,
 				A17B05BCBE3C4AAFA72C4277 /* Pretendard-Regular.ttf */,
+				996B66F1AD414B198AA6D11D /* DOSGothic.ttf */,
+				5086B2C3B87246C5B79F577E /* DOSSaemmul.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -191,6 +197,8 @@
 				443262017C1B494AA73FF347 /* Pretendard-Light.ttf in Resources */,
 				594E107DF14F487F88EB46B5 /* Pretendard-Medium.ttf in Resources */,
 				9C8D8BE6674A4B31BE101335 /* Pretendard-Regular.ttf in Resources */,
+				3BAE91E5278940598227079D /* DOSGothic.ttf in Resources */,
+				60CB12820C7342B19273F0B0 /* DOSSaemmul.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

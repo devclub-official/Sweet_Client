@@ -2,6 +2,7 @@ import UIKit
 import React
 import React_RCTAppDelegate
 import ReactAppDependencyProvider
+import RNBootSplash
 
 @main
 class AppDelegate: RCTAppDelegate {
@@ -27,4 +28,10 @@ class AppDelegate: RCTAppDelegate {
     Bundle.main.url(forResource: "main", withExtension: "jsbundle")
 #endif
   }
+
+  // TODO: 이미지 받으면 변경
+  // override func customize(_ rootView: RCTRootView!) {
+  //   super.customize(rootView)
+  //   RNBootSplash.initWithStoryboard("BootSplash", rootView: rootView) // ⬅️ initialize the splash screen
+  // }
 }

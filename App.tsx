@@ -1,8 +1,9 @@
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {RootStack} from '@/navigation/screens';
-import './gesture-handler';
 import {colors} from '@/theme/colors';
+import BootSplash from 'react-native-bootsplash';
+import './gesture-handler';
 
 const defaultTheme = {
   ...DefaultTheme,
@@ -13,6 +14,9 @@ const defaultTheme = {
 };
 
 const App = () => {
+  useEffect(() => {
+    BootSplash.hide({fade: true});
+  });
   return (
     <NavigationContainer theme={defaultTheme}>
       <RootStack />

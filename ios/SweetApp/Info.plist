@@ -65,5 +65,8 @@
 			</array>
 		</dict>
 	</array>
+	<!-- splash screen -->
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
 </dict>
 </plist>

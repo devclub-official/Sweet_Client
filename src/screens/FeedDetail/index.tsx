@@ -14,33 +14,17 @@ import { SafeAreaScreenWrapper } from '@/components/SafeAreaScreenWrapper';
 import { AppStatusBar } from '@/components/StatusBar';
 import { Svg } from '@/components/Svg';
 import { Typo } from '@/components/Typo';
-import { Comment } from '@/models/Feed/comment';
-import { FollowStatus } from '@/models/Feed/common';
-import { Exercise } from '@/models/Feed/exercise';
-import { Feed } from '@/models/Feed/feed';
-import { Like } from '@/models/Feed/like';
+import { Exercise } from '@/models/domain/Feed/exercise';
+import { FollowStatus } from '@/models/domain/Feed/FollowStatus';
+import { Like } from '@/models/domain/Feed/like';
 import { colors } from '@/theme/colors';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useNavigation } from '@react-navigation/native';
 import { useLayoutEffect, useRef } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
-
-const feed: Feed = {
-  id: '1',
-  profileImage: 'https://plus.unsplash.com/premium_photo-1732697815367-80c3262419be?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  author: 'Kim_nugu',
-  date: '2024 september 19',
-  followStatus: FollowStatus.NOT_FOLLOWING,
-  imageList: [
-    'https://plus.unsplash.com/premium_photo-1732697815367-80c3262419be?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=3269&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'https://plus.unsplash.com/premium_photo-1732697815367-80c3262419be?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=3269&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  ],
-  likeCnt: 0,
-  commentCnt: 0,
-  content: '오늘은 웨이트 오늘은 웨이트 오늘은 웨이트 오늘은 웨이트 오늘은 웨이트 오늘은 웨이트 오늘은 웨이트 오늘은 웨이트 오늘은 웨이트 오늘은 웨이트 오늘은 웨이트 오늘은 웨이트 오늘은 웨이트 오늘은 웨이트 오늘은 웨이트 오늘은 웨이트 오늘은 웨이트 오늘은 웨이트 오늘은 웨이트 오늘은 웨이트 오늘은 웨이트 오늘은 웨이트',
-};
+import { useFeedDetail } from './hooks/useFeedDetail';
+import { CommentSummary } from '@/models/domain/Feed/FeedDetail';
+import { RootStackScreenList, RouteParams } from '@/types/navigation';
 
 const exercises: Exercise[] = [
   {
@@ -81,7 +65,7 @@ const likes: Like[] = [
     id: '2',
     profileImage: 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=3269&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     nickname: 'nickname2',
-    followStatus: FollowStatus.NOT_FOLLOWING,
+    followStatus: FollowStatus.UNFOLLOWED,
   },
   {
     id: '3',
@@ -93,38 +77,15 @@ const likes: Like[] = [
     id: '4',
     profileImage: 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=3269&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     nickname: 'nickname4',
-    followStatus: FollowStatus.NOT_FOLLOWING,
+    followStatus: FollowStatus.UNFOLLOWED,
   },
 ];
 
-const comments: Comment[] = [
-  {
-    id: '1',
-    profileImage: 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=3269&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    commenter: 'commenter1',
-    content: 'content1',
-  },
-  {
-    id: '2',
-    profileImage: 'https://plus.unsplash.com/premium_photo-1732697815367-80c3262419be?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    commenter: 'commenter2',
-    content: 'content2',
-  },
-  {
-    id: '3',
-    profileImage: 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=3269&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    commenter: 'commenter3',
-    content: 'content3',
-  },
-  {
-    id: '4',
-    profileImage: 'https://plus.unsplash.com/premium_photo-1732697815367-80c3262419be?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    commenter: 'commenter4',
-    content: 'content4',
-  },
-];
+interface FeedDetailProps {
+  route: RouteParams<RootStackScreenList.FeedDetail>
+}
 
-export const FeedDetail = () => {
+export const FeedDetail = ({ route }: FeedDetailProps) => {
   const renderFollowTypo = () => <Typo color="PRI">{Strings.FOLLOW}</Typo>;
 
   const renderRightHeader = () => (
@@ -153,102 +114,122 @@ export const FeedDetail = () => {
     });
   });
 
+  const { feed } = useFeedDetail(route.params.id);
+
   return (
     <SafeAreaScreenWrapper>
       <AppStatusBar backgroundColor={colors.B_BASE_PRI} />
 
-      <ScrollView contentContainerStyle={styles.rootContainer}>
-        <FeedProfile
-          profileImage={feed.profileImage}
-          author={feed.author}
-          date={feed.date}
-          rightComponent={() => (
-            feed.followStatus === FollowStatus.NOT_FOLLOWING ? renderFollowTypo() : null
-          )}
-        />
+      {
+        feed && (
+          <>
+            <ScrollView contentContainerStyle={styles.rootContainer}>
+              <FeedProfile
+                profileImage={feed.authorProfileImage}
+                author={feed.authorName}
+                date={feed.date}
+                rightComponent={() => (
+                  feed.followStatus === FollowStatus.UNFOLLOWED ? renderFollowTypo() : null
+                )}
+              />
 
-        <FeedImagePager
-          images={feed.imageList}
-          onPressMoreButton={() => {
-            handlePresentModalPress(exerciseBottomSheetModalRef);
-          }} />
+              <FeedImagePager
+                images={feed.imageUrls}
+                onPressMoreButton={() => {
+                  handlePresentModalPress(exerciseBottomSheetModalRef);
+                }} />
 
-        <View style={styles.actionsContainer}>
-          <FeedActionItem
-            svgName="Heart"
-            count={likes.length}
-            onPress={() => {
-              handlePresentModalPress(likeBottomSheetModalRef);
-            }}
-          />
-          <FeedActionItem
-            svgName="Comment"
-            count={comments.length}
-            onPress={() => {
-              handlePresentModalPress(commentBottomSheetModalRef);
-            }}
-          />
-          <FeedActionItem
-            svgName="Share"
-            onPress={() => { }}
-          />
-        </View>
-
-        {
-          likes.length > 0 ? <LikeContainer style={styles.likeContainer} profileImage={likes[0].profileImage} nickname={likes[0].nickname} likeCount={likes.length} /> : null
-        }
-
-        <ContentItem
-          style={styles.contentItemContainer}
-          nickname={feed.author}
-          content={feed.content} />
-
-        {
-          comments.length > 0 ? (
-            <>
-              <Divider style={styles.divider} />
-              <View style={styles.commentListContainer}>
+              <View style={styles.actionsContainer}>
                 {
-                  comments.slice(0, 3).map((comment: Comment) => (
-                    <ContentItem
-                      key={comment.id}
-                      nickname={comment.commenter}
-                      content={comment.content} />
-                  ))
+                  feed.isLiked ? (
+                    <FeedActionItem
+                      svgName="HeartFilled"
+                      count={feed.likeCount}
+                      onPress={() => {
+                        handlePresentModalPress(likeBottomSheetModalRef);
+                      }}
+                    />
+                  ) : (
+                    <FeedActionItem
+                      svgName="HeartOutline"
+                      count={feed.likeCount}
+                      onPress={() => {
+                        handlePresentModalPress(likeBottomSheetModalRef);
+                      }}
+                    />
+                  )
                 }
+                <FeedActionItem
+                  svgName="Comment"
+                  count={feed.commentCount}
+                  onPress={() => {
+                    handlePresentModalPress(commentBottomSheetModalRef);
+                  }}
+                />
+                <FeedActionItem
+                  svgName="Share"
+                  onPress={() => { }}
+                />
               </View>
-              <Typo
-                font="CaptionR"
-                style={styles.viewAllCommentsTypo}
-                onPress={() => {
-                  handlePresentModalPress(commentBottomSheetModalRef);
-                }}>
-                {Strings.VIEW_ALL_COMMENTS}
-              </Typo>
-            </>
 
-          ) : null
-        }
-      </ScrollView>
+              {
+                feed.commentCount > 0 ? <LikeContainer style={styles.likeContainer} profileImage={likes[0].profileImage} nickname={likes[0].nickname} likeCount={likes.length} /> : null
+              }
 
-      <FeedOptionBottomSheet
-        bottomSheetRef={feedOptionBottomSheetModalRef}
-        type={feed.followStatus} />
+              <ContentItem
+                style={styles.contentItemContainer}
+                nickname={feed.authorName}
+                content={feed.content} />
 
-      <ExerciseBottomSheet
-        bottomSheetRef={exerciseBottomSheetModalRef}
-        exercises={exercises}
-      />
+              {
+                feed.comments.length > 0 ? (
+                  <>
+                    <Divider style={styles.divider} />
+                    <View style={styles.commentListContainer}>
+                      {
+                        feed.comments.map((comment: CommentSummary) => (
+                          <ContentItem
+                            key={comment.commentId}
+                            nickname={comment.commenter}
+                            content={comment.comment} />
+                        ))
+                      }
+                    </View>
+                    <Typo
+                      font="CaptionR"
+                      style={styles.viewAllCommentsTypo}
+                      onPress={() => {
+                        handlePresentModalPress(commentBottomSheetModalRef);
+                      }}>
+                      {Strings.VIEW_ALL_COMMENTS}
+                    </Typo>
+                  </>
 
-      <LikeBottomSheet
-        bottomSheetRef={likeBottomSheetModalRef}
-        likes={likes} />
+                ) : null
+              }
+            </ScrollView>
 
-      <CommentBottomSheet
-        bottomSheetRef={commentBottomSheetModalRef}
-        profileImage={feed.profileImage}
-        feedAuthor={feed.author}
-        comments={comments} />
+            <FeedOptionBottomSheet
+              bottomSheetRef={feedOptionBottomSheetModalRef}
+              type={feed.followStatus} />
+
+            <ExerciseBottomSheet
+              bottomSheetRef={exerciseBottomSheetModalRef}
+              exercises={exercises}
+            />
+
+            <LikeBottomSheet
+              bottomSheetRef={likeBottomSheetModalRef}
+              likes={likes} />
+
+            <CommentBottomSheet
+              bottomSheetRef={commentBottomSheetModalRef}
+              profileImage={feed.authorProfileImage}
+              feedAuthor={feed.authorName}
+              comments={[]} />
+          </>
+        )
+      }
     </SafeAreaScreenWrapper>
   );
 };

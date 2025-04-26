@@ -5,7 +5,8 @@ import {Dumbbell} from './Dumbbell';
 import {Eye} from './Eye';
 import { EyeSlash } from './EyeSlash';
 import { FeedDumbbell } from './FeedDumbbell';
-import { Heart } from './Heart';
+import { HeartOutline } from './HeartOutline';
+import { HeartFilled } from './HeartFilled';
 import {Home} from './Home';
 import {Location} from './Location';
 import { Logo } from './Logo';
@@ -32,10 +33,11 @@ export const svgMap = {
   EyeSlash,
   OctagonWarning,
   FeedDumbbell,
-  Heart,
+  HeartOutline,
   Comment,
   Share,
   Logo,
   Plus,
   NewAlarm,
+  HeartFilled,
 };

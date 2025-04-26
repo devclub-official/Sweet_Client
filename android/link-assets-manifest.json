@@ -2,6 +2,10 @@
   "migIndex": 1,
   "data": [
     {
+      "path": "src/assets/fonts/DOSSaemmul.ttf",
+      "sha1": "295b2f1a670968bab0bf29b6560c0d6c9b7743f7"
+    },
+    {
       "path": "src/assets/fonts/Pretendard-Black.ttf",
       "sha1": "efdd3af40aad863d177cecb58698dee4d96e5dd2"
     },

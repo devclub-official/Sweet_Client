@@ -21,6 +21,10 @@ const FONT_WEIGHT = {
     fontWeight: 900,
     fontFamily: 'Pretendard-Black',
   },
+  dossaemMedium: {
+    fontWeight: 500,
+    fontFamily: 'DOSSaemmul',
+  },
 } as const;
 
 export const FONTS = {
@@ -98,6 +102,48 @@ export const FONTS = {
     lineHeight: 16,
     letterSpacing: -0.24,
     ...FONT_WEIGHT.regular,
+  },
+  Pre01B: {
+    fontSize: 14,
+    lineHeight: 20,
+    letterSpacing: -0.28,
+    ...FONT_WEIGHT.bold,
+  },
+  Pre02R: {
+    fontSize: 13,
+    lineHeight: 18,
+    letterSpacing: -0.26,
+    ...FONT_WEIGHT.medium,
+  },
+  Pre03M: {
+    fontSize: 12,
+    lineHeight: 16,
+    letterSpacing: -0.24,
+    ...FONT_WEIGHT.medium,
+  },
+  Pre04M: {
+    fontSize: 11,
+    lineHeight: 18,
+    letterSpacing: -0.22,
+    ...FONT_WEIGHT.medium,
+  },
+  Pre05R: {
+    fontSize: 11,
+    lineHeight: 16,
+    letterSpacing: -0.22,
+    ...FONT_WEIGHT.regular,
+  },
+  Pre06R: {
+    fontSize: 10,
+    lineHeight: 16,
+    letterSpacing: -0.2,
+    ...FONT_WEIGHT.regular,
+  },
+  Dossaem01: {
+    fontSize: 16,
+    lineHeight: 32,
+    letterSpacing: -0.32,
+    ...FONT_WEIGHT.dossaemMedium,
   },
 } as const;
 

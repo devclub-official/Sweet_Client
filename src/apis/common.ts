@@ -44,16 +44,35 @@ const connectQueryParam = (param: object) => {
 
 const request = async (url: string, option: RequestInit) => {
   const response = await fetch(url, option);
+  const contentType = response.headers.get('content-type') || '';
 
-  const data = await response.json();
-  if (response.status >= 200 && response.status < 400) {
-    return data;
+  if (response.ok) {
+    if (contentType.includes('application/json')) {
+      const json = await response.json();
+      return json;
+    } else {
+      const text = await response.text();
+      return text;
+    }
   }
-  if (response.status >= 400) {
-    // TODO: access token 만료됐을 때 refresh token 조회 후 갱신로직 추가
+
+  if (contentType && contentType.includes('application/json')) {
+    const data = await response.json();
+    if (response.status >= 200 && response.status < 400) {
+      return data;
+    }
+    if (response.status >= 400) {
+      // TODO: access token 만료됐을 때 refresh token 조회 후 갱신로직 추가
+      throw new SweetError({
+        message: data.message,
+        statusCode: response.status,
+      });
+    }
+  } else {
+    const text = await response.text();
+    console.error('JSON응답이 아님', text);
     throw new SweetError({
-      message: data.message,
-      error: data.error,
+      message: text,
       statusCode: response.status,
     });
   }

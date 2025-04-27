@@ -73,6 +73,8 @@ export const colors = {
   G19: '#1F1F1F',
   G20: '#0F0F0F',
   D8D8D8: '#D8D8D8',
+  KAKAO: '#FEE500',
+  NAVER: '#03C75A',
 } as const;
 
 export type ColorName = keyof typeof colors;

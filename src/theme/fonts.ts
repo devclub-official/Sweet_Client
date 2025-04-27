@@ -21,6 +21,10 @@ const FONT_WEIGHT = {
     fontWeight: 900,
     fontFamily: 'Pretendard-Black',
   },
+  dosgothicMedium: {
+    fontWeight: 500,
+    fontFamily: 'DOSGothic',
+  },
   dossaemMedium: {
     fontWeight: 500,
     fontFamily: 'DOSSaemmul',
@@ -139,10 +143,34 @@ export const FONTS = {
     letterSpacing: -0.2,
     ...FONT_WEIGHT.regular,
   },
+  Dosgothic01: {
+    fontSize: 48,
+    lineHeight: 51,
+    letterSpacing: -0.96,
+    ...FONT_WEIGHT.dosgothicMedium,
+  },
   Dossaem01: {
     fontSize: 16,
     lineHeight: 32,
     letterSpacing: -0.32,
+    ...FONT_WEIGHT.dossaemMedium,
+  },
+  Dossaem02: {
+    fontSize: 22,
+    lineHeight: 32,
+    letterSpacing: -0.44,
+    ...FONT_WEIGHT.dossaemMedium,
+  },
+  Dossaem03: {
+    fontSize: 16,
+    lineHeight: 17,
+    letterSpacing: -0.32,
+    ...FONT_WEIGHT.dossaemMedium,
+  },
+  Dossaem04: {
+    fontSize: 14,
+    lineHeight: 15,
+    letterSpacing: -0.28,
     ...FONT_WEIGHT.dossaemMedium,
   },
 } as const;

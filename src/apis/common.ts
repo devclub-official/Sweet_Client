@@ -56,7 +56,7 @@ const request = async (url: string, option: RequestInit) => {
     }
   }
 
-  if (contentType && contentType.includes('application/json')) {
+  if (contentType.includes('application/json')) {
     const data = await response.json();
     if (response.status >= 200 && response.status < 400) {
       return data;

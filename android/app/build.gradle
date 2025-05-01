@@ -85,6 +85,9 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        manifestPlaceholders = [
+            appName: project.env.get("PTPT_APP_NAME"),
+        ]
     }
     signingConfigs {
         debug {

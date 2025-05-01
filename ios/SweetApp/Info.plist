@@ -54,8 +54,8 @@
 		<string>Pretendard-Light.ttf</string>
 		<string>Pretendard-Medium.ttf</string>
 		<string>Pretendard-Regular.ttf</string>
-		<string>DOSGothic.ttf</string>
 		<string>DOSSaemmul.ttf</string>
+		<string>DOSGothic.ttf</string>
 	</array>
 	<key>CFBundleURLTypes</key>
 	<array>

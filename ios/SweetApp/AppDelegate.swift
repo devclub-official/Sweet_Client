@@ -29,9 +29,8 @@ class AppDelegate: RCTAppDelegate {
 #endif
   }
 
-  // TODO: 이미지 받으면 변경
-  // override func customize(_ rootView: RCTRootView!) {
-  //   super.customize(rootView)
-  //   RNBootSplash.initWithStoryboard("BootSplash", rootView: rootView) // ⬅️ initialize the splash screen
-  // }
+  override func customize(_ rootView: RCTRootView!) {
+    super.customize(rootView)
+    RNBootSplash.initWithStoryboard("BootSplash", rootView: rootView) 
+  }
 }

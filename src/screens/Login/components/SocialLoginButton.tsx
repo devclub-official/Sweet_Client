@@ -17,28 +17,28 @@ export const SocialLoginButton = ({type}: Props) => {
     switch (type) {
       case 'apple':
         return (
-          <View style={[styles.button, styles.kakao]}>
+          <View style={[styles.button, styles.apple]}>
             <Svg svgName="AppleLogin" />
-            <Typo font="BodyLargeR" style={styles.font}>
+            <Typo font="BodyLargeR" color="B_BASE_PRI" style={styles.font}>
               Apple로 계속하기
             </Typo>
           </View>
         );
       case 'kakao':
         return (
-          <View style={[styles.button, styles.naver]}>
+          <View style={[styles.button, styles.kakao]}>
             <Svg svgName="KakaoLogin" />
-            <Typo font="BodyLargeR" style={styles.font}>
+            <Typo font="BodyLargeR" color="B_BASE_PRI" style={styles.font}>
               카카오톡으로 계속하기
             </Typo>
           </View>
         );
       case 'naver':
         return (
-          <View style={[styles.button, styles.apple]}>
+          <View style={[styles.button, styles.naver]}>
             <Svg svgName="NaverLogin" />
-            <Typo font="BodyLargeR" color="B_BASE_PRI" style={styles.font}>
-              네이버로로 계속하기
+            <Typo font="BodyLargeR" color="WHITE" style={styles.font}>
+              네이버로 계속하기
             </Typo>
           </View>
         );
@@ -59,10 +59,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   kakao: {
-    backgroundColor: 'yellow',
+    backgroundColor: colors.KAKAO,
   },
   naver: {
-    backgroundColor: 'green',
+    backgroundColor: colors.NAVER,
   },
   apple: {
     backgroundColor: colors.B_50,

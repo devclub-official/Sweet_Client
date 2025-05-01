@@ -6,6 +6,7 @@ import {Svg} from '@/components/Svg';
 import LinearGradient from 'react-native-linear-gradient';
 import {SocialLoginButton} from './components/SocialLoginButton';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {Typo} from '@/components/Typo';
 
 export const Login = () => {
   const insets = useSafeAreaInsets();
@@ -41,6 +42,9 @@ export const Login = () => {
         <View
           style={[styles.contentWrapper, {paddingBottom: 40 + insets.bottom}]}>
           <View style={styles.logoWrapper}>
+            <Typo font="Dossaem03" color="B_BASE_PRI">
+              운동이 즐거워 지는 곳
+            </Typo>
             <Svg svgName="AppLogo" />
           </View>
           <View style={styles.buttonWrapper}>
@@ -84,6 +88,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    gap: 12,
   },
   buttonWrapper: {
     gap: 16,

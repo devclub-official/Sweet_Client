@@ -5,6 +5,7 @@ import {FeedList} from '@/screens/FeedList';
 import {Home} from '@/screens/Home';
 import {Login} from '@/screens/Login';
 import {MyPage} from '@/screens/MyPage';
+import { useMyPage } from '@/screens/MyPage/hooks/useMyPageCallbacks';
 import {colors} from '@/theme/colors';
 import {RootStackParamList, RootStackScreenList} from '@/types/navigation';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -62,9 +63,18 @@ const FeedTab = () => {
   );
 };
 const MyPageTab = () => {
+  const { renderHeaderRight } = useMyPage();
+
   return (
     <Stack.Navigator>
-      <Stack.Screen name={RootStackScreenList.MyPage} component={MyPage} />
+      <Stack.Screen
+        name={RootStackScreenList.MyPage}
+        component={MyPage}
+        options={(props) => ({
+          ...getDefaultHeaderOptions(props),
+          headerTitle: '',
+          headerRight: () => renderHeaderRight(),
+        })} />
     </Stack.Navigator>
   );
 };

@@ -1,11 +1,13 @@
 import {HeaderLeftBack} from '@/components/Headers/HeaderLeftBack';
 import {Svg} from '@/components/Svg';
+import { strings } from '@/constants/strings';
 import {FeedDetail} from '@/screens/FeedDetail';
 import {FeedList} from '@/screens/FeedList';
 import {Home} from '@/screens/Home';
 import {Login} from '@/screens/Login';
 import {MyPage} from '@/screens/MyPage';
 import { useMyPage } from '@/screens/MyPage/hooks/useMyPageCallbacks';
+import { Setting } from '@/screens/Setting';
 import {colors} from '@/theme/colors';
 import {RootStackParamList, RootStackScreenList} from '@/types/navigation';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -74,6 +76,13 @@ const MyPageTab = () => {
           ...getDefaultHeaderOptions(props),
           headerTitle: '',
           headerRight: () => renderHeaderRight(),
+        })} />
+      <Stack.Screen
+        name={RootStackScreenList.Setting}
+        component={Setting}
+        options={(props) => ({
+          ...getDefaultHeaderOptions(props),
+          headerTitle: strings.SETTINGS_PRIVACY,
         })} />
     </Stack.Navigator>
   );

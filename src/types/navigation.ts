@@ -16,6 +16,7 @@ export const enum RootStackScreenList {
   FeedList = 'FeedList',
   FeedDetail = 'FeedDetail',
   MyPage = 'MyPage',
+  Setting = 'Setting',
 }
 
 interface HomeTabParam {
@@ -27,6 +28,7 @@ interface FeedTabParam {
 }
 interface MyPageTabParam {
   [RootStackScreenList.MyPage]: undefined;
+  [RootStackScreenList.Setting]: undefined;
 }
 interface MainTabParam {
   [RootStackScreenList.HomeTab]: NavigatorScreenParams<HomeTabParam>;

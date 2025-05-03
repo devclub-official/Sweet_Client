@@ -8,6 +8,7 @@ import {Home} from '@/screens/Home';
 import {Login} from '@/screens/Login';
 import {MyPage} from '@/screens/MyPage';
 import {Onboard} from '@/screens/Onboard';
+import { useMyPage } from '@/screens/MyPage/hooks/useMyPageCallbacks';
 import {colors} from '@/theme/colors';
 import {RootStackParamList, RootStackScreenList} from '@/types/navigation';
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
@@ -87,9 +88,18 @@ const FeedTab = () => {
   );
 };
 const MyPageTab = () => {
+  const { renderHeaderRight } = useMyPage();
+
   return (
     <Stack.Navigator>
-      <Stack.Screen name={RootStackScreenList.MyPage} component={MyPage} />
+      <Stack.Screen
+        name={RootStackScreenList.MyPage}
+        component={MyPage}
+        options={(props) => ({
+          ...getDefaultHeaderOptions(props),
+          headerTitle: '',
+          headerRight: () => renderHeaderRight(),
+        })} />
     </Stack.Navigator>
   );
 };

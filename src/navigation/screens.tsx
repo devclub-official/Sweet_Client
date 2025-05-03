@@ -1,6 +1,8 @@
 import {BottomTabBar} from '@/components/BottomTabBar';
 import {HeaderLeftBack} from '@/components/Headers/HeaderLeftBack';
 import {screenTitle} from '@/constants/screen';
+import {Svg} from '@/components/Svg';
+import { strings } from '@/constants/strings';
 import {FeedDetail} from '@/screens/FeedDetail';
 import {FeedList} from '@/screens/FeedList';
 import {useFeedListHeader} from '@/screens/FeedList/hooks/useFeedListHeader';
@@ -9,6 +11,7 @@ import {Login} from '@/screens/Login';
 import {MyPage} from '@/screens/MyPage';
 import {Onboard} from '@/screens/Onboard';
 import { useMyPage } from '@/screens/MyPage/hooks/useMyPageCallbacks';
+import { Setting } from '@/screens/Setting';
 import {colors} from '@/theme/colors';
 import {RootStackParamList, RootStackScreenList} from '@/types/navigation';
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
@@ -99,6 +102,13 @@ const MyPageTab = () => {
           ...getDefaultHeaderOptions(props),
           headerTitle: '',
           headerRight: () => renderHeaderRight(),
+        })} />
+      <Stack.Screen
+        name={RootStackScreenList.Setting}
+        component={Setting}
+        options={(props) => ({
+          ...getDefaultHeaderOptions(props),
+          headerTitle: strings.SETTINGS_PRIVACY,
         })} />
     </Stack.Navigator>
   );

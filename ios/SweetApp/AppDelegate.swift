@@ -18,7 +18,11 @@ class AppDelegate: RCTAppDelegate {
     self.initialProps = [:]
 
     // naver login
-    if url.scheme == "naver\(Config.env()["NAVER_CLIENT_ID"] ?? "")" {
+    func naverURLScheme() -> String {
+        let clientId = Config.env()["NAVER_CLIENT_ID"] ?? ""
+        return "naver\(clientId)"
+    }
+    if url.scheme == naverURLScheme() {
       return NaverThirdPartyLoginConnection
         .getSharedInstance()?
         .application(app, open: url, options: options) ?? false

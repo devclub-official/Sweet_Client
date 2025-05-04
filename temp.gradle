@@ -99,9 +99,9 @@ android {
         }
         release {
             storeFile file("my-release-key.jks")
-            storePassword project.env.get("ANDROID_KEY_STORE")
+            storePassword "111111"
             keyAlias "my-key-alias"
-            keyPassword project.env.get("ANDROID_KEY_STORE")
+            keyPassword "111111"
         }
     }
     buildTypes {

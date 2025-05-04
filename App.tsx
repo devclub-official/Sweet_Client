@@ -16,7 +16,8 @@ const defaultTheme = {
 const App = () => {
   useEffect(() => {
     BootSplash.hide({fade: true});
-  });
+  }, []);
+
   return (
     <NavigationContainer theme={defaultTheme}>
       <RootStack />

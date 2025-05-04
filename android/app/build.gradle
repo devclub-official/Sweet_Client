@@ -84,9 +84,10 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
         manifestPlaceholders = [
             appName: project.env.get("PTPT_APP_NAME"),
+            kakaoNativeAppKey: project.env.get("KAKAO_NATIVE_APP_KEY"),
         ]
     }
     signingConfigs {

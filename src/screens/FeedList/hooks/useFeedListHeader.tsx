@@ -4,7 +4,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { useCallback } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 
-export const useFeedListCallbacks = () => {
+export const useFeedListHeader = () => {
     const renderHeaderTitle = useCallback(() => (
         <Svg svgName="Logo" />
     ), []);

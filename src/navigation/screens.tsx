@@ -1,8 +1,9 @@
 import {HeaderLeftBack} from '@/components/Headers/HeaderLeftBack';
 import {Svg} from '@/components/Svg';
+import { screenTitle } from '@/constants/screen';
 import {FeedDetail} from '@/screens/FeedDetail';
 import {FeedList} from '@/screens/FeedList';
-import { useFeedListCallbacks } from '@/screens/FeedList/hooks/useFeedListCallbacks';
+import { useFeedListHeader } from '@/screens/FeedList/hooks/useFeedListHeader';
 import {Home} from '@/screens/Home';
 import {Login} from '@/screens/Login';
 import {MyPage} from '@/screens/MyPage';
@@ -54,7 +55,7 @@ const getDefaultHeaderOptions = ({
 };
 
 const FeedTab = () => {
-  const { renderHeaderTitle, renderHeaderRight } = useFeedListCallbacks();
+  const { renderHeaderTitle, renderHeaderRight } = useFeedListHeader();
 
   return (
     <Stack.Navigator>
@@ -73,7 +74,7 @@ const FeedTab = () => {
         component={FeedDetail}
         options={(props) => ({
           ...getDefaultHeaderOptions(props),
-          headerTitle: '',
+          headerTitle: screenTitle.FeedDetail,
         })} />
     </Stack.Navigator>
   );

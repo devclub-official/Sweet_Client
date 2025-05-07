@@ -2,6 +2,10 @@ import UIKit
 import React
 import React_RCTAppDelegate
 import ReactAppDependencyProvider
+import RNBootSplash
+import ReactNativeConfig
+import NaverThirdPartyLogin
+import KakaoSDKAuth
 
 @main
 class AppDelegate: RCTAppDelegate {
@@ -12,6 +16,22 @@ class AppDelegate: RCTAppDelegate {
     // You can add your custom initial props in the dictionary below.
     // They will be passed down to the ViewController used by React Native.
     self.initialProps = [:]
+
+    // naver login
+    func naverURLScheme() -> String {
+        let clientId = Config.env()["NAVER_CLIENT_ID"] ?? ""
+        return "naver\(clientId)"
+    }
+    if url.scheme == naverURLScheme() {
+      return NaverThirdPartyLoginConnection
+        .getSharedInstance()?
+        .application(app, open: url, options: options) ?? false
+    }
+
+    // kakao login
+    if AuthApi.isKakaoTalkLoginUrl(url) {
+      return AuthController.handleOpenUrl(url: url)
+    }
 
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
@@ -26,5 +46,10 @@ class AppDelegate: RCTAppDelegate {
 #else
     Bundle.main.url(forResource: "main", withExtension: "jsbundle")
 #endif
+  }
+
+  override func customize(_ rootView: RCTRootView!) {
+    super.customize(rootView)
+    RNBootSplash.initWithStoryboard("BootSplash", rootView: rootView) 
   }
 }

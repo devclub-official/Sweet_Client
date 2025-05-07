@@ -10,4 +10,5 @@ export const screenTitle: Record<RootStackScreenList, string> = {
   [RootStackScreenList.FeedList]: '',
   [RootStackScreenList.FeedDetail]: '',
   [RootStackScreenList.MyPage]: '',
+  [RootStackScreenList.Onboard]: '',
 };

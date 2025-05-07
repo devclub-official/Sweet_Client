@@ -1,12 +1,10 @@
-import {testF} from '@/apis/auth';
-import {api} from '@/apis/common';
+import {View} from 'react-native';
 import {Button} from '@/components/Button';
 import {Typo} from '@/components/Typo';
 import {useSweetNavigation} from '@/hooks/useNavigation';
 import {useAuthStore} from '@/stores/useAuthStore';
 import {RootStackScreenList, RouteParams} from '@/types/navigation';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {View} from 'react-native';
 
 export const Home = () => {
   const navigation = useNavigation();
@@ -36,9 +34,16 @@ export const Home = () => {
       <Button
         size="small"
         onPress={() => {
-          push(RootStackScreenList.Login);
+          push(RootStackScreenList.Onboard);
         }}>
         스택 화면 이동
+      </Button>
+      <Button
+        size="small"
+        onPress={() => {
+          push(RootStackScreenList.Login);
+        }}>
+        소셜 로그인 애플
       </Button>
 
       <Typo>{accessToken}</Typo>

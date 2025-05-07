@@ -1,4 +1,4 @@
-package com.sweetapp
+package com.sweet.ptpt
 
 import android.app.Application
 import com.facebook.react.PackageList

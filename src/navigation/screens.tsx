@@ -1,6 +1,8 @@
 import {HeaderLeftBack} from '@/components/Headers/HeaderLeftBack';
 import {Svg} from '@/components/Svg';
+import { screenTitle } from '@/constants/screen';
 import { strings } from '@/constants/strings';
+import { EditProfile } from '@/screens/EditProfile';
 import {FeedDetail} from '@/screens/FeedDetail';
 import {FeedList} from '@/screens/FeedList';
 import {Home} from '@/screens/Home';
@@ -82,7 +84,14 @@ const MyPageTab = () => {
         component={Setting}
         options={(props) => ({
           ...getDefaultHeaderOptions(props),
-          headerTitle: strings.SETTINGS_PRIVACY,
+          headerTitle: screenTitle.Setting,
+        })} />
+      <Stack.Screen
+        name={RootStackScreenList.EditProfile}
+        component={EditProfile}
+        options={(props) => ({
+          ...getDefaultHeaderOptions(props),
+          headerTitle: screenTitle.EditProfile,
         })} />
     </Stack.Navigator>
   );

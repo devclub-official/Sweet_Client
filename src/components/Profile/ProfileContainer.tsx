@@ -11,16 +11,19 @@ import { Fire } from "@/assets/svgs/Fire";
 import { Calendar } from "@/assets/svgs/Calendar";
 import { FeedInProfile } from "@/models/domain/Profile/FeedInProfile";
 import { Dumbbell } from "@/assets/svgs/Dumbbell";
+import { useSweetNavigation } from "@/hooks/useNavigation";
+import { RootStackParamList, RootStackScreenList } from "@/types/navigation";
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 interface ProfileContainerProps {
     userId: String;
     isMyPage: boolean;
 }
 
-const renderButtonByProfileType = (type: ProfileType) => {
+const renderButtonByProfileType = (type: ProfileType, navigation: NativeStackNavigationProp<RootStackParamList>['navigate']) => {
     switch (type) {
         case 'SELF':
-            return <Button type="black" size="medium" fill={false}>{stringsInProfile.UPDATE_PROFILE}</Button>;
+            return <Button type="black" size="medium" fill={false} onPress={() => navigation(RootStackScreenList.EditProfile)}>{stringsInProfile.UPDATE_PROFILE}</Button>;
         case 'FOLLOWING':
             return <Button type="black" size="medium" fill={false}>{strings.FOLLOWING}</Button>;
         case 'NOT_FOLLOWING':
@@ -73,6 +76,7 @@ export const ProfileContainer = ({ userId, isMyPage }: ProfileContainerProps) =>
             },
         ],
     };
+    const navigation = useSweetNavigation();
 
     return (
         <FlatList
@@ -98,7 +102,8 @@ export const ProfileContainer = ({ userId, isMyPage }: ProfileContainerProps) =>
                         </View>
                         <Typo color="CG1" font="SubSmallM">{profile.nickname}</Typo>
                         <Typo color="CG1" font="CaptionR" style={styles.introduceTypo}>{profile.introduce}</Typo>
-                        {renderButtonByProfileType(profile.type)}
+
+                        {renderButtonByProfileType(profile.type, navigation.push)}
                     </View>
                     <View style={styles.workoutSummaryContainer}>
                         <View style={styles.workoutSummaryTypoContainer}>

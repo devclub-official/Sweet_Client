@@ -11,4 +11,6 @@ export const screenTitle: Record<RootStackScreenList, string> = {
   [RootStackScreenList.FeedDetail]: '',
   [RootStackScreenList.MyPage]: '',
   [RootStackScreenList.Onboard]: '',
+  [RootStackScreenList.Setting]: '설정 및 개인정보 관리',
+  [RootStackScreenList.EditProfile]: '프로필 편집',
 };

@@ -12,7 +12,7 @@ interface Props extends TouchableOpacityProps {
   type: 'apple' | 'naver' | 'kakao';
 }
 
-export const SocialLoginButton = ({type}: Props) => {
+export const SocialLoginButton = ({type, ...rest}: Props) => {
   const renderButton = () => {
     switch (type) {
       case 'apple':
@@ -44,7 +44,7 @@ export const SocialLoginButton = ({type}: Props) => {
         );
     }
   };
-  return <TouchableOpacity>{renderButton()}</TouchableOpacity>;
+  return <TouchableOpacity {...rest}>{renderButton()}</TouchableOpacity>;
 };
 
 const styles = StyleSheet.create({

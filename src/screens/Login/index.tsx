@@ -7,6 +7,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import {SocialLoginButton} from './components/SocialLoginButton';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Typo} from '@/components/Typo';
+import NaverLogin from '@react-native-seoul/naver-login';
+import {Button} from '@/components/Button';
+import Config from 'react-native-config';
+import {KakaoOAuthToken, login} from '@react-native-seoul/kakao-login';
 
 export const Login = () => {
   const insets = useSafeAreaInsets();
@@ -32,6 +36,7 @@ export const Login = () => {
     }, []),
   );
 
+  console.log('good ==>');
   return (
     <View style={styles.wrapper}>
       <LinearGradient
@@ -49,14 +54,38 @@ export const Login = () => {
           </View>
           <View style={styles.buttonWrapper}>
             <SocialLoginButton
-              onPress={() => {
-                console.log('good ==> ');
+              onPress={async () => {
+                try {
+                  const token: KakaoOAuthToken = await login();
+                  console.log('good token ==> ', token);
+                } catch (e) {
+                  console.log('error ==>', e);
+                }
               }}
               type="kakao"
             />
-            <SocialLoginButton
+            <Button
               onPress={() => {
+                NaverLogin.initialize({
+                  appName: Config.PTPT_APP_NAME || '',
+                  consumerKey: Config.NAVER_CLIENT_ID || '',
+                  consumerSecret: Config.NAVER_CLIENT_SECRET || '',
+                  serviceUrlSchemeIOS: 'com.sweet.ptpt',
+                  disableNaverAppAuthIOS: true,
+                });
+              }}>
+              초기화
+            </Button>
+            <SocialLoginButton
+              onPress={async () => {
                 console.log('good ==> ');
+                try {
+                  console.log('hi ==>');
+                  const res = await NaverLogin.login();
+                  console.log('res ==> ', res);
+                } catch (e) {
+                  console.log('e ==> ', e);
+                }
               }}
               type="naver"
             />

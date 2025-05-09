@@ -3,7 +3,6 @@ import React
 import React_RCTAppDelegate
 import ReactAppDependencyProvider
 import RNBootSplash
-import ReactNativeConfig
 import NaverThirdPartyLogin
 import KakaoSDKAuth
 
@@ -17,25 +16,34 @@ class AppDelegate: RCTAppDelegate {
     // They will be passed down to the ViewController used by React Native.
     self.initialProps = [:]
 
-    // naver login
-    func naverURLScheme() -> String {
-        let clientId = Config.env()["NAVER_CLIENT_ID"] ?? ""
-        return "naver\(clientId)"
-    }
-    if url.scheme == naverURLScheme() {
-      return NaverThirdPartyLoginConnection
-        .getSharedInstance()?
-        .application(app, open: url, options: options) ?? false
-    }
-
-    // kakao login
-    if AuthApi.isKakaoTalkLoginUrl(url) {
-      return AuthController.handleOpenUrl(url: url)
-    }
-
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
+  override func application(
+      _ app: UIApplication,
+      open url: URL,
+      options: [UIApplication.OpenURLOptionsKey : Any] = [:]
+    ) -> Bool {
 
+      func naverURLScheme() -> String {
+          let clientId = RNCConfig.env()["NAVER_CLIENT_ID"] ?? ""
+          return "naver\(clientId)"
+      }
+      
+      // Naver Login
+      if url.scheme == naverURLScheme() {
+        return NaverThirdPartyLoginConnection
+          .getSharedInstance()?
+          .application(app, open: url, options: options) ?? false
+      }
+
+      // Kakao Login
+      if AuthApi.isKakaoTalkLoginUrl(url) {
+        return AuthController.handleOpenUrl(url: url)
+      }
+
+      return false
+    }
+  
   override func sourceURL(for bridge: RCTBridge) -> URL? {
     self.bundleURL()
   }

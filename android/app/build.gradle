@@ -89,6 +89,8 @@ android {
             appName: project.env.get("PTPT_APP_NAME"),
             kakaoNativeAppKey: project.env.get("KAKAO_NATIVE_APP_KEY"),
         ]
+        resValue "string", "app_name", project.env.get("PTPT_APP_NAME")
+        resValue "string", "kakao_app_key", project.env.get("KAKAO_NATIVE_APP_KEY")
     }
     signingConfigs {
         debug {

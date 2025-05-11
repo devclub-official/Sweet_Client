@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@invertase/react-native-apple-authentication": "^2.4.1",
+    "@gorhom/bottom-sheet": "^5",
     "@react-native-masked-view/masked-view": "^0.3.2",
     "@react-native-seoul/kakao-login": "^5.4.1",
     "@react-native-seoul/naver-login": "^4.1.2",
@@ -27,9 +28,12 @@
     "react-native-keychain": "^10.0.0",
     "react-native-linear-gradient": "^2.8.3",
     "react-native-mmkv": "^3.2.0",
+    "react-native-pager-view": "^6.7.0",
+    "react-native-reanimated": "^3.17.4",
     "react-native-safe-area-context": "^5.3.0",
     "react-native-screens": "^4.10.0",
     "react-native-svg": "^15.11.2",
+    "react-native-tab-view": "^4.0.10",
     "zustand": "^5.0.3"
   },
   "devDependencies": {

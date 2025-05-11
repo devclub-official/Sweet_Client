@@ -24,7 +24,9 @@ interface HomeTabParam {
 }
 interface FeedTabParam {
   [RootStackScreenList.FeedList]: undefined;
-  [RootStackScreenList.FeedDetail]: undefined;
+  [RootStackScreenList.FeedDetail]: {
+    id: string,
+  };
 }
 interface MyPageTabParam {
   [RootStackScreenList.MyPage]: undefined;

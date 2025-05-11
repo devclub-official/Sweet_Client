@@ -13,6 +13,7 @@ import {MyPage} from '@/screens/MyPage';
 import {Onboard} from '@/screens/Onboard';
 import { useMyPage } from '@/screens/MyPage/hooks/useMyPageCallbacks';
 import { Setting } from '@/screens/Setting';
+import { TermsOfService } from '@/screens/TermsOfService';
 import {colors} from '@/theme/colors';
 import {RootStackParamList, RootStackScreenList} from '@/types/navigation';
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
@@ -106,6 +107,7 @@ const MyPageTab = () => {
         options={(props) => ({
           ...getDefaultHeaderOptions(props),
           headerTitle: screenTitle.Setting,
+          headerTitleAlign: 'center',
         })} />
       <Stack.Screen
         name={RootStackScreenList.EditProfile}
@@ -113,6 +115,15 @@ const MyPageTab = () => {
         options={(props) => ({
           ...getDefaultHeaderOptions(props),
           headerTitle: screenTitle.EditProfile,
+          headerTitleAlign: 'center',
+        })} />
+      <Stack.Screen
+        name={RootStackScreenList.TermsOfService}
+        component={TermsOfService}
+        options={(props) => ({
+          ...getDefaultHeaderOptions(props),
+          headerTitle: screenTitle.TermsOfService,
+          headerTitleAlign: 'center',
         })} />
     </Stack.Navigator>
   );

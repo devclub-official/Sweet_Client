@@ -79,3 +79,5 @@ ios/tmp.xcconfig
 
 # react native android hash key
 android/app/my-release-key.jks
+
+.env

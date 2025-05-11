@@ -2,7 +2,7 @@ import { SafeAreaScreenWrapper } from "@/components/SafeAreaScreenWrapper"
 import { AppStatusBar } from "@/components/StatusBar"
 import { colors } from "@/theme/colors"
 import { strings as editProfileStrings } from "./constants/strings";
-import { Image,StyleSheet, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Input } from "@/components/Input";
 import { Typo } from "@/components/Typo";
 import { FONTS } from "@/theme/fonts";
@@ -14,8 +14,8 @@ import { strings } from "@/constants/strings";
 export const EditProfile = () => {
     return (
         <SafeAreaScreenWrapper>
-             <AppStatusBar backgroundColor={colors.B_BASE_PRI} />
-             <KeyboardAwareScrollView
+            <AppStatusBar backgroundColor={colors.B_BASE_PRI} />
+            <KeyboardAwareScrollView
                 style={styles.editContainer}
                 extraScrollHeight={20}>
                 <View style={styles.imageContainer}>

@@ -10,8 +10,11 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { Button } from "@/components/Button";
 import { Camera } from "@/assets/svgs/Camera";
 import { strings } from "@/constants/strings";
+import { useEditProfile } from "./hooks/useEditProfile";
 
 export const EditProfile = () => {
+    const { profile, newNickname, newIntroduce, setNewNickname, setNewIntroduce } = useEditProfile();
+
     return (
         <SafeAreaScreenWrapper>
             <AppStatusBar backgroundColor={colors.B_BASE_PRI} />
@@ -22,7 +25,7 @@ export const EditProfile = () => {
                     <Image
                         style={styles.profileImage}
                         source={{
-                            uri: 'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?q=80&w=1856&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                            uri: profile?.profileImage,
                         }} />
                     <TouchableOpacity style={styles.cameraIcon}>
                         <Camera />
@@ -32,22 +35,29 @@ export const EditProfile = () => {
                     <Typo color="CG10" font="SubSmallM">{strings.NICKNAME}</Typo>
                     <Input
                         style={styles.input}
-                        defaultValue="test" />
+                        defaultValue={profile?.nickname}
+                        value={newNickname}
+                        onChangeText={setNewNickname} />
                 </View>
                 <View style={[styles.inputContainer, styles.introduceInputContainer]}>
                     <Typo color="CG10" font="SubSmallM">{editProfileStrings.INTRODUCE}</Typo>
                     <View>
                         <Input
                             style={styles.input}
-                            defaultValue="반가워요 :)"
+                            defaultValue={profile?.introduce}
+                            value={newIntroduce}
                             maxLength={50}
-                            multiline={true} />
-                        <Typo color="CG10" font="SubSmallM" style={styles.introduceTextCountTypo}>7/50</Typo>
+                            multiline={true}
+                            onChangeText={setNewIntroduce} />
+                        <Typo color="CG10" font="SubSmallM" style={styles.introduceTextCountTypo}>{newIntroduce.length}/50</Typo>
                     </View>
                 </View>
             </KeyboardAwareScrollView>
             <View style={styles.completeButtonContainer}>
-                <Button>{editProfileStrings.COMPLETE}</Button>
+                <Button
+                    disabled={profile?.nickname !== newNickname && profile?.introduce !== newIntroduce && newNickname.length >= 1 ? false : true}>
+                    {editProfileStrings.COMPLETE}
+                </Button>
             </View>
         </SafeAreaScreenWrapper>
     );

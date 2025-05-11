@@ -5,4 +5,5 @@ export const strings = {
     FOLLOWER: '팔로워',
     WITHDRAW: '회원 탈퇴',
     LOGOUT: '로그아웃',
+    NICKNAME: '닉네임',
 } as const;

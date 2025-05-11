@@ -4,7 +4,7 @@ import { StyleSheet, View } from "react-native";
 
 export const SettingLayout = ({ children }: PropsWithChildren) => {
     return (
-        <View style={styles.rootContainer}>${children}</View>
+        <View style={styles.rootContainer}>{children}</View>
     );
 };
 

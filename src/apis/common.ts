@@ -1,10 +1,12 @@
 import Config from 'react-native-config';
 import {SweetError} from './error';
+import {tokenStorage} from '@/utils/tokenStorage';
+import {fetchToCurl} from '@/utils/request';
 
 interface ApiOptions {
   url: string;
-  headers?: HeadersInit_;
-  body?: BodyInit_;
+  headers?: object;
+  body?: object;
   param?: object;
 }
 
@@ -15,10 +17,13 @@ interface ApiParam {
   delete: <T = void>(option: ApiOptions) => Promise<T>;
 }
 
-const getHeaders = (extraHeaders: object) => {
+const getHeaders = async (extraHeaders: object) => {
   const headers = new Headers();
   headers.set('Content-Type', 'application/json');
-  headers.set('Authorization', 'Bearer ');
+  const token = await tokenStorage.getTokens();
+  if (token) {
+    headers.set('Authorization', `Bearer ${token.accessToken}`);
+  }
   Object.entries(extraHeaders).forEach(([key, value]) => {
     headers.set(key, value);
   });
@@ -43,6 +48,7 @@ const connectQueryParam = (param: object) => {
 };
 
 const request = async (url: string, option: RequestInit) => {
+  console.log('request info ', fetchToCurl(url, option));
   const response = await fetch(url, option);
   const contentType = response.headers.get('content-type') || '';
 
@@ -64,15 +70,14 @@ const request = async (url: string, option: RequestInit) => {
     if (response.status >= 400) {
       // TODO: access token 만료됐을 때 refresh token 조회 후 갱신로직 추가
       throw new SweetError({
-        message: data.message,
+        errorMessage: data.message,
         statusCode: response.status,
       });
     }
   } else {
     const text = await response.text();
-    console.error('JSON응답이 아님', text);
     throw new SweetError({
-      message: text,
+      errorMessage: 'JSON응답이 아님',
       statusCode: response.status,
     });
   }
@@ -85,17 +90,16 @@ class Api implements ApiParam {
 
     const res = request(`${Config.API_ORIGIN}${apiUrl}`, {
       method: 'GET',
-      headers: getHeaders(headers),
+      headers: await getHeaders(headers),
     });
 
     return res as T;
   }
   async post<T = void>(option: ApiOptions): Promise<T> {
     const {url, body = {}, headers = {}} = option;
-
     const res = request(`${Config.API_ORIGIN}${url}`, {
       method: 'POST',
-      headers: getHeaders(headers),
+      headers: await getHeaders(headers),
       body: JSON.stringify(body),
     });
 
@@ -106,7 +110,7 @@ class Api implements ApiParam {
 
     const res = request(`${Config.API_ORIGIN}${url}`, {
       method: 'PUT',
-      headers: getHeaders(headers),
+      headers: await getHeaders(headers),
       body: JSON.stringify(body),
     });
     return res as T;
@@ -115,7 +119,7 @@ class Api implements ApiParam {
     const {url, body = {}, headers = {}} = option;
     const res = request(`${Config.API_ORIGIN}${url}`, {
       method: 'DELETE',
-      headers: getHeaders(headers),
+      headers: await getHeaders(headers),
       body: JSON.stringify(body),
     });
 

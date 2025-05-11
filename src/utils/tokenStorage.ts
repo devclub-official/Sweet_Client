@@ -7,6 +7,7 @@ interface Token {
 
 class TokenStorage {
   private static instance: TokenStorage;
+  private cachedKey: Token | undefined;
   private serviceName = 'ptpt';
 
   private constructor() {}
@@ -30,20 +31,23 @@ class TokenStorage {
     }
   }
 
-  async getTokens(): Promise<Token> {
+  async getTokens(): Promise<Token | undefined> {
+    if (this.cachedKey) {
+      return this.cachedKey;
+    }
     const credentials = await Keychain.getGenericPassword({
       service: this.serviceName,
     });
     if (credentials) {
       try {
-        console.log('cre ==>', credentials);
-        return JSON.parse(credentials.password);
+        const token = JSON.parse(credentials.password);
+        this.cachedKey = token;
+        return this.cachedKey;
       } catch (e) {
         console.warn(e);
         throw new Error('Failed to parse stored token');
       }
     }
-    throw new Error('Failed to get the token');
   }
 
   async clearTokens() {

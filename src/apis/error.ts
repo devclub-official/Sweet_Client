@@ -2,11 +2,17 @@ export class SweetError extends Error {
   public errorMessage: string;
   public errorCode: number;
 
-  constructor({message, statusCode}: {message: string; statusCode: number}) {
-    super(message);
+  constructor({
+    errorMessage,
+    statusCode,
+  }: {
+    errorMessage: string;
+    statusCode: number;
+  }) {
+    super(errorMessage);
 
     this.name = 'SweetError';
-    this.errorMessage = message;
+    this.errorMessage = errorMessage;
     this.errorCode = statusCode;
   }
 }

@@ -8,8 +8,12 @@ import { Divider } from "@/components/Divider";
 import { Typo } from "@/components/Typo";
 import { strings as settingString } from "./constants/strings";
 import { strings } from "@/constants/strings";
+import { useSweetNavigation } from "@/hooks/useNavigation";
+import { RootStackScreenList } from "@/types/navigation";
 
 export const Setting = () => {
+    const navigation = useSweetNavigation();
+
     return (
         <SafeAreaScreenWrapper>
             <AppStatusBar backgroundColor={colors.B_BASE_PRI} />
@@ -17,7 +21,9 @@ export const Setting = () => {
                 <SettingLayout>
                     <SettingItem
                         title={settingString.TERMS_OF_SERVICE}
-                        onPressNext={() => { }}
+                        onPressNext={() => {
+                            navigation.push(RootStackScreenList.TermsOfService);
+                        }}
                     />
                     <Divider style={styles.divider} />
                     <View style={styles.versionContainer}>

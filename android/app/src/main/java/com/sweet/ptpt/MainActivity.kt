@@ -1,4 +1,4 @@
-package com.sweetapp
+package com.sweet.ptpt
 
 import android.os.Bundle;
 import com.facebook.react.ReactActivity

@@ -73,3 +73,11 @@ yarn-error.log
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# react native config
+ios/tmp.xcconfig
+
+# react native android hash key
+android/app/my-release-key.jks
+
+.env

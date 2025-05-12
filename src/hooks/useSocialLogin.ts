@@ -1,4 +1,5 @@
 import {signIn} from '@/apis/auth';
+import {SweetError} from '@/apis/error';
 import {RootStackScreenList} from '@/types/navigation';
 import {tokenStorage} from '@/utils/tokenStorage';
 import appleAuth from '@invertase/react-native-apple-authentication';
@@ -28,6 +29,7 @@ export const useSocialLogin = () => {
     async (_: any) => {
       //TODO: login api 호출 후 온 토큰값으로
       try {
+        console.log('hi ==>');
         const {accessToken, refreshToken} = await signIn({
           email: 'xodml9598@naver.com',
           password: '1234',
@@ -41,7 +43,9 @@ export const useSocialLogin = () => {
         console.log('token ==>', token);
         push(RootStackScreenList.HomeTab);
       } catch (e) {
-        console.log('e ==> ', e);
+        if (e instanceof SweetError) {
+          console.log('e ==> ', e.errorMessage);
+        }
       }
     },
     [push],

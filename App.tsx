@@ -25,8 +25,8 @@ const App = () => {
         const token = await tokenStorage.getTokens();
         if (token) {
           // TODO: me api 정상화되면 다시 호출
-          // const me = await getMe();
-          // console.log('me ==>', me);
+          const me = await getMe();
+          console.log('me ==>', me);
           setIsLoggedIn(true);
         } else {
           console.log('로그인 안됨 ==> ');

@@ -48,7 +48,7 @@ const connectQueryParam = (param: object) => {
 };
 
 const request = async (url: string, option: RequestInit) => {
-  console.log('request info ', fetchToCurl(url, option));
+  console.log(fetchToCurl(url, option));
   const response = await fetch(url, option);
   const contentType = response.headers.get('content-type') || '';
 

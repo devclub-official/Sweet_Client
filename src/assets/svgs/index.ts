@@ -1,5 +1,6 @@
 import AppleLogin from './AppleLogin';
 import AppLogo from './AppLogo';
+import { AlertCircle } from './AlertCircle';
 import { Calendar } from './Calendar';
 import { Camera } from './Camera';
 import { Check } from './Check';
@@ -25,7 +26,6 @@ import {OctagonWarning} from './OctagonWarning';
 import {PersonDash} from './PersonDash';
 import {Plus} from './Plus';
 import { Menu } from './Menu';
-import { NewAlarm } from './NewAlarm';
 import {Profile} from './Profile';
 import {ProfileCircle} from './ProfileCircle';
 import {Share} from './Share';
@@ -57,9 +57,9 @@ export const svgMap = {
   HeartFilled,
   Fire,
   Calendar,
-  NewAlarm,
   Menu,
   Camera,
   ChevronBottom,
   Check,
+  AlertCircle,
 };

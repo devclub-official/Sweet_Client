@@ -20,8 +20,16 @@ export const enum RootStackScreenList {
   Setting = 'Setting',
   EditProfile = 'EditProfile',
   TermsOfService = 'TermsOfService',
+  Withdraw = 'Withdraw',
+
+  WithdrawReason = 'WithdrawReason',
+  WithdrawWarning = 'WithdrawWarning',
 }
 
+interface WithdrawScreenParam {
+  [RootStackScreenList.WithdrawReason]: undefined;
+  [RootStackScreenList.WithdrawWarning]: undefined;
+}
 interface HomeTabParam {
   [RootStackScreenList.Home]: undefined;
 }
@@ -36,6 +44,7 @@ interface MyPageTabParam {
   [RootStackScreenList.Setting]: undefined;
   [RootStackScreenList.EditProfile]: undefined;
   [RootStackScreenList.TermsOfService]: undefined;
+  [RootStackScreenList.Withdraw]: NavigatorScreenParams<WithdrawScreenParam>;
 }
 export interface MainTabParam {
   [RootStackScreenList.HomeTab]: NavigatorScreenParams<HomeTabParam>;

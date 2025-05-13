@@ -34,7 +34,9 @@ export const Setting = () => {
                 <SettingLayout>
                     <SettingItem
                         title={strings.WITHDRAW}
-                        onPressNext={() => { }}
+                        onPressNext={() => {
+                            navigation.push(RootStackScreenList.Withdraw);
+                        }}
                     />
                 </SettingLayout>
                 <SettingLayout>

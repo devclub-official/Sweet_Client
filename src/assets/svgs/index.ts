@@ -2,6 +2,8 @@ import AppleLogin from './AppleLogin';
 import AppLogo from './AppLogo';
 import { Calendar } from './Calendar';
 import { Camera } from './Camera';
+import { Check } from './Check';
+import { ChevronBottom } from './ChevronBottom';
 import {ChevronLeft} from './ChevronLeft';
 import {ChevronRight} from './ChevronRight';
 import {Comment} from './Comment';
@@ -58,4 +60,6 @@ export const svgMap = {
   NewAlarm,
   Menu,
   Camera,
+  ChevronBottom,
+  Check,
 };

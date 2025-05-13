@@ -7,6 +7,7 @@ import './gesture-handler';
 import {tokenStorage} from '@/utils/tokenStorage';
 import {getMe} from '@/apis/profile';
 import {SweetError} from '@/apis/error';
+import { PaperProvider } from 'react-native-paper';
 
 const defaultTheme = {
   ...DefaultTheme,
@@ -48,9 +49,11 @@ const App = () => {
     return null;
   }
   return (
-    <NavigationContainer theme={defaultTheme}>
-      {isLoggedIn ? <RootStack /> : <AuthStack />}
-    </NavigationContainer>
+    <PaperProvider>
+      <NavigationContainer theme={defaultTheme}>
+        {isLoggedIn ? <RootStack /> : <AuthStack />}
+      </NavigationContainer>
+    </PaperProvider>
   );
 };
 export default App;

@@ -1,7 +1,6 @@
 import {HeaderLeftBack} from '@/components/Headers/HeaderLeftBack';
 import {screenTitle} from '@/constants/screen';
 import {Svg} from '@/components/Svg';
-import { screenTitle } from '@/constants/screen';
 import { strings } from '@/constants/strings';
 import { EditProfile } from '@/screens/EditProfile';
 import {FeedDetail} from '@/screens/FeedDetail';
@@ -19,6 +18,8 @@ import {RootStackParamList, RootStackScreenList} from '@/types/navigation';
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {RouteProp} from '@react-navigation/native';
+import { WithdrawReason } from '@/screens/Withdraw/WithdrawReason';
+import { WithdrawWarning } from '@/screens/Withdraw/WithdrawWarning';
 import {
   createStackNavigator,
   StackNavigationOptions,
@@ -54,7 +55,7 @@ const getDefaultHeaderOptions = ({
     headerTitleStyle: {
       fontWeight: '700',
     },
-    headerRightContainerStyle: {paddingRight: 20},
+    headerRightContainerStyle: { paddingRight: 20 },
     headerLeftContainerStyle: {
       paddingLeft: 20,
     },
@@ -154,13 +155,26 @@ const TabScreen = () => {
   );
 };
 
+const WithdrawStack = () => {
+  return (
+    <Stack.Navigator initialRouteName={RootStackScreenList.WithdrawReason} screenOptions={(props) => ({
+      ...getDefaultHeaderOptions(props),
+      headerTitle: screenTitle.Withdraw,
+      headerTitleAlign: 'center',
+    })} >
+      <Stack.Screen name={RootStackScreenList.WithdrawReason} component={WithdrawReason} />
+      <Stack.Screen name={RootStackScreenList.WithdrawWarning} component={WithdrawWarning} />
+    </Stack.Navigator>
+  );
+};
+
 export const RootStack = () => {
   return (
     <Stack.Navigator initialRouteName={RootStackScreenList.MainTab}>
       <Stack.Screen
         name={RootStackScreenList.MainTab}
         component={TabScreen}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

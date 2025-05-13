@@ -115,6 +115,16 @@ class Api implements ApiParam {
     });
     return res as T;
   }
+  async patch<T = void>(option: ApiOptions): Promise<T> {
+    const {url, body = {}, headers = {}} = option;
+
+    const res = request(`${Config.API_ORIGIN}${url}`, {
+      method: 'PATCH',
+      headers: await getHeaders(headers),
+      body: JSON.stringify(body),
+    });
+    return res as T;
+  }
   async delete<T = void>(option: ApiOptions): Promise<T> {
     const {url, body = {}, headers = {}} = option;
     const res = request(`${Config.API_ORIGIN}${url}`, {

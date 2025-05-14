@@ -24,11 +24,13 @@ export const enum RootStackScreenList {
 
   WithdrawReason = 'WithdrawReason',
   WithdrawWarning = 'WithdrawWarning',
+  WithdrawComplete = 'WithdrawComplete',
 }
 
 interface WithdrawScreenParam {
   [RootStackScreenList.WithdrawReason]: undefined;
   [RootStackScreenList.WithdrawWarning]: undefined;
+  [RootStackScreenList.WithdrawComplete]: undefined;
 }
 interface HomeTabParam {
   [RootStackScreenList.Home]: undefined;

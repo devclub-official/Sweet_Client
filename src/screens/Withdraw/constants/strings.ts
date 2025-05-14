@@ -19,4 +19,9 @@ export const strings = {
     REQUIRED: '(필수)',
     WITHDRAW_AGREEMENT_CONFIRM_TEXT: ' 위 내용을 모두 확인 하였습니다.',
     WITHDRAW: '탈퇴하기',
+    WITHDRAW_SUCCESS_MESSAGE: '탈퇴가 완료되었습니다.\n다음에 다시 만나요!',
+    WITHDRAW_THANK_YOU_MESSAGE1: '그동안 ',
+    WITHDRAW_THANK_YOU_MESSAGE2: '피티피티',
+    WITHDRAW_THANK_YOU_MESSAGE3: '를 이용해주셔서 감사합니다.\n보다 나은 서비스를 제공하기 위해 최선을 다하겠습니다.',
+    NAVIGATE_TO_LOGIN_TEXT: '로그인 화면으로 이동',
 } as const;

@@ -18,6 +18,7 @@ import {RootStackParamList, RootStackScreenList} from '@/types/navigation';
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {RouteProp} from '@react-navigation/native';
+import { WithdrawComplete } from '@/screens/Withdraw/WithdrawComplete';
 import { WithdrawReason } from '@/screens/Withdraw/WithdrawReason';
 import { WithdrawWarning } from '@/screens/Withdraw/WithdrawWarning';
 import {
@@ -164,6 +165,7 @@ const WithdrawStack = () => {
     })} >
       <Stack.Screen name={RootStackScreenList.WithdrawReason} component={WithdrawReason} />
       <Stack.Screen name={RootStackScreenList.WithdrawWarning} component={WithdrawWarning} />
+      <Stack.Screen name={RootStackScreenList.WithdrawComplete} component={WithdrawComplete} />
     </Stack.Navigator>
   );
 };
@@ -176,6 +178,10 @@ export const RootStack = () => {
         component={TabScreen}
         options={{ headerShown: false }}
       />
+      <Stack.Screen
+        name={RootStackScreenList.Withdraw}
+        component={WithdrawStack}
+        options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 };

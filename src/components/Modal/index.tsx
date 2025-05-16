@@ -8,26 +8,43 @@ interface PTPTModalProps {
   visible: boolean;
   message: string;
   confirmText: string;
-  cancelText: string;
+  cancelText?: string | undefined;
   onConfirm: () => void;
-  onCancel: () => void;
+  onCancel?: (() => void) | undefined;
+  onClickOutside?: (() => void) | undefined;
 }
 
-export const PTPTModal = ({ animationType = 'fade', transparent = true, visible, message, confirmText, cancelText, onConfirm, onCancel }: PTPTModalProps) => {
+export const PTPTModal = ({
+  animationType = 'fade',
+  transparent = true,
+  visible, message,
+  confirmText,
+  cancelText = undefined,
+  onConfirm,
+  onCancel = undefined,
+  onClickOutside = undefined,
+}: PTPTModalProps) => {
   return (
     <Modal
       animationType={animationType}
       transparent={transparent}
       visible={visible}>
-      <View style={styles.centeredView}>
+      <View
+        style={styles.centeredView}
+        onTouchEnd={onClickOutside}
+      >
         <View style={styles.modalView}>
           <Typo color="B_50" font="SubLargeB" style={styles.modalText}>{message}</Typo>
           <View style={styles.buttonContainer}>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={onCancel}>
-              <Typo color="B_300" font="SubMediumB">{cancelText}</Typo>
-            </Pressable>
+            {
+              cancelText && (
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={onCancel}>
+                  <Typo color="B_300" font="SubMediumB">{cancelText}</Typo>
+                </Pressable>
+              )
+            }
             <Pressable
               style={[styles.button, styles.buttonOpen]}
               onPress={onConfirm}>

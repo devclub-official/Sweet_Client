@@ -39,14 +39,14 @@ export const PTPTModal = ({
             {
               cancelText && (
                 <Pressable
-                  style={[styles.button, styles.buttonClose]}
+                  style={[styles.button, styles.cancelButton]}
                   onPress={onCancel}>
                   <Typo color="B_300" font="SubMediumB">{cancelText}</Typo>
                 </Pressable>
               )
             }
             <Pressable
-              style={[styles.button, styles.buttonOpen]}
+              style={[styles.button, styles.confirmButton]}
               onPress={onConfirm}>
               <Typo color="B_BASE_PRI" font="SubMediumB">{confirmText}</Typo>
             </Pressable>
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: "rgba(0, 0, 0, 0.6)",
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
   },
   modalView: {
     width: '88%',
@@ -85,11 +85,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  buttonClose: {
+  cancelButton: {
     flex: 1,
     backgroundColor: colors.B_600,
   },
-  buttonOpen: {
+  confirmButton: {
     flex: 1,
     backgroundColor: colors.PRI,
   },

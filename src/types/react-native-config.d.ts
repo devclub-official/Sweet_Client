@@ -1,6 +1,7 @@
 declare module 'react-native-config' {
   export interface NativeConfig {
-    API_ORIGIN?: string;
+    MAIN_API_ORIGIN?: string;
+    AUTH_API_ORIGIN?: string;
     NAVER_CLIENT_ID?: string;
     KAKAO_NATIVE_APP_KEY?: string;
     PTPT_APP_NAME?: string;

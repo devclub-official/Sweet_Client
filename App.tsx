@@ -7,6 +7,7 @@ import './gesture-handler';
 import {tokenStorage} from '@/utils/tokenStorage';
 import {getMe} from '@/apis/profile';
 import {SweetError} from '@/apis/error';
+import {useUserStore} from '@/stores/useAuthStore';
 
 const defaultTheme = {
   ...DefaultTheme,
@@ -17,21 +18,19 @@ const defaultTheme = {
 };
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+  const [checkLogin, setCheckLogin] = useState(false);
+  const {isLogined, setLoginUser} = useUserStore();
 
   useEffect(() => {
     const appStart = async () => {
       try {
         const token = await tokenStorage.getTokens();
         if (token) {
-          // TODO: me api 정상화되면 다시 호출
           const me = await getMe();
-          console.log('me ==>', me);
-          setIsLoggedIn(true);
+          setLoginUser(me);
         } else {
-          console.log('로그인 안됨 ==> ');
-          setIsLoggedIn(false);
         }
+        setCheckLogin(true);
       } catch (e) {
         if (e instanceof SweetError) {
           console.log(e.errorMessage);
@@ -42,14 +41,14 @@ const App = () => {
     };
 
     appStart();
-  }, []);
+  }, [setLoginUser]);
 
-  if (isLoggedIn === null) {
+  if (!checkLogin) {
     return null;
   }
   return (
     <NavigationContainer theme={defaultTheme}>
-      {isLoggedIn ? <RootStack /> : <AuthStack />}
+      {isLogined ? <RootStack /> : <AuthStack />}
     </NavigationContainer>
   );
 };

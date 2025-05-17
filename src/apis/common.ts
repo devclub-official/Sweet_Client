@@ -77,7 +77,7 @@ const request = async (url: string, option: RequestInit) => {
   } else {
     const text = await response.text();
     throw new SweetError({
-      errorMessage: 'JSON응답이 아님',
+      errorMessage: text,
       statusCode: response.status,
     });
   }

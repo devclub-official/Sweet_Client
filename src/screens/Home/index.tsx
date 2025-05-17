@@ -3,6 +3,7 @@ import {Button} from '@/components/Button';
 import {useSweetNavigation} from '@/hooks/useNavigation';
 import {RootStackScreenList, RouteParams} from '@/types/navigation';
 import {useNavigation, useRoute} from '@react-navigation/native';
+import {useUserStore} from '@/stores/useAuthStore';
 import {tokenStorage} from '@/utils/tokenStorage';
 
 export const Home = () => {
@@ -33,6 +34,7 @@ export const Home = () => {
         size="small"
         onPress={() => {
           tokenStorage.clearTokens();
+          useUserStore.getState().logout();
         }}>
         로그아웃
       </Button>

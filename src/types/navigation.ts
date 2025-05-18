@@ -25,13 +25,13 @@ interface HomeTabParam {
 interface FeedTabParam {
   [RootStackScreenList.FeedList]: undefined;
   [RootStackScreenList.FeedDetail]: {
-    id: string,
+    id: string;
   };
 }
 interface MyPageTabParam {
   [RootStackScreenList.MyPage]: undefined;
 }
-interface MainTabParam {
+export interface MainTabParam {
   [RootStackScreenList.HomeTab]: NavigatorScreenParams<HomeTabParam>;
   [RootStackScreenList.FeedTab]: NavigatorScreenParams<FeedTabParam>;
   [RootStackScreenList.MyPageTab]: NavigatorScreenParams<MyPageTabParam>;

@@ -1,4 +1,3 @@
-import Config from 'react-native-config';
 import {SweetError} from './error';
 import {tokenStorage} from '@/utils/tokenStorage';
 import {fetchToCurl} from '@/utils/request';
@@ -88,7 +87,7 @@ class Api implements ApiParam {
     const {url, param = {}, headers = {}} = option;
     const apiUrl = `${url}${connectQueryParam(param)}`;
 
-    const res = request(`${Config.API_ORIGIN}${apiUrl}`, {
+    const res = request(apiUrl, {
       method: 'GET',
       headers: await getHeaders(headers),
     });
@@ -97,7 +96,7 @@ class Api implements ApiParam {
   }
   async post<T = void>(option: ApiOptions): Promise<T> {
     const {url, body = {}, headers = {}} = option;
-    const res = request(`${Config.API_ORIGIN}${url}`, {
+    const res = request(url, {
       method: 'POST',
       headers: await getHeaders(headers),
       body: JSON.stringify(body),
@@ -108,7 +107,7 @@ class Api implements ApiParam {
   async put<T = void>(option: ApiOptions): Promise<T> {
     const {url, body = {}, headers = {}} = option;
 
-    const res = request(`${Config.API_ORIGIN}${url}`, {
+    const res = request(url, {
       method: 'PUT',
       headers: await getHeaders(headers),
       body: JSON.stringify(body),
@@ -118,7 +117,7 @@ class Api implements ApiParam {
   async patch<T = void>(option: ApiOptions): Promise<T> {
     const {url, body = {}, headers = {}} = option;
 
-    const res = request(`${Config.API_ORIGIN}${url}`, {
+    const res = request(url, {
       method: 'PATCH',
       headers: await getHeaders(headers),
       body: JSON.stringify(body),
@@ -127,7 +126,7 @@ class Api implements ApiParam {
   }
   async delete<T = void>(option: ApiOptions): Promise<T> {
     const {url, body = {}, headers = {}} = option;
-    const res = request(`${Config.API_ORIGIN}${url}`, {
+    const res = request(url, {
       method: 'DELETE',
       headers: await getHeaders(headers),
       body: JSON.stringify(body),

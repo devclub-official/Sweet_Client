@@ -34,6 +34,7 @@ export const useSocialLogin = () => {
           email: 'xodml9598@naver.com',
           password: '1234',
         });
+        console.log('data ==>', accessToken, refreshToken);
         await tokenStorage.setTokens({
           accessToken,
           refreshToken,

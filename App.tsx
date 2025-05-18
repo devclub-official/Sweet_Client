@@ -24,12 +24,13 @@ const App = () => {
   useEffect(() => {
     const appStart = async () => {
       try {
-        const token = await tokenStorage.getTokens();
-        if (token) {
-          const me = await getMe();
-          setLoginUser(me);
-        } else {
-        }
+        // await tokenStorage.clearTokens();
+        // const token = await tokenStorage.getTokens();
+        // if (token) {
+        //   const me = await getMe();
+        //   setLoginUser(me);
+        // } else {
+        // }
         setCheckLogin(true);
       } catch (e) {
         if (e instanceof SweetError) {

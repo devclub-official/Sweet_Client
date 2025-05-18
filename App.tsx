@@ -5,9 +5,9 @@ import {colors} from '@/theme/colors';
 import BootSplash from 'react-native-bootsplash';
 import './gesture-handler';
 import {tokenStorage} from '@/utils/tokenStorage';
-import {getMe} from '@/apis/profile';
 import {SweetError} from '@/apis/error';
 import {useUserStore} from '@/stores/useAuthStore';
+import {getMe} from '@/apis/auth';
 
 const defaultTheme = {
   ...DefaultTheme,
@@ -24,13 +24,12 @@ const App = () => {
   useEffect(() => {
     const appStart = async () => {
       try {
-        // await tokenStorage.clearTokens();
-        // const token = await tokenStorage.getTokens();
-        // if (token) {
-        //   const me = await getMe();
-        //   setLoginUser(me);
-        // } else {
-        // }
+        const token = await tokenStorage.getTokens();
+        if (token) {
+          const me = await getMe();
+          setLoginUser(me);
+        } else {
+        }
         setCheckLogin(true);
       } catch (e) {
         if (e instanceof SweetError) {

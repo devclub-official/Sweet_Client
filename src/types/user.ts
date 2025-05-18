@@ -1,10 +1,6 @@
 export interface UserInfo {
-  bio: string;
-  followersCount: number;
-  followingCount: number;
+  email: string;
   id: number;
-  isFollowing: boolean;
-  postsCount: number;
   profileImage: string;
   username: string;
 }

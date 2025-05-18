@@ -1,6 +1,5 @@
-import {signIn} from '@/apis/auth';
+import {getMe, signIn} from '@/apis/auth';
 import {SweetError} from '@/apis/error';
-import {getMe} from '@/apis/profile';
 import {useUserStore} from '@/stores/useAuthStore';
 import {tokenStorage} from '@/utils/tokenStorage';
 import appleAuth from '@invertase/react-native-apple-authentication';
@@ -26,15 +25,14 @@ export const useSocialLogin = () => {
   }, []);
   const login = useCallback(
     async (_: any) => {
-      //TODO: login api 호출 후 온 토큰값으로
       try {
+        //TODO: login api 호출 후 온 토큰값으로 변경
         const {
           data: {accessToken, refreshToken},
         } = await signIn({
           email: 'xodml9598@naver.com',
           password: '1234',
         });
-        console.log('data ==>', accessToken, refreshToken);
         await tokenStorage.setTokens({
           accessToken,
           refreshToken,

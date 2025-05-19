@@ -1,3 +1,4 @@
+import {BottomTabBar} from '@/components/BottomTabBar';
 import {HeaderLeftBack} from '@/components/Headers/HeaderLeftBack';
 import {screenTitle} from '@/constants/screen';
 import {FeedDetail} from '@/screens/FeedDetail';
@@ -10,13 +11,17 @@ import {Onboard} from '@/screens/Onboard';
 import {colors} from '@/theme/colors';
 import {RootStackParamList, RootStackScreenList} from '@/types/navigation';
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {
+  BottomTabBarProps,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs';
 import {RouteProp} from '@react-navigation/native';
 import {
   createStackNavigator,
   StackNavigationOptions,
   StackNavigationProp,
 } from '@react-navigation/stack';
+import React from 'react';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -88,11 +93,15 @@ const MyPageTab = () => {
     </Stack.Navigator>
   );
 };
+
+const renderBottomTabBar = (props: BottomTabBarProps) => {
+  return <BottomTabBar bottomTabBarProps={props} />;
+};
 const TabScreen = () => {
   return (
     <GestureHandlerRootView>
       <BottomSheetModalProvider>
-        <Tab.Navigator>
+        <Tab.Navigator tabBar={renderBottomTabBar}>
           <Tab.Screen
             name={RootStackScreenList.HomeTab}
             component={HomeTab}

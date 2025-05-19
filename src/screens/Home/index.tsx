@@ -3,6 +3,8 @@ import {Button} from '@/components/Button';
 import {useSweetNavigation} from '@/hooks/useNavigation';
 import {RootStackScreenList, RouteParams} from '@/types/navigation';
 import {useNavigation, useRoute} from '@react-navigation/native';
+import {useUserStore} from '@/stores/useAuthStore';
+import {tokenStorage} from '@/utils/tokenStorage';
 
 export const Home = () => {
   const navigation = useNavigation();
@@ -31,9 +33,10 @@ export const Home = () => {
       <Button
         size="small"
         onPress={() => {
-          push(RootStackScreenList.Login);
+          tokenStorage.clearTokens();
+          useUserStore.getState().logout();
         }}>
-        소셜 로그인 애플
+        로그아웃
       </Button>
     </View>
   );

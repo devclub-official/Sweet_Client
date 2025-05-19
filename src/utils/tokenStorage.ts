@@ -26,6 +26,7 @@ class TokenStorage {
         service: this.serviceName,
         accessible: Keychain.ACCESSIBLE.WHEN_UNLOCKED,
       });
+      this.cachedKey = tokens;
     } catch (e) {
       throw new Error('Failed to store the token');
     }
@@ -51,6 +52,7 @@ class TokenStorage {
   }
 
   async clearTokens() {
+    this.cachedKey = undefined;
     await Keychain.resetGenericPassword({service: this.serviceName});
   }
 }

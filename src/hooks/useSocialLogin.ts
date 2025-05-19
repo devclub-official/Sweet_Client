@@ -1,5 +1,6 @@
-import {signIn} from '@/apis/auth';
-import {RootStackScreenList} from '@/types/navigation';
+import {getMe, signIn} from '@/apis/auth';
+import {SweetError} from '@/apis/error';
+import {useUserStore} from '@/stores/useAuthStore';
 import {tokenStorage} from '@/utils/tokenStorage';
 import appleAuth from '@invertase/react-native-apple-authentication';
 import {
@@ -7,13 +8,11 @@ import {
   login as KakaoLogin,
 } from '@react-native-seoul/kakao-login';
 import NaverLogin from '@react-native-seoul/naver-login';
-import {useNavigation} from '@react-navigation/native';
 import {useCallback} from 'react';
 import Config from 'react-native-config';
 
 export const useSocialLogin = () => {
-  const {push} = useNavigation();
-
+  const {setLoginUser} = useUserStore();
   const socialLoginInitalize = useCallback(() => {
     // TODO: initialized 된 항목들 state로 관리해서 여러번 하지 않도록.
     NaverLogin.initialize({
@@ -26,9 +25,11 @@ export const useSocialLogin = () => {
   }, []);
   const login = useCallback(
     async (_: any) => {
-      //TODO: login api 호출 후 온 토큰값으로
       try {
-        const {accessToken, refreshToken} = await signIn({
+        //TODO: login api 호출 후 온 토큰값으로 변경
+        const {
+          data: {accessToken, refreshToken},
+        } = await signIn({
           email: 'xodml9598@naver.com',
           password: '1234',
         });
@@ -36,15 +37,15 @@ export const useSocialLogin = () => {
           accessToken,
           refreshToken,
         });
-
-        const token = await tokenStorage.getTokens();
-        console.log('token ==>', token);
-        push(RootStackScreenList.HomeTab);
+        const me = await getMe();
+        setLoginUser(me);
       } catch (e) {
-        console.log('e ==> ', e);
+        if (e instanceof SweetError) {
+          console.log('e ==> ', e.errorMessage);
+        }
       }
     },
-    [push],
+    [setLoginUser],
   );
 
   const kakaoLogin = useCallback(async () => {

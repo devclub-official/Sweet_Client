@@ -47,7 +47,7 @@ const getBody = (body: object, isMultipart: boolean) => {
   if (!isMultipart) {
     return JSON.stringify(body);
   } else {
-    return body as BodyInit;
+    return body as BodyInit_;
   }
 };
 

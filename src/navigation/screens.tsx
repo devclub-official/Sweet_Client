@@ -1,20 +1,29 @@
+import {BottomTabBar} from '@/components/BottomTabBar';
 import {HeaderLeftBack} from '@/components/Headers/HeaderLeftBack';
 import {screenTitle} from '@/constants/screen';
 import {CreateFeed} from '@/screens/CreateFeed';
 import {FeedDetail} from '@/screens/FeedDetail';
 import {FeedList} from '@/screens/FeedList';
+import {useFeedListHeader} from '@/screens/FeedList/hooks/useFeedListHeader';
 import {Home} from '@/screens/Home';
 import {Login} from '@/screens/Login';
 import {MyPage} from '@/screens/MyPage';
+import {Onboard} from '@/screens/Onboard';
 import {colors} from '@/theme/colors';
 import {RootStackParamList, RootStackScreenList} from '@/types/navigation';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
+import {
+  BottomTabBarProps,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs';
 import {RouteProp} from '@react-navigation/native';
 import {
   createStackNavigator,
   StackNavigationOptions,
   StackNavigationProp,
 } from '@react-navigation/stack';
+import React from 'react';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 const Stack = createStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator();
@@ -52,12 +61,28 @@ const getDefaultHeaderOptions = ({
 };
 
 const FeedTab = () => {
+  const {renderHeaderTitle, renderHeaderRight} = useFeedListHeader();
+
   return (
     <Stack.Navigator>
-      <Stack.Screen name={RootStackScreenList.FeedList} component={FeedList} />
+      <Stack.Screen
+        name={RootStackScreenList.FeedList}
+        component={FeedList}
+        options={props => ({
+          ...getDefaultHeaderOptions(props),
+          headerLeft: undefined,
+          headerTitleAlign: 'center',
+          headerTitle: renderHeaderTitle,
+          headerRight: () => renderHeaderRight(props.navigation),
+        })}
+      />
       <Stack.Screen
         name={RootStackScreenList.FeedDetail}
         component={FeedDetail}
+        options={props => ({
+          ...getDefaultHeaderOptions(props),
+          headerTitle: screenTitle.FeedDetail,
+        })}
       />
       <Stack.Screen
         name={RootStackScreenList.CreateFeed}
@@ -79,25 +104,33 @@ const MyPageTab = () => {
     </Stack.Navigator>
   );
 };
+
+const renderBottomTabBar = (props: BottomTabBarProps) => {
+  return <BottomTabBar bottomTabBarProps={props} />;
+};
 const TabScreen = () => {
   return (
-    <Tab.Navigator>
-      <Tab.Screen
-        name={RootStackScreenList.HomeTab}
-        component={HomeTab}
-        options={{headerShown: false}}
-      />
-      <Tab.Screen
-        name={RootStackScreenList.FeedTab}
-        component={FeedTab}
-        options={{headerShown: false}}
-      />
-      <Tab.Screen
-        name={RootStackScreenList.MyPageTab}
-        component={MyPageTab}
-        options={{headerShown: false}}
-      />
-    </Tab.Navigator>
+    <GestureHandlerRootView>
+      <BottomSheetModalProvider>
+        <Tab.Navigator tabBar={renderBottomTabBar}>
+          <Tab.Screen
+            name={RootStackScreenList.HomeTab}
+            component={HomeTab}
+            options={{headerShown: false}}
+          />
+          <Tab.Screen
+            name={RootStackScreenList.FeedTab}
+            component={FeedTab}
+            options={{headerShown: false}}
+          />
+          <Tab.Screen
+            name={RootStackScreenList.MyPageTab}
+            component={MyPageTab}
+            options={{headerShown: false}}
+          />
+        </Tab.Navigator>
+      </BottomSheetModalProvider>
+    </GestureHandlerRootView>
   );
 };
 
@@ -109,7 +142,26 @@ export const RootStack = () => {
         component={TabScreen}
         options={{headerShown: false}}
       />
-      <Stack.Screen name={RootStackScreenList.Login} component={Login} />
+    </Stack.Navigator>
+  );
+};
+
+export const AuthStack = () => {
+  return (
+    <Stack.Navigator initialRouteName={RootStackScreenList.Login}>
+      <Stack.Screen
+        name={RootStackScreenList.Login}
+        component={Login}
+        options={prop => ({
+          ...getDefaultHeaderOptions(prop),
+          headerShown: false,
+        })}
+      />
+      <Stack.Screen
+        name={RootStackScreenList.Onboard}
+        component={Onboard}
+        options={prop => ({...getDefaultHeaderOptions(prop), title: ''})}
+      />
     </Stack.Navigator>
   );
 };

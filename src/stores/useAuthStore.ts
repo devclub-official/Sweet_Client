@@ -1,26 +1,34 @@
 import {create} from 'zustand';
 import {createJSONStorage, devtools, persist} from 'zustand/middleware';
 import {zustandStorage} from './storage';
+import {UserInfo} from '@/types/user';
 
-type AuthState = {
-  accessToken?: string;
+type UserState = {
+  isLogined: boolean;
+  user?: UserInfo;
 };
-type AuthAction = {
-  setAccessToken: (accessToken: string) => void;
+type UserAction = {
+  setLoginUser: (user: UserInfo) => void;
+  logout: () => void;
 };
 
-type AuthStoreState = AuthState & AuthAction;
+type UserStoreState = UserState & UserAction;
 
-const initialState: AuthState = {};
+const initialState: UserState = {
+  isLogined: false,
+};
 
-export const useAuthStore = create<AuthStoreState>()(
+export const useUserStore = create<UserStoreState>()(
   devtools(
     persist(
       set => ({
         ...initialState,
-        setAccessToken: accessToken => set(() => ({accessToken})),
+        setLoginUser: (user: UserInfo) =>
+          set(state => ({...state, isLogined: true, user})),
+        logout: () =>
+          set(state => ({...state, isLogined: false, user: undefined})),
       }),
-      {name: 'authStore', storage: createJSONStorage(() => zustandStorage)},
+      {name: 'userState', storage: createJSONStorage(() => zustandStorage)},
     ),
   ),
 );

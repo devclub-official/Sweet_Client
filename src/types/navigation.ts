@@ -17,6 +17,7 @@ export const enum RootStackScreenList {
   FeedDetail = 'FeedDetail',
   MyPage = 'MyPage',
   CreateFeed = 'CreateFeed',
+  Onboard = 'Onboard',
 }
 
 interface HomeTabParam {
@@ -24,13 +25,15 @@ interface HomeTabParam {
 }
 interface FeedTabParam {
   [RootStackScreenList.FeedList]: undefined;
-  [RootStackScreenList.FeedDetail]: undefined;
   [RootStackScreenList.CreateFeed]: undefined;
+  [RootStackScreenList.FeedDetail]: {
+    id: string;
+  };
 }
 interface MyPageTabParam {
   [RootStackScreenList.MyPage]: undefined;
 }
-interface MainTabParam {
+export interface MainTabParam {
   [RootStackScreenList.HomeTab]: NavigatorScreenParams<HomeTabParam>;
   [RootStackScreenList.FeedTab]: NavigatorScreenParams<FeedTabParam>;
   [RootStackScreenList.MyPageTab]: NavigatorScreenParams<MyPageTabParam>;
@@ -38,6 +41,7 @@ interface MainTabParam {
 export interface RootStackParamList extends ParamListBase {
   [RootStackScreenList.MainTab]: NavigatorScreenParams<MainTabParam>;
   [RootStackScreenList.Login]: undefined;
+  [RootStackScreenList.Onboard]: undefined;
 }
 export type RootStackScreenProps<T extends keyof RootStackParamList> =
   StackScreenProps<RootStackParamList, T>;

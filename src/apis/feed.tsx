@@ -1,8 +1,22 @@
+import {
+  CreateFeedDto,
+  CreateFeedResponseDto,
+} from '@/models/dto/Feed/CreateFeedDto';
 import {api} from './common';
 
-export const createFeed = async () => {
-  const res = await api.get({
-    url: 'http://localhost:8080/',
+export const createFeed = async (body: CreateFeedDto) => {
+  const res = await api.post<CreateFeedResponseDto>({
+    url: 'https://fair-termite-promptly.ngrok-free.app/api/feeds',
+    body,
   });
-  console.log('res ==>', res);
+  return res;
+};
+
+export const uploadFeedImage = async (feedId: number, body: FormData) => {
+  const res = await api.post<CreateFeedResponseDto>({
+    url: `https://fair-termite-promptly.ngrok-free.app/api/feeds/${feedId}/images`,
+    body,
+    headers: {'Content-Type': 'multipart/form-data'},
+  });
+  return res;
 };

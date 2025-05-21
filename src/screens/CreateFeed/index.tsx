@@ -1,6 +1,12 @@
 import {SafeAreaScreenWrapper} from '@/components/SafeAreaScreenWrapper';
 import {useMemo, useState} from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {
   CreateFeedAdditionalInfoButton,
   CreateFeedAdditionalInfoButtonProps,
@@ -12,10 +18,16 @@ import {Button} from '@/components/Button';
 import {Typo} from '@/components/Typo';
 import {CreateFeedOption} from './components/CreateFeedOption';
 import {CreateFeedTextArea} from './components/CreateFeedTextArea';
-import {createFeed} from '@/apis/feed';
+import {createFeed, uploadFeedImage} from '@/apis/feed';
+import {imagePicker} from '@/libs/imagePicker';
+import {Asset} from 'react-native-image-picker';
+import {useUserStore} from '@/stores/useAuthStore';
+import {deviceInfo} from '@/utils/device';
 
 export const CreateFeed = () => {
   const {push} = useSweetNavigation();
+  const {user} = useUserStore();
+  const [image, setImage] = useState<Asset>();
   const [description, setDescription] = useState('');
   const [options, setOptions] = useState({
     like: false,
@@ -64,7 +76,22 @@ export const CreateFeed = () => {
   return (
     <SafeAreaScreenWrapper>
       <ScrollView contentContainerStyle={styles.wrapper}>
-        <View style={styles.image} />
+        <TouchableOpacity
+          onPress={async () => {
+            try {
+              try {
+                const images = await imagePicker.getImage({
+                  mediaType: 'photo',
+                  selectionLimit: 1,
+                });
+                setImage(images[0]);
+              } catch (e) {}
+            } catch (e) {
+              console.log('good ==>', e);
+            }
+          }}>
+          {image && <Image source={image} style={styles.image} />}
+        </TouchableOpacity>
         <CreateFeedTextArea
           value={description}
           placeholder="오늘의 운동을 공유해주세요!"
@@ -104,10 +131,32 @@ export const CreateFeed = () => {
       <View style={styles.uploadButtonWrapper}>
         <Button
           type="primary"
-          onPress={() => {
-            console.log('good ==>');
+          onPress={async () => {
             try {
-              createFeed();
+              const feed = await createFeed({
+                title: '오늘의 운동',
+                content: description,
+                authorId: user?.id!,
+                visibility: '공개',
+                exerciseDetails: {
+                  duration: '30분',
+                  exerciseType: ['soccer'],
+                  location: '서울',
+                  tag: '축구',
+                },
+              });
+              console.log('feed ==>', feed);
+              console.log('image ==>', image);
+              const formData = new FormData();
+              formData.append('files', [
+                {
+                  url: image?.uri,
+                  name: image?.fileName,
+                  type: image?.type,
+                },
+              ]);
+              const res = await uploadFeedImage(feed.id, formData);
+              console.log('res ==>', res);
             } catch (e) {
               console.log(e);
             }
@@ -118,11 +167,17 @@ export const CreateFeed = () => {
     </SafeAreaScreenWrapper>
   );
 };
+const IMAGE_RATIO = 0.949;
 const styles = StyleSheet.create({
   wrapper: {
     paddingHorizontal: 10,
   },
-  image: {height: 300, backgroundColor: 'rgba(157,157,157,0.9)'},
+  image: {
+    width: deviceInfo.getDeviceWidth() - 20,
+    height: undefined,
+    aspectRatio: IMAGE_RATIO,
+    backgroundColor: 'rgba(157,157,157,0.9)',
+  },
 
   additionalOptionWrapper: {
     gap: 8,

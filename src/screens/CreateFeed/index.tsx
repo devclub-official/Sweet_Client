@@ -166,7 +166,7 @@ export const CreateFeed = () => {
         </View>
       </ScrollView>
       <View style={styles.uploadButtonWrapper}>
-        <Button type="primary" onPress={submit}>
+        <Button type="primary" onPress={submit} disabled={isSubmitLoading}>
           업로드
         </Button>
       </View>

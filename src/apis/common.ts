@@ -7,6 +7,7 @@ interface ApiOptions {
   headers?: object;
   body?: object;
   param?: object;
+  isMultipart?: boolean;
 }
 
 interface ApiParam {
@@ -16,17 +17,38 @@ interface ApiParam {
   delete: <T = void>(option: ApiOptions) => Promise<T>;
 }
 
-const getHeaders = async (extraHeaders: object) => {
-  const headers = new Headers();
-  headers.set('Content-Type', 'application/json');
+const getAuthHeader = async () => {
+  const header: Record<string, string> = {};
   const token = await tokenStorage.getTokens();
   if (token) {
-    headers.set('Authorization', `Bearer ${token.accessToken}`);
+    header.Authorization = `Bearer ${token.accessToken}`;
   }
+  return header;
+};
+
+const getHeaders = async (extraHeaders: object, isMultipart: boolean) => {
+  const headers = new Headers();
+
+  if (!isMultipart) {
+    headers.set('Content-Type', 'application/json');
+  }
+
+  const authHeader = await getAuthHeader();
+
+  Object.entries(authHeader).forEach(([key, value]) => {
+    headers.set(key, value);
+  });
   Object.entries(extraHeaders).forEach(([key, value]) => {
     headers.set(key, value);
   });
   return headers;
+};
+const getBody = (body: object, isMultipart: boolean) => {
+  if (!isMultipart) {
+    return JSON.stringify(body);
+  } else {
+    return body as BodyInit_;
+  }
 };
 
 const connectQueryParam = (param: object) => {
@@ -84,52 +106,52 @@ const request = async (url: string, option: RequestInit) => {
 
 class Api implements ApiParam {
   async get<T>(option: ApiOptions): Promise<T> {
-    const {url, param = {}, headers = {}} = option;
+    const {url, param = {}, headers = {}, isMultipart = false} = option;
     const apiUrl = `${url}${connectQueryParam(param)}`;
 
     const res = request(apiUrl, {
       method: 'GET',
-      headers: await getHeaders(headers),
+      headers: await getHeaders(headers, isMultipart),
     });
 
     return res as T;
   }
   async post<T = void>(option: ApiOptions): Promise<T> {
-    const {url, body = {}, headers = {}} = option;
+    const {url, body = {}, headers = {}, isMultipart = false} = option;
     const res = request(url, {
       method: 'POST',
-      headers: await getHeaders(headers),
-      body: JSON.stringify(body),
+      headers: await getHeaders(headers, isMultipart),
+      body: getBody(body, isMultipart),
     });
 
     return res as T;
   }
   async put<T = void>(option: ApiOptions): Promise<T> {
-    const {url, body = {}, headers = {}} = option;
+    const {url, body = {}, headers = {}, isMultipart = false} = option;
 
     const res = request(url, {
       method: 'PUT',
-      headers: await getHeaders(headers),
-      body: JSON.stringify(body),
+      headers: await getHeaders(headers, isMultipart),
+      body: getBody(body, isMultipart),
     });
     return res as T;
   }
   async patch<T = void>(option: ApiOptions): Promise<T> {
-    const {url, body = {}, headers = {}} = option;
+    const {url, body = {}, headers = {}, isMultipart = false} = option;
 
     const res = request(url, {
       method: 'PATCH',
-      headers: await getHeaders(headers),
-      body: JSON.stringify(body),
+      headers: await getHeaders(headers, isMultipart),
+      body: getBody(body, isMultipart),
     });
     return res as T;
   }
   async delete<T = void>(option: ApiOptions): Promise<T> {
-    const {url, body = {}, headers = {}} = option;
+    const {url, body = {}, headers = {}, isMultipart = false} = option;
     const res = request(url, {
       method: 'DELETE',
-      headers: await getHeaders(headers),
-      body: JSON.stringify(body),
+      headers: await getHeaders(headers, isMultipart),
+      body: getBody(body, isMultipart),
     });
 
     return res as T;

@@ -1,6 +1,7 @@
 import {SafeAreaScreenWrapper} from '@/components/SafeAreaScreenWrapper';
 import {useMemo, useState} from 'react';
 import {
+  Alert,
   Image,
   ScrollView,
   StyleSheet,
@@ -22,10 +23,11 @@ import {createFeed, uploadFeedImage} from '@/apis/feed';
 import {imagePicker} from '@/libs/imagePicker';
 import {Asset} from 'react-native-image-picker';
 import {useUserStore} from '@/stores/useAuthStore';
-import {deviceInfo} from '@/utils/device';
+import {SweetError} from '@/apis/error';
 
 export const CreateFeed = () => {
-  const {push} = useSweetNavigation();
+  const {push, pop} = useSweetNavigation();
+  const [isSubmitLoading, setIsSubmitLoading] = useState(false);
   const {user} = useUserStore();
   const [image, setImage] = useState<Asset>();
   const [description, setDescription] = useState('');
@@ -72,25 +74,60 @@ export const CreateFeed = () => {
       },
     ] as const;
   }, []);
+  const handleImageUploadPress = async () => {
+    try {
+      const images = await imagePicker.getImage({
+        mediaType: 'photo',
+        selectionLimit: 1,
+      });
+      setImage(images[0]);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const submit = async () => {
+    if (!isSubmitLoading) {
+      setIsSubmitLoading(true);
+      try {
+        const feed = await createFeed({
+          title: '오늘의 운동',
+          content: description,
+          authorId: user?.id!,
+          visibility: '공개',
+          exerciseDetails: {
+            duration: '30분',
+            exerciseType: ['soccer'],
+            location: '서울',
+            tag: '축구',
+          },
+        });
+
+        const formData = new FormData();
+        formData.append('files', {
+          url: image?.uri,
+          name: image?.fileName,
+          type: image?.type,
+        });
+        await uploadFeedImage(feed.id, formData);
+        pop();
+      } catch (e) {
+        if (e instanceof SweetError) {
+          Alert.alert(e.errorMessage);
+        }
+      } finally {
+        setIsSubmitLoading(false);
+      }
+    }
+  };
 
   return (
     <SafeAreaScreenWrapper>
       <ScrollView contentContainerStyle={styles.wrapper}>
-        <TouchableOpacity
-          onPress={async () => {
-            try {
-              try {
-                const images = await imagePicker.getImage({
-                  mediaType: 'photo',
-                  selectionLimit: 1,
-                });
-                setImage(images[0]);
-              } catch (e) {}
-            } catch (e) {
-              console.log('good ==>', e);
-            }
-          }}>
-          {image && <Image source={image} style={styles.image} />}
+        <TouchableOpacity onPress={handleImageUploadPress}>
+          <View style={styles.imageWrapper}>
+            {image && <Image source={image} style={styles.image} />}
+          </View>
         </TouchableOpacity>
         <CreateFeedTextArea
           value={description}
@@ -129,38 +166,7 @@ export const CreateFeed = () => {
         </View>
       </ScrollView>
       <View style={styles.uploadButtonWrapper}>
-        <Button
-          type="primary"
-          onPress={async () => {
-            try {
-              const feed = await createFeed({
-                title: '오늘의 운동',
-                content: description,
-                authorId: user?.id!,
-                visibility: '공개',
-                exerciseDetails: {
-                  duration: '30분',
-                  exerciseType: ['soccer'],
-                  location: '서울',
-                  tag: '축구',
-                },
-              });
-              console.log('feed ==>', feed);
-              console.log('image ==>', image);
-              const formData = new FormData();
-              formData.append('files', [
-                {
-                  url: image?.uri,
-                  name: image?.fileName,
-                  type: image?.type,
-                },
-              ]);
-              const res = await uploadFeedImage(feed.id, formData);
-              console.log('res ==>', res);
-            } catch (e) {
-              console.log(e);
-            }
-          }}>
+        <Button type="primary" onPress={submit}>
           업로드
         </Button>
       </View>
@@ -172,11 +178,13 @@ const styles = StyleSheet.create({
   wrapper: {
     paddingHorizontal: 10,
   },
-  image: {
-    width: deviceInfo.getDeviceWidth() - 20,
-    height: undefined,
+  imageWrapper: {
     aspectRatio: IMAGE_RATIO,
     backgroundColor: 'rgba(157,157,157,0.9)',
+  },
+  image: {
+    width: '100%',
+    height: '100%',
   },
 
   additionalOptionWrapper: {

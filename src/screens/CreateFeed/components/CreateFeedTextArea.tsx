@@ -14,7 +14,7 @@ export const CreateFeedTextArea = ({value, placeholder, onChange}: Props) => {
       value={value}
       onChangeText={onChange}
       placeholder={placeholder}
-      placeholderTextColor={colors.GRAY_500}
+      placeholderTextColor={colors.CG15}
       multiline
       style={styles.input}
     />
@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
   input: {
     height: 160,
     padding: 16,
-    backgroundColor: colors.GRAY_700,
-    color: 'white',
+    backgroundColor: colors.B_700,
+    color: colors.B_50,
     borderBottomRightRadius: 10,
     borderBottomLeftRadius: 10,
   },

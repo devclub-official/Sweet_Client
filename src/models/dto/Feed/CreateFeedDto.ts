@@ -24,5 +24,3 @@ export interface CreateFeedResponseDto {
     tag: string;
   };
 }
-
-export interface UploadFeedDto {}

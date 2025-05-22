@@ -10,9 +10,12 @@ import { strings as settingString } from "./constants/strings";
 import { strings } from "@/constants/strings";
 import { useSweetNavigation } from "@/hooks/useNavigation";
 import { RootStackScreenList } from "@/types/navigation";
+import { PTPTModal } from "@/components/Modal";
+import React from "react";
 
 export const Setting = () => {
     const navigation = useSweetNavigation();
+    const [ isModalVisible, setModalVisible ] = React.useState(false);
 
     return (
         <SafeAreaScreenWrapper>
@@ -42,10 +45,19 @@ export const Setting = () => {
                 <SettingLayout>
                     <SettingItem
                         title={strings.LOGOUT}
-                        onPressNext={() => { }}
+                        onPressNext={() => { setModalVisible(true); }}
                     />
                 </SettingLayout>
             </View>
+
+            <PTPTModal
+                visible={isModalVisible}
+                message={settingString.LOGOUT}
+                confirmText={settingString.CONFIRM}
+                cancelText={settingString.CANCEL}
+                onConfirm={() => { setModalVisible(false); }}
+                onCancel={() => { setModalVisible(false); }}
+            />
         </SafeAreaScreenWrapper>
     );
 };

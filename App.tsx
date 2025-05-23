@@ -8,6 +8,7 @@ import {tokenStorage} from '@/utils/tokenStorage';
 import {SweetError} from '@/apis/error';
 import {useUserStore} from '@/stores/useAuthStore';
 import {getMe} from '@/apis/auth';
+import {navigation} from '@/utils/navigation';
 
 const defaultTheme = {
   ...DefaultTheme,
@@ -16,6 +17,8 @@ const defaultTheme = {
     background: colors.B_BASE_PRI,
   },
 };
+
+const navigationRef = navigation.getNavigationRef();
 
 const App = () => {
   const [checkLogin, setCheckLogin] = useState(false);
@@ -47,7 +50,7 @@ const App = () => {
     return null;
   }
   return (
-    <NavigationContainer theme={defaultTheme}>
+    <NavigationContainer theme={defaultTheme} ref={navigationRef}>
       {isLogined ? <RootStack /> : <AuthStack />}
     </NavigationContainer>
   );

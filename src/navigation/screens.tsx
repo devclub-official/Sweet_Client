@@ -1,5 +1,6 @@
 import {BottomTabBar} from '@/components/BottomTabBar';
 import {HeaderLeftBack} from '@/components/Headers/HeaderLeftBack';
+import {HomeHeaderRight} from '@/components/Headers/HomeHeaderRight';
 import {screenTitle} from '@/constants/screen';
 import {CreateFeed} from '@/screens/CreateFeed';
 import {FeedDetail} from '@/screens/FeedDetail';
@@ -28,14 +29,6 @@ import {GestureHandlerRootView} from 'react-native-gesture-handler';
 const Stack = createStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator();
 
-const HomeTab = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name={RootStackScreenList.Home} component={Home} />
-    </Stack.Navigator>
-  );
-};
-
 const getDefaultHeaderOptions = ({
   navigation,
 }: {
@@ -48,8 +41,7 @@ const getDefaultHeaderOptions = ({
     headerStyle: {
       backgroundColor: colors.B_BASE_PRI,
     },
-    // FIXME: 밑 임시 스타일 수정
-    headerTintColor: 'white',
+    headerTintColor: colors.WHITE,
     headerTitleStyle: {
       fontWeight: '700',
     },
@@ -58,6 +50,25 @@ const getDefaultHeaderOptions = ({
       paddingLeft: 20,
     },
   };
+};
+
+const HomeTab = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name={RootStackScreenList.Home}
+        component={Home}
+        options={props => {
+          return {
+            ...getDefaultHeaderOptions(props),
+            headerLeft: undefined,
+            title: '',
+            headerRight: HomeHeaderRight,
+          };
+        }}
+      />
+    </Stack.Navigator>
+  );
 };
 
 const FeedTab = () => {
@@ -87,9 +98,9 @@ const FeedTab = () => {
       <Stack.Screen
         name={RootStackScreenList.CreateFeed}
         component={CreateFeed}
-        options={prop => {
+        options={props => {
           return {
-            ...getDefaultHeaderOptions(prop),
+            ...getDefaultHeaderOptions(props),
             title: screenTitle[RootStackScreenList.CreateFeed],
           };
         }}
@@ -152,15 +163,15 @@ export const AuthStack = () => {
       <Stack.Screen
         name={RootStackScreenList.Login}
         component={Login}
-        options={prop => ({
-          ...getDefaultHeaderOptions(prop),
+        options={props => ({
+          ...getDefaultHeaderOptions(props),
           headerShown: false,
         })}
       />
       <Stack.Screen
         name={RootStackScreenList.Onboard}
         component={Onboard}
-        options={prop => ({...getDefaultHeaderOptions(prop), title: ''})}
+        options={props => ({...getDefaultHeaderOptions(props), title: ''})}
       />
     </Stack.Navigator>
   );

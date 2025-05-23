@@ -1,6 +1,7 @@
 import {BottomTabBar} from '@/components/BottomTabBar';
 import {HeaderLeftBack} from '@/components/Headers/HeaderLeftBack';
 import {screenTitle} from '@/constants/screen';
+import {CreateFeed} from '@/screens/CreateFeed';
 import {FeedDetail} from '@/screens/FeedDetail';
 import {FeedList} from '@/screens/FeedList';
 import {useFeedListHeader} from '@/screens/FeedList/hooks/useFeedListHeader';
@@ -82,6 +83,16 @@ const FeedTab = () => {
           ...getDefaultHeaderOptions(props),
           headerTitle: screenTitle.FeedDetail,
         })}
+      />
+      <Stack.Screen
+        name={RootStackScreenList.CreateFeed}
+        component={CreateFeed}
+        options={prop => {
+          return {
+            ...getDefaultHeaderOptions(prop),
+            title: screenTitle[RootStackScreenList.CreateFeed],
+          };
+        }}
       />
     </Stack.Navigator>
   );

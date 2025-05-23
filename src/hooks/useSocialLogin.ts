@@ -1,4 +1,4 @@
-import {getMe, signIn} from '@/apis/auth';
+import {getMe, kakaoAuthLogin, signIn} from '@/apis/auth';
 import {SweetError} from '@/apis/error';
 import {useUserStore} from '@/stores/useAuthStore';
 import {tokenStorage} from '@/utils/tokenStorage';
@@ -30,8 +30,8 @@ export const useSocialLogin = () => {
         const {
           data: {accessToken, refreshToken},
         } = await signIn({
-          email: 'xodml9598@naver.com',
-          password: '1234',
+          email: 'user@example.com',
+          password: 'password123',
         });
         await tokenStorage.setTokens({
           accessToken,
@@ -50,12 +50,17 @@ export const useSocialLogin = () => {
 
   const kakaoLogin = useCallback(async () => {
     try {
-      const token: KakaoOAuthToken = await KakaoLogin();
-      login(token);
+      const kakaoAuth: KakaoOAuthToken = await KakaoLogin();
+      login(kakaoAuth);
+      // console.log('hi ==>');
+      // const auth = await kakaoAuthLogin(kakaoAuth.accessToken);
+      // console.log(auth);
     } catch (e) {
-      console.log('error ==>', e);
+      if (e instanceof SweetError) {
+        console.log(e.errorCode);
+      }
     }
-  }, [login]);
+  }, []);
   const naverLogin = useCallback(async () => {
     try {
       const res = await NaverLogin.login();

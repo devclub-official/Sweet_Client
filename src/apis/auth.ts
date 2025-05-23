@@ -11,6 +11,13 @@ export const signIn = async (body: SignInRequestDto) => {
   });
   return res;
 };
+export const kakaoAuthLogin = async (code: string) => {
+  const res = await api.get<SweetResponse<SignInResponseDto>>({
+    url: `${Config.AUTH_API_ORIGIN}/social/callback/kakao`,
+    param: {code},
+  });
+  return res;
+};
 
 export const getMe = async () => {
   const me = await api.get<UserInfo>({

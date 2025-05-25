@@ -8,6 +8,7 @@ import {tokenStorage} from '@/utils/tokenStorage';
 import {SweetError} from '@/apis/error';
 import {useUserStore} from '@/stores/useAuthStore';
 import {getMe} from '@/apis/auth';
+import {PaperProvider} from 'react-native-paper';
 import {navigation} from '@/utils/navigation';
 
 const defaultTheme = {
@@ -50,9 +51,11 @@ const App = () => {
     return null;
   }
   return (
-    <NavigationContainer theme={defaultTheme} ref={navigationRef}>
-      {isLogined ? <RootStack /> : <AuthStack />}
-    </NavigationContainer>
+    <PaperProvider>
+      <NavigationContainer theme={defaultTheme} ref={navigationRef}>
+        {isLogined ? <RootStack /> : <AuthStack />}
+      </NavigationContainer>
+    </PaperProvider>
   );
 };
 export default App;

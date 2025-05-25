@@ -1,5 +1,9 @@
 import AppleLogin from './AppleLogin';
 import AppLogo from './AppLogo';
+import {AlertCircle} from './AlertCircle';
+import {Camera} from './Camera';
+import {Check} from './Check';
+import {ChevronBottom} from './ChevronBottom';
 import {ChevronLeft} from './ChevronLeft';
 import {ChevronRight} from './ChevronRight';
 import {Comment} from './Comment';
@@ -9,6 +13,7 @@ import {EyeSlash} from './EyeSlash';
 import {FeedDumbbell} from './FeedDumbbell';
 import {HeartOutline} from './HeartOutline';
 import {HeartFilled} from './HeartFilled';
+import {Fire} from './Fire';
 import {Home} from './Home';
 import KakaoLogin from './KakaoLogin';
 import {Location} from './Location';
@@ -19,6 +24,7 @@ import {NewAlarm} from './NewAlarms';
 import {OctagonWarning} from './OctagonWarning';
 import {PersonDash} from './PersonDash';
 import {Plus} from './Plus';
+import {Menu} from './Menu';
 import {Profile} from './Profile';
 import {ProfileCircle} from './ProfileCircle';
 import {Share} from './Share';
@@ -50,6 +56,12 @@ export const svgMap = {
   Plus,
   NewAlarm,
   HeartFilled,
+  Fire,
   Calendar,
+  Menu,
+  Camera,
+  ChevronBottom,
+  Check,
+  AlertCircle,
   TodaysExercise,
 };

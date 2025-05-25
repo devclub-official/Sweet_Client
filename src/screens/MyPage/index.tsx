@@ -1,10 +1,14 @@
-import {Typo} from '@/components/Typo';
-import {View} from 'react-native';
+import { ProfileContainer } from '@/components/Profile/ProfileContainer';
+import { SafeAreaScreenWrapper } from '@/components/SafeAreaScreenWrapper';
+import { AppStatusBar } from '@/components/StatusBar';
+import { colors } from '@/theme/colors';
 
 export const MyPage = () => {
   return (
-    <View>
-      <Typo>mypage</Typo>
-    </View>
+    <SafeAreaScreenWrapper>
+      <AppStatusBar backgroundColor={colors.B_BASE_PRI} />
+
+      <ProfileContainer userId="" isMyPage={true} />
+    </SafeAreaScreenWrapper>
   );
 };

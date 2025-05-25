@@ -86,7 +86,7 @@ export const FeedDetail = ({ route }: FeedDetailProps) => {
     });
   });
 
-  const { feed } = useFeedDetail(route.params?.id);
+  const { feed, likeFeed, unlikeFeed } = useFeedDetail(route.params?.id);
 
   return (
     <SafeAreaScreenWrapper>
@@ -117,7 +117,10 @@ export const FeedDetail = ({ route }: FeedDetailProps) => {
                     <FeedActionItem
                       svgName="HeartFilled"
                       count={feed.likeCount}
-                      onPress={() => {
+                      onPressIcon={() => {
+                        unlikeFeed();
+                      }}
+                      onPressText={() => {
                         handlePresentModalPress(likeBottomSheetModalRef);
                       }}
                     />
@@ -125,7 +128,10 @@ export const FeedDetail = ({ route }: FeedDetailProps) => {
                     <FeedActionItem
                       svgName="HeartOutline"
                       count={feed.likeCount}
-                      onPress={() => {
+                      onPressIcon={() => {
+                        likeFeed();
+                      }}
+                      onPressText={() => {
                         handlePresentModalPress(likeBottomSheetModalRef);
                       }}
                     />
@@ -134,13 +140,16 @@ export const FeedDetail = ({ route }: FeedDetailProps) => {
                 <FeedActionItem
                   svgName="Comment"
                   count={feed.commentCount}
-                  onPress={() => {
+                  onPressIcon={() => {
                     handlePresentModalPress(commentBottomSheetModalRef);
                   }}
+                  onPressText={() => {
+                    handlePresentModalPress(commentBottomSheetModalRef);
+                }}
                 />
                 <FeedActionItem
                   svgName="Share"
-                  onPress={() => { }}
+                  onPressIcon={() => { }}
                 />
               </View>
 

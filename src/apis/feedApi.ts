@@ -48,3 +48,11 @@ export const postFeedCommentAPI = (
     body: stringToPostCommentRequestDto(comment),
   });
 };
+
+export const postFeedLike = (feedId: number, userId: number): Promise<void> => api.post<void>({
+  url: `${Config.MAIN_API_ORIGIN}/api/feeds/${feedId}/likes?userId=${userId}`,
+});
+
+export const deleteFeedLike = (feedId: number, userId: number): Promise<void> => api.delete<void>({
+  url: `${Config.MAIN_API_ORIGIN}/api/feeds/${feedId}/likes?userId=${userId}`,
+});

@@ -48,7 +48,8 @@ const exercises: Exercise[] = [
 interface FeedItemProps {
     feed: FeedSummary;
     followStatus: FollowStatus;
-    onPressLike: (feedId: string) => void;
+    onPressLikeIcon: (feedId: string) => void;
+    onPressLikeCount: (feedId: string) => void;
     onPressComment: (feed: FeedSummary) => void;
 }
 
@@ -61,7 +62,7 @@ const renderFeedProfileRightComponent = (followStatus: FollowStatus, onPressOpti
     </View>
 );
 
-export const FeedItem = ({ feed, followStatus, onPressLike, onPressComment }: FeedItemProps) => {
+export const FeedItem = ({ feed, followStatus, onPressLikeIcon, onPressLikeCount, onPressComment }: FeedItemProps) => {
     const feedOptionBottomSheetModalRef = useRef<BottomSheetModal>(null);
     const exerciseBottomSheetModalRef = useRef<BottomSheetModal>(null);
     const { handlePresentModalPress } = useBottomSheetCallbacks();
@@ -93,16 +94,22 @@ export const FeedItem = ({ feed, followStatus, onPressLike, onPressComment }: Fe
                         <FeedActionItem
                             svgName="HeartFilled"
                             count={feed.likeCnt}
-                            onPress={() => {
-                                onPressLike(feed.id);
+                            onPressIcon={() => {
+                                onPressLikeIcon(feed.id);
+                            }}
+                            onPressText={() => {
+                                onPressLikeCount(feed.id);
                             }}
                         />
                     ) : (
                         <FeedActionItem
                             svgName="HeartOutline"
                             count={feed.likeCnt}
-                            onPress={() => {
-                                onPressLike(feed.id);
+                            onPressIcon={() => {
+                                onPressLikeIcon(feed.id);
+                            }}
+                            onPressText={() => {
+                                onPressLikeCount(feed.id);
                             }}
                         />
                     )
@@ -110,13 +117,16 @@ export const FeedItem = ({ feed, followStatus, onPressLike, onPressComment }: Fe
                 <FeedActionItem
                     svgName="Comment"
                     count={feed.commentCnt}
-                    onPress={() => {
+                    onPressIcon={() => {
+                        onPressComment(feed);
+                    }}
+                    onPressText={() => {
                         onPressComment(feed);
                     }}
                 />
                 <FeedActionItem
                     svgName="Share"
-                    onPress={() => { }}
+                    onPressIcon={() => { }}
                 />
             </View>
 

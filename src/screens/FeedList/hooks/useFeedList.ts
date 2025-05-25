@@ -1,14 +1,16 @@
 import {SweetError} from '@/apis/error';
-import {fetchFeedListAPI} from '@/apis/feedApi';
+import {deleteFeedLike, fetchFeedListAPI, postFeedLike} from '@/apis/feedApi';
 import {FeedSummary} from '@/models/domain/Feed/FeedSummary';
 import {FollowStatus} from '@/models/domain/Feed/FollowStatus';
 import {contentDtoToDomain} from '@/models/mapper/Feed';
+import { useUserStore } from '@/stores/useAuthStore';
 import {useCallback, useState} from 'react';
 
 export const useFeedList = () => {
   const [feeds, setFeeds] = useState<FeedSummary[]>([]);
   const [page, setPage] = useState<number>(0);
   const [isLast, setIsLast] = useState<boolean>(false);
+  const user = useUserStore(state => state.user);
 
   const getFeedList = useCallback(
     (followStatus: FollowStatus) => {
@@ -31,5 +33,103 @@ export const useFeedList = () => {
     [isLast, page],
   );
 
-  return {feeds, getFeedList};
+  const likeFeed = (feedId: string) => {
+    if (user) {
+      postFeedLike(Number(feedId), user.id)
+          .then(() => {
+            setFeeds((prevFeeds) => {
+              const updated = prevFeeds.map((feed) => {
+                if (feed.id === feedId) {
+                  const newFeed = {
+                    ...feed,
+                    isLiked: !feed.isLiked,
+                    likeCnt: feed.likeCnt + 1,
+                  };
+                  return newFeed;
+                }
+                return feed;
+              });
+              return updated;
+            }
+            );
+          })
+          .catch((err) => {
+              if (err instanceof SweetError) {
+                  console.log(err.errorMessage);
+              }
+          });
+    } else {
+      //TODO: 나중에 지워질 예정
+      postFeedLike(Number(feedId), 1)
+          .then(() => {
+            setFeeds((prevFeeds) => {
+              const updated = prevFeeds.map((feed) => {
+                if (feed.id === feedId) {
+                  const newFeed = {
+                    ...feed,
+                    isLiked: !feed.isLiked,
+                    likeCnt: feed.likeCnt + 1,
+                  };
+                  return newFeed;
+                }
+                return feed;
+              });
+              return updated;
+            }
+            );
+          })
+          .catch((err) => {
+              if (err instanceof SweetError) {
+                  console.log(err.errorMessage);
+              }
+          });
+      }
+  };
+
+  const unlikeFeed = (feedId: string) => {
+    if (user) {
+      deleteFeedLike(Number(feedId), user.id)
+          .then(() => {
+            setFeeds((prevFeeds) =>
+              prevFeeds.map((feed) =>
+                feed.id === feedId
+                  ? {
+                      ...feed,
+                      isLiked: !feed.isLiked,
+                      likeCnt: feed.likeCnt - 1,
+                    }
+                  : feed
+              )
+            );
+          })
+          .catch((err) => {
+              if (err instanceof SweetError) {
+                  console.log(err.errorMessage);
+              }
+          });
+    } else {
+      //TODO: 나중에 지워질 예정
+      deleteFeedLike(Number(feedId), 1)
+          .then(() => {
+            setFeeds((prevFeeds) =>
+              prevFeeds.map((feed) =>
+                feed.id === feedId
+                  ? {
+                      ...feed,
+                      isLiked: !feed.isLiked,
+                      likeCnt: feed.likeCnt - 1,
+                    }
+                  : feed
+              )
+            );
+          })
+          .catch((err) => {
+              if (err instanceof SweetError) {
+                  console.log(err.errorMessage);
+              }
+          });
+    }
+  };
+
+  return {feeds, getFeedList, likeFeed, unlikeFeed};
 };

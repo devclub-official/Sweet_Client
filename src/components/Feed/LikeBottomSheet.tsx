@@ -1,17 +1,18 @@
 import { BottomSheetFlatList, BottomSheetHandleProps, BottomSheetModal } from "@gorhom/bottom-sheet";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { commonBottomSheetStyles } from "./styles/commonBottomSheetStyles";
 import { useBottomSheetCallbacks } from "./hooks/useBottomSheetCallbacks";
 import { Strings } from "./constants/strings";
 import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
-import { Like } from "@/models/domain/Feed/like";
+import { Like } from "@/models/domain/Feed/Like";
 import { Typo } from "../Typo";
 import { colors } from "@/theme/colors";
 import { FollowStatus } from "@/models/domain/Feed/FollowStatus";
+import { useFeed } from "./hooks/useFeed";
 
 interface LikeBottomSheetProps {
     bottomSheetRef: React.RefObject<BottomSheetModal | null>;
-    likes: Like[];
+    feedId: string;
 }
 
 const renderLikeItem = (item: Like) => (
@@ -27,10 +28,14 @@ const renderLikeItem = (item: Like) => (
     </View>
 );
 
-export const LikeBottomSheet = ({ bottomSheetRef, likes }: LikeBottomSheetProps) => {
+export const LikeBottomSheet = ({ bottomSheetRef, feedId }: LikeBottomSheetProps) => {
     const snapPoints = useMemo(() => ['50%', '90%'], []);
-
     const { renderBackdrop, renderHandle } = useBottomSheetCallbacks();
+    const { likes, getLikeList } = useFeed();
+
+    useEffect(() => {
+        getLikeList(feedId);
+    }, [feedId, getLikeList]);
 
     return (
         <BottomSheetModal

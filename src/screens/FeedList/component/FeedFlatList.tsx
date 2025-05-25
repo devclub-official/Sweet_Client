@@ -6,6 +6,8 @@ import { FeedItem } from "./FeedItem";
 import { useRef, useState } from "react";
 import { CommentBottomSheet } from "@/components/Feed/CommentBottomSheet";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import { LikeBottomSheet } from "@/components/Feed/LikeBottomSheet";
+import { useBottomSheetCallbacks } from "@/components/Feed/hooks/useBottomSheetCallbacks";
 
 interface FeedFlatListProps {
     followStatus: FollowStatus;
@@ -13,7 +15,10 @@ interface FeedFlatListProps {
 
 export const FeedFlatList = ({ followStatus }: FeedFlatListProps) => {
     const { feeds, getFeedList } = useFeedList();
+    const { handlePresentModalPress } = useBottomSheetCallbacks();
+    const likeBottomSheetModalRef = useRef<BottomSheetModal>(null);
     const commentBottomSheetModalRef = useRef<BottomSheetModal>(null);
+    const [currentLikeFeedId, setCurrentLikeFeedId] = useState<string>('');
     const [selectedFeed, setSelectedFeed] = useState<FeedSummary | null>(null);
     const renderItemSeparator = () => (<View style={styles.separator} />);
 
@@ -25,9 +30,13 @@ export const FeedFlatList = ({ followStatus }: FeedFlatListProps) => {
                     <FeedItem
                         feed={item}
                         followStatus={followStatus}
+                        onPressLike={((feedId: string) => {
+                            setCurrentLikeFeedId(feedId);
+                            handlePresentModalPress(likeBottomSheetModalRef);
+                        })}
                         onPressComment={(feed: FeedSummary) => {
                             setSelectedFeed(feed);
-                            commentBottomSheetModalRef.current?.present();
+                            handlePresentModalPress(commentBottomSheetModalRef);
                         }}
                     />
                 )}
@@ -38,6 +47,10 @@ export const FeedFlatList = ({ followStatus }: FeedFlatListProps) => {
                 contentContainerStyle={styles.rootContainer}
                 ItemSeparatorComponent={renderItemSeparator}
             />
+
+            <LikeBottomSheet
+                bottomSheetRef={likeBottomSheetModalRef}
+                feedId={currentLikeFeedId} />
 
             <CommentBottomSheet
                 bottomSheetRef={commentBottomSheetModalRef}

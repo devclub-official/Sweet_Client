@@ -8,9 +8,12 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Typo} from '@/components/Typo';
 import {useSocialLogin} from '@/hooks/useSocialLogin';
 import {deviceInfo} from '@/utils/device';
+import {useSweetNavigation} from '@/hooks/useNavigation';
+import {RootStackScreenList} from '@/types/navigation';
 
 export const Login = () => {
   const insets = useSafeAreaInsets();
+  const {push} = useSweetNavigation();
   const {kakaoLogin, naverLogin, appleLogin, socialLoginInitalize} =
     useSocialLogin();
 
@@ -40,7 +43,13 @@ export const Login = () => {
             <Svg svgName="AppLogo" />
           </View>
           <View style={styles.buttonWrapper}>
-            <SocialLoginButton onPress={kakaoLogin} type="kakao" />
+            <SocialLoginButton
+              onPress={() => {
+                push(RootStackScreenList.Onboarding);
+              }}
+              type="kakao"
+            />
+            {/* <SocialLoginButton onPress={kakaoLogin} type="kakao" /> */}
             <SocialLoginButton onPress={naverLogin} type="naver" />
             {deviceInfo.checkIOS() && (
               <SocialLoginButton onPress={appleLogin} type="apple" />

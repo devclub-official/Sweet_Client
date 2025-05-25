@@ -30,6 +30,7 @@ import {ProfileCircle} from './ProfileCircle';
 import {Share} from './Share';
 import Calendar from './Calendar';
 import TodaysExercise from './TodaysExercise';
+import OnboardingHeart from './OnboardingHeart';
 
 export const svgMap = {
   ChevronLeft,
@@ -64,4 +65,5 @@ export const svgMap = {
   Check,
   AlertCircle,
   TodaysExercise,
+  OnboardingHeart,
 };

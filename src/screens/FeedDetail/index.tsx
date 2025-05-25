@@ -16,7 +16,6 @@ import { Svg } from '@/components/Svg';
 import { Typo } from '@/components/Typo';
 import { Exercise } from '@/models/domain/Feed/exercise';
 import { FollowStatus } from '@/models/domain/Feed/FollowStatus';
-import { Like } from '@/models/domain/Feed/like';
 import { colors } from '@/theme/colors';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useNavigation } from '@react-navigation/native';
@@ -54,33 +53,6 @@ const exercises: Exercise[] = [
   },
 ];
 
-const likes: Like[] = [
-  {
-    id: '1',
-    profileImage: 'https://plus.unsplash.com/premium_photo-1732697815367-80c3262419be?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    nickname: 'nickname1',
-    followStatus: FollowStatus.FOLLOWING,
-  },
-  {
-    id: '2',
-    profileImage: 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=3269&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    nickname: 'nickname2',
-    followStatus: FollowStatus.UNFOLLOWED,
-  },
-  {
-    id: '3',
-    profileImage: 'https://plus.unsplash.com/premium_photo-1732697815367-80c3262419be?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    nickname: 'nickname3',
-    followStatus: FollowStatus.FOLLOWING,
-  },
-  {
-    id: '4',
-    profileImage: 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=3269&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    nickname: 'nickname4',
-    followStatus: FollowStatus.UNFOLLOWED,
-  },
-];
-
 interface FeedDetailProps {
   route: RouteParams<RootStackScreenList.FeedDetail>
 }
@@ -114,7 +86,7 @@ export const FeedDetail = ({ route }: FeedDetailProps) => {
     });
   });
 
-  const { feed } = useFeedDetail(route.params.id);
+  const { feed } = useFeedDetail(route.params?.id);
 
   return (
     <SafeAreaScreenWrapper>
@@ -173,7 +145,7 @@ export const FeedDetail = ({ route }: FeedDetailProps) => {
               </View>
 
               {
-                feed.commentCount > 0 ? <LikeContainer style={styles.likeContainer} profileImage={likes[0].profileImage} nickname={likes[0].nickname} likeCount={likes.length} /> : null
+                feed.likeCount > 0 ? <LikeContainer style={styles.likeContainer} profileImage='' nickname={feed.firstLikedUserName} likeCount={feed.likeCount - 1} /> : null
               }
 
               <ContentItem
@@ -220,13 +192,13 @@ export const FeedDetail = ({ route }: FeedDetailProps) => {
 
             <LikeBottomSheet
               bottomSheetRef={likeBottomSheetModalRef}
-              likes={likes} />
+              feedId={feed.id.toString()} />
 
             <CommentBottomSheet
               bottomSheetRef={commentBottomSheetModalRef}
+              feedId={feed.id.toString()}
               profileImage={feed.authorProfileImage}
-              feedAuthor={feed.authorName}
-              comments={[]} />
+              feedAuthor={feed.authorName} />
           </>
         )
       }

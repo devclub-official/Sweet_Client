@@ -1,6 +1,7 @@
-import {getMe, kakaoAuthLogin, signIn} from '@/apis/auth';
+import {getMe, socialLogin} from '@/apis/auth';
 import {SweetError} from '@/apis/error';
 import {useUserStore} from '@/stores/useAuthStore';
+import {ResponseCode} from '@/types/network';
 import {tokenStorage} from '@/utils/tokenStorage';
 import appleAuth from '@invertase/react-native-apple-authentication';
 import {
@@ -10,9 +11,13 @@ import {
 import NaverLogin from '@react-native-seoul/naver-login';
 import {useCallback} from 'react';
 import Config from 'react-native-config';
+import {useSweetNavigation} from './useNavigation';
+import {RootStackScreenList} from '@/types/navigation';
+import {SocialLoginProvider} from '@/models/dto/Auth/SignInDto';
 
 export const useSocialLogin = () => {
   const {setLoginUser} = useUserStore();
+  const {push} = useSweetNavigation();
   const socialLoginInitalize = useCallback(() => {
     // TODO: initialized 된 항목들 state로 관리해서 여러번 하지 않도록.
     NaverLogin.initialize({
@@ -24,18 +29,19 @@ export const useSocialLogin = () => {
     });
   }, []);
   const login = useCallback(
-    async (_: any) => {
+    async (provider: SocialLoginProvider, accessToken: string) => {
       try {
-        //TODO: login api 호출 후 온 토큰값으로 변경
-        const {
-          data: {accessToken, refreshToken},
-        } = await signIn({
-          email: 'user@example.com',
-          password: 'password123',
+        const response = await socialLogin({
+          provider,
+          accessToken,
         });
+        if (response.code === ResponseCode.S0112) {
+          push(RootStackScreenList.Onboard);
+          return;
+        }
         await tokenStorage.setTokens({
           accessToken,
-          refreshToken,
+          refreshToken: response.data.accessToken,
         });
         const me = await getMe();
         setLoginUser(me);
@@ -45,26 +51,27 @@ export const useSocialLogin = () => {
         }
       }
     },
-    [setLoginUser],
+    [push, setLoginUser],
   );
 
   const kakaoLogin = useCallback(async () => {
     try {
       const kakaoAuth: KakaoOAuthToken = await KakaoLogin();
-      login(kakaoAuth);
-      // console.log('hi ==>');
-      // const auth = await kakaoAuthLogin(kakaoAuth.accessToken);
-      // console.log(auth);
+      login('KAKAO', kakaoAuth.accessToken);
     } catch (e) {
       if (e instanceof SweetError) {
         console.log(e.errorCode);
       }
     }
-  }, []);
+  }, [login]);
   const naverLogin = useCallback(async () => {
     try {
       const res = await NaverLogin.login();
-      login(res);
+      if (res.isSuccess && res.successResponse) {
+        login('NAVER', res.successResponse.accessToken);
+      } else {
+        throw new Error('naver login error');
+      }
     } catch (e) {
       console.log('e ==> ', e);
     }
@@ -76,8 +83,11 @@ export const useSocialLogin = () => {
         requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
       });
 
-      login(appleAuthRequestResponse);
-      // identityToken을 서버에 보내서 본인 인증하면 완벽하게 안전!
+      if (appleAuthRequestResponse.identityToken) {
+        login('APPLE', appleAuthRequestResponse.identityToken);
+      } else {
+        throw new Error('apple login error');
+      }
     } catch (error) {
       console.error('애플 로그인 실패', error);
     }

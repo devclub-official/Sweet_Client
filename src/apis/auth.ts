@@ -1,20 +1,16 @@
 import Config from 'react-native-config';
-import {SignInRequestDto, SignInResponseDto} from '@/models/dto/Auth/SignInDto';
+import {
+  SignInResponseDto,
+  SocialLoginRequestDto,
+} from '@/models/dto/Auth/SignInDto';
 import {api} from './common';
 import {SweetResponse} from '@/types/network';
 import {UserInfo} from '@/types/user';
 
-export const signIn = async (body: SignInRequestDto) => {
+export const socialLogin = async (body: SocialLoginRequestDto) => {
   const res = await api.post<SweetResponse<SignInResponseDto>>({
-    url: `${Config.AUTH_API_ORIGIN}/auth/login`,
+    url: `${Config.AUTH_API_ORIGIN}/social/login`,
     body,
-  });
-  return res;
-};
-export const kakaoAuthLogin = async (code: string) => {
-  const res = await api.get<SweetResponse<SignInResponseDto>>({
-    url: `${Config.AUTH_API_ORIGIN}/social/callback/kakao`,
-    param: {code},
   });
   return res;
 };

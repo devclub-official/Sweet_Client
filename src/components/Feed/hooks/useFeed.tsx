@@ -2,38 +2,24 @@ import { SweetError } from "@/apis/error";
 import { fetchFeedCommentListAPI, fetchFeedLkeListAPI, postFeedCommentAPI } from "@/apis/feedApi";
 import { Comment } from "@/models/domain/Feed/Comment";
 import { Like } from "@/models/domain/Feed/Like";
-import { postCommentResponseDtoToDomain, likeDtoToDomain } from "@/models/mapper/Feed";
+import { postCommentResponseDtoToDomain, likeDtoToDomain, commentDtoToDomain } from "@/models/mapper/Feed";
 import { useUserStore } from "@/stores/useAuthStore";
 import { useCallback, useState } from "react";
 
 export const useFeed = () => {
-    const [currentFeedId, setCurrentFeedId] = useState<string>('');
-    const [page, setPage] = useState<number>(0);
     const [isLast, setIsLast] = useState<boolean>(false);
     const [comments, setComments] = useState<Comment[]>([]);
     const [likes, setLikes] = useState<Like[]>([]);
     const user = useUserStore(state => state.user);
 
-    const getCommentList = useCallback((feedId: string) => {
-        if (currentFeedId !== feedId) {
-            setPage(0);
-            setIsLast(false);
-            setComments([]);
-            setCurrentFeedId(feedId);
-        }
-
-        if (isLast) {
-            return;
-        }
-
+    const getCommentList = useCallback((feedId: string, page: number) => {
         fetchFeedCommentListAPI(page, Number(feedId))
             .then((res) => {
-                setPage(res.number + 1);
                 setIsLast(res.last);
 
                 setComments((prev) => {
-                    if (res.number === 0) {
-                        return res.content.map(postCommentResponseDtoToDomain);
+                    if (page === 0) {
+                        return res.content.map(commentDtoToDomain);
                     } else {
                         return [
                             ...prev,
@@ -47,7 +33,9 @@ export const useFeed = () => {
                     console.log(err.errorMessage);
                 }
             });
-    }, [currentFeedId, isLast, page]);
+    }, []);
+
+
     const getLikeList = useCallback((feedId: string) => {
         fetchFeedLkeListAPI(Number(feedId))
             .then((res) => {
@@ -63,6 +51,7 @@ export const useFeed = () => {
                 }
             });
     }, []);
+
     const postComment = useCallback((feedId: string, comment: string) => {
         if (user) {
             postFeedCommentAPI(Number(feedId), comment, user.id)
@@ -96,6 +85,8 @@ export const useFeed = () => {
     return {
         comments,
         likes,
+        isLast,
+        setComments,
         getCommentList,
         getLikeList,
         postComment,

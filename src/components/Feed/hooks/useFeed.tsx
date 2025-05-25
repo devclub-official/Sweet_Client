@@ -1,7 +1,8 @@
 import { SweetError } from "@/apis/error";
-import { fetchFeedCommentListAPI } from "@/apis/feedApi";
+import { fetchFeedCommentListAPI, fetchFeedLkeListAPI } from "@/apis/feedApi";
 import { Comment } from "@/models/domain/Feed/Comment";
-import { commentDtoToDomain } from "@/models/mapper/Feed";
+import { Like } from "@/models/domain/Feed/Like";
+import { commentDtoToDomain, likeDtoToDomain } from "@/models/mapper/Feed";
 import { useCallback, useState } from "react";
 
 export const useFeed = () => {
@@ -9,9 +10,9 @@ export const useFeed = () => {
     const [page, setPage] = useState<number>(0);
     const [isLast, setIsLast] = useState<boolean>(false);
     const [comments, setComments] = useState<Comment[]>([]);
+    const [likes, setLikes] = useState<Like[]>([]);
 
     const getCommentList = useCallback((feedId: string) => {
-        console.log(`getCommentList feedId: ${feedId}, page: ${page}`);
         if (currentFeedId !== feedId) {
             setPage(0);
             setIsLast(false);
@@ -45,9 +46,26 @@ export const useFeed = () => {
                 }
             });
     }, [currentFeedId, isLast, page]);
+    const getLikeList = useCallback((feedId: string) => {
+        fetchFeedLkeListAPI(Number(feedId))
+            .then((res) => {
+                if (res.length === 0) {
+                    setLikes([]);
+                } else {
+                    setLikes(res.map(likeDtoToDomain));
+                }
+            })
+            .catch((err) => {
+                if (err instanceof SweetError) {
+                    console.log(err.errorMessage);
+                }
+            });
+    }, []);
 
     return {
         comments,
+        likes,
         getCommentList,
+        getLikeList,
     };
 };

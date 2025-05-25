@@ -6,14 +6,12 @@ import { FeedImagePager } from "@/components/Feed/FeedImagePager";
 import { FeedOptionBottomSheet } from "@/components/Feed/FeedOptionBottomSheet";
 import { FeedProfile } from "@/components/Feed/FeedProfile";
 import { useBottomSheetCallbacks } from "@/components/Feed/hooks/useBottomSheetCallbacks";
-import { LikeBottomSheet } from "@/components/Feed/LikeBottomSheet";
 import { LikeContainer } from "@/components/Feed/LikeContainer";
 import { Svg } from "@/components/Svg";
 import { Typo } from "@/components/Typo";
 import { Exercise } from "@/models/domain/Feed/exercise";
 import { FeedSummary } from "@/models/domain/Feed/FeedSummary";
 import { FollowStatus } from "@/models/domain/Feed/FollowStatus";
-import { Like } from "@/models/domain/Feed/like";
 import { colors } from "@/theme/colors";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useRef } from "react";
@@ -47,36 +45,10 @@ const exercises: Exercise[] = [
     },
 ];
 
-const likes: Like[] = [
-    {
-        id: '1',
-        profileImage: 'https://plus.unsplash.com/premium_photo-1732697815367-80c3262419be?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        nickname: 'nickname1',
-        followStatus: FollowStatus.FOLLOWING,
-    },
-    {
-        id: '2',
-        profileImage: 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=3269&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        nickname: 'nickname2',
-        followStatus: FollowStatus.UNFOLLOWED,
-    },
-    {
-        id: '3',
-        profileImage: 'https://plus.unsplash.com/premium_photo-1732697815367-80c3262419be?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        nickname: 'nickname3',
-        followStatus: FollowStatus.FOLLOWING,
-    },
-    {
-        id: '4',
-        profileImage: 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=3269&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        nickname: 'nickname4',
-        followStatus: FollowStatus.UNFOLLOWED,
-    },
-];
-
 interface FeedItemProps {
     feed: FeedSummary;
     followStatus: FollowStatus;
+    onPressLike: (feedId: string) => void;
     onPressComment: (feed: FeedSummary) => void;
 }
 
@@ -89,10 +61,9 @@ const renderFeedProfileRightComponent = (followStatus: FollowStatus, onPressOpti
     </View>
 );
 
-export const FeedItem = ({ feed, followStatus, onPressComment }: FeedItemProps) => {
+export const FeedItem = ({ feed, followStatus, onPressLike, onPressComment }: FeedItemProps) => {
     const feedOptionBottomSheetModalRef = useRef<BottomSheetModal>(null);
     const exerciseBottomSheetModalRef = useRef<BottomSheetModal>(null);
-    const likeBottomSheetModalRef = useRef<BottomSheetModal>(null);
     const { handlePresentModalPress } = useBottomSheetCallbacks();
 
     return (
@@ -123,7 +94,7 @@ export const FeedItem = ({ feed, followStatus, onPressComment }: FeedItemProps) 
                             svgName="HeartFilled"
                             count={feed.likeCnt}
                             onPress={() => {
-                                handlePresentModalPress(likeBottomSheetModalRef);
+                                onPressLike(feed.id);
                             }}
                         />
                     ) : (
@@ -131,7 +102,7 @@ export const FeedItem = ({ feed, followStatus, onPressComment }: FeedItemProps) 
                             svgName="HeartOutline"
                             count={feed.likeCnt}
                             onPress={() => {
-                                handlePresentModalPress(likeBottomSheetModalRef);
+                                onPressLike(feed.id);
                             }}
                         />
                     )
@@ -150,7 +121,7 @@ export const FeedItem = ({ feed, followStatus, onPressComment }: FeedItemProps) 
             </View>
 
             {
-                likes.length > 0 ? <LikeContainer style={styles.likeContainer} profileImage={likes[0].profileImage} nickname={likes[0].nickname} likeCount={likes.length} /> : null
+                feed.likeCnt > 0 ? <LikeContainer style={styles.likeContainer} profileImage='' nickname={feed.likeUserName} likeCount={feed.likeCnt - 1} /> : null
             }
 
             <ContentItem
@@ -170,8 +141,6 @@ export const FeedItem = ({ feed, followStatus, onPressComment }: FeedItemProps) 
                     </Typo> : null
             }
 
-
-
             <FeedOptionBottomSheet
                 bottomSheetRef={feedOptionBottomSheetModalRef}
                 type={followStatus} />
@@ -180,10 +149,6 @@ export const FeedItem = ({ feed, followStatus, onPressComment }: FeedItemProps) 
                 bottomSheetRef={exerciseBottomSheetModalRef}
                 exercises={exercises}
             />
-
-            <LikeBottomSheet
-                bottomSheetRef={likeBottomSheetModalRef}
-                likes={likes} />
         </View>
     );
 };

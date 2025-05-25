@@ -15,6 +15,9 @@ class DeviceInfo {
   getDeviceHeight() {
     return Dimensions.get('window').height;
   }
+  getDeviceWidth() {
+    return Dimensions.get('window').width;
+  }
   checkIOS() {
     return Platform.OS === 'ios';
   }

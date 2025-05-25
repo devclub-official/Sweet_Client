@@ -16,6 +16,7 @@ export const enum RootStackScreenList {
   FeedList = 'FeedList',
   FeedDetail = 'FeedDetail',
   MyPage = 'MyPage',
+  CreateFeed = 'CreateFeed',
   Onboard = 'Onboard',
   Setting = 'Setting',
   EditProfile = 'EditProfile',
@@ -37,6 +38,7 @@ interface HomeTabParam {
 }
 interface FeedTabParam {
   [RootStackScreenList.FeedList]: undefined;
+  [RootStackScreenList.CreateFeed]: undefined;
   [RootStackScreenList.FeedDetail]: {
     id: string;
   };

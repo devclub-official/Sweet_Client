@@ -1,3 +1,6 @@
+import { PageableDto } from "../Common/PageableDto";
+import { SortDto } from "../Common/SortDto";
+
 export interface GetFeedListDto {
     totalPages: number;
     totalElements: number;
@@ -28,19 +31,4 @@ export interface ContentDto {
     shareCount: number;
     createdAt: string;
     updatedAt: string;
-}
-
-interface SortDto {
-    empty: boolean;
-    unsorted: boolean;
-    sorted: boolean;
-}
-
-interface PageableDto {
-    offset: number;
-    sort: SortDto;
-    pageNumber: number;
-    pageSize: number;
-    paged: boolean;
-    unpaged: boolean;
 }

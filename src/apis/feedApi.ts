@@ -4,6 +4,8 @@ import {GetFeedDetailDto} from '@/models/dto/Feed/GetFeedDetailDto';
 import Config from 'react-native-config';
 import { GetCommentListDto } from '@/models/dto/Feed/GetCommentListDto';
 import { GetLikeListDto } from '@/models/dto/Feed/GetLikeListDto';
+import { stringToPostCommentRequestDto } from '@/models/mapper/Feed';
+import { PostCommentResponseDto } from '@/models/dto/Feed/PostCommentDto';
 
 export const fetchFeedListAPI = (
   page: number,
@@ -35,3 +37,14 @@ export const fetchFeedCommentListAPI = (
 export const fetchFeedLkeListAPI = (id: number): Promise<GetLikeListDto[]> => api.get<GetLikeListDto[]>({
   url: `${Config.MAIN_API_ORIGIN}/api/feeds/${id}/likes`,
 });
+
+export const postFeedCommentAPI = (
+  feedId: number,
+  comment: string,
+  userId: number,
+): Promise<PostCommentResponseDto> => {
+  return api.post<PostCommentResponseDto>({
+    url: `${Config.MAIN_API_ORIGIN}/api/feeds/${feedId}/comments?userId=${userId}`,
+    body: stringToPostCommentRequestDto(comment),
+  });
+};

@@ -21,7 +21,7 @@ interface CommentBottomSheetProps {
 export const CommentBottomSheet = ({ bottomSheetRef, feedId, profileImage, feedAuthor }: CommentBottomSheetProps) => {
     const snapPoints = useMemo(() => ['50%', '90%'], []);
     const { renderBackdrop, renderHandle } = useBottomSheetCallbacks();
-    const { comments, getCommentList } = useFeed();
+    const { comments, getCommentList, postComment } = useFeed();
     const renderFooter = useCallback((footerProps: BottomSheetFooterProps) => (
         <BottomSheetFooter {...footerProps}>
             <View style={styles.footerContainer}>
@@ -36,10 +36,13 @@ export const CommentBottomSheet = ({ bottomSheetRef, feedId, profileImage, feedA
                     style={styles.footerCommentInput}
                     placeholder={Strings.COMMENT_PLACEHOLDER(feedAuthor)}
                     placeholderTextColor='#9B9B9B'
+                    onEndEditing={(e) => {
+                        postComment(feedId, e.nativeEvent.text);
+                    }}
                 />
             </View>
         </BottomSheetFooter>
-    ), [profileImage, feedAuthor]);
+    ), [feedId, profileImage, feedAuthor, postComment]);
     const renderItem = (item: Comment) => (
         <View style={styles.itemContainer}>
             <Image

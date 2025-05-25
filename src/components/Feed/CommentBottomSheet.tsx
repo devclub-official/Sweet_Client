@@ -1,5 +1,5 @@
 import { BottomSheetFlatList, BottomSheetFooter, BottomSheetFooterProps, BottomSheetHandleProps, BottomSheetModal, BottomSheetTextInput } from "@gorhom/bottom-sheet";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { commonBottomSheetStyles } from "./styles/commonBottomSheetStyles";
 import { useBottomSheetCallbacks } from "./hooks/useBottomSheetCallbacks";
 import { Strings } from "./constants/strings";
@@ -19,9 +19,13 @@ interface CommentBottomSheetProps {
 }
 
 export const CommentBottomSheet = ({ bottomSheetRef, feedId, profileImage, feedAuthor }: CommentBottomSheetProps) => {
-    const snapPoints = useMemo(() => ['50%', '90%'], []);
     const { renderBackdrop, renderHandle } = useBottomSheetCallbacks();
-    const { comments, getCommentList, postComment } = useFeed();
+    const { comments, isLast, setComments, getCommentList, postComment } = useFeed();
+
+    const snapPoints = useMemo(() => ['50%', '90%'], []);
+
+    const [page, setPage] = useState<number>(0);
+
     const renderFooter = useCallback((footerProps: BottomSheetFooterProps) => (
         <BottomSheetFooter {...footerProps}>
             <View style={styles.footerContainer}>
@@ -61,8 +65,10 @@ export const CommentBottomSheet = ({ bottomSheetRef, feedId, profileImage, feedA
     );
 
     useEffect(() => {
-        getCommentList(feedId);
-    }, [feedId, getCommentList]);
+        setPage(0);
+        setComments([]);
+        getCommentList(feedId, page);
+    }, [feedId, page, setComments, getCommentList]);
 
     return (
         <BottomSheetModal
@@ -84,7 +90,12 @@ export const CommentBottomSheet = ({ bottomSheetRef, feedId, profileImage, feedA
                 renderItem={({ item }: { item: Comment }) => renderItem(item)}
                 contentContainerStyle={styles.itemListContainer}
                 onEndReached={() => {
-                    getCommentList(feedId);
+                    if (isLast) {
+                        return;
+                    }
+
+                    setPage((prevPage: number) => prevPage + 1);
+                    getCommentList(feedId, page);
                 }} />
         </BottomSheetModal>
     );

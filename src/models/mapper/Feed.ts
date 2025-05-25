@@ -25,6 +25,14 @@ const formatToFeedDate = (feedDate: string): string => {
     return `${parts[2]} ${parts[0]} ${parts[1].replace(',', '')}`;
 };
 
+export const commentDtoToDomain = (dto: CommentDto): Comment => ({
+    id: dto.commentId.toString(),
+    userId: dto.userId,
+    userName: dto.userName,
+    profileImageUrl: `${Config.MAIN_API_ORIGIN}${dto.profileImageUrl}`,
+    content: dto.text,
+});
+
 export const contentDtoToDomain = (dto: ContentDto[]): FeedSummary[] => {
     return dto.map((item: ContentDto): FeedSummary => ({
         id: item.id.toString(),
@@ -62,14 +70,6 @@ export const getFeedDetailDtoToDomain = (dto: GetFeedDetailDto): FeedDetail => (
         comment: comment.text,
     })),
     date: formatToFeedDate(dto.createdAt),
-});
-
-export const commentDtoToDomain = (dto: CommentDto): Comment => ({
-    id: dto.commentId.toString(),
-    userId: dto.userId,
-    userName: dto.userName,
-    profileImageUrl: `${Config.MAIN_API_ORIGIN}${dto.profileImageUrl}`,
-    content: dto.text,
 });
 
 export const likeDtoToDomain = (dto: GetLikeListDto): Like => ({

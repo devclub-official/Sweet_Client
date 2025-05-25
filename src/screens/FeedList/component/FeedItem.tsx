@@ -1,4 +1,3 @@
-import { CommentBottomSheet } from "@/components/Feed/CommentBottomSheet";
 import { Strings } from "@/components/Feed/constants/strings";
 import { ContentItem } from "@/components/Feed/ContentItem";
 import { ExerciseBottomSheet } from "@/components/Feed/ExerciseBottomSheet";
@@ -78,6 +77,7 @@ const likes: Like[] = [
 interface FeedItemProps {
     feed: FeedSummary;
     followStatus: FollowStatus;
+    onPressComment: (feed: FeedSummary) => void;
 }
 
 const renderFeedProfileRightComponent = (followStatus: FollowStatus, onPressOption: () => void) => (
@@ -89,11 +89,10 @@ const renderFeedProfileRightComponent = (followStatus: FollowStatus, onPressOpti
     </View>
 );
 
-export const FeedItem = ({ feed, followStatus }: FeedItemProps) => {
+export const FeedItem = ({ feed, followStatus, onPressComment }: FeedItemProps) => {
     const feedOptionBottomSheetModalRef = useRef<BottomSheetModal>(null);
     const exerciseBottomSheetModalRef = useRef<BottomSheetModal>(null);
     const likeBottomSheetModalRef = useRef<BottomSheetModal>(null);
-    const commentBottomSheetModalRef = useRef<BottomSheetModal>(null);
     const { handlePresentModalPress } = useBottomSheetCallbacks();
 
     return (
@@ -141,7 +140,7 @@ export const FeedItem = ({ feed, followStatus }: FeedItemProps) => {
                     svgName="Comment"
                     count={feed.commentCnt}
                     onPress={() => {
-                        handlePresentModalPress(commentBottomSheetModalRef);
+                        onPressComment(feed);
                     }}
                 />
                 <FeedActionItem
@@ -165,7 +164,7 @@ export const FeedItem = ({ feed, followStatus }: FeedItemProps) => {
                         font="CaptionR"
                         style={styles.viewAllCommentsTypo}
                         onPress={() => {
-                            handlePresentModalPress(commentBottomSheetModalRef);
+                            onPressComment(feed);
                         }}>
                         {Strings.VIEW_ALL_COMMENTS}
                     </Typo> : null
@@ -185,12 +184,6 @@ export const FeedItem = ({ feed, followStatus }: FeedItemProps) => {
             <LikeBottomSheet
                 bottomSheetRef={likeBottomSheetModalRef}
                 likes={likes} />
-
-            <CommentBottomSheet
-                bottomSheetRef={commentBottomSheetModalRef}
-                profileImage={feed.profileImage}
-                feedAuthor={feed.authorName}
-                comments={[]} />
         </View>
     );
 };

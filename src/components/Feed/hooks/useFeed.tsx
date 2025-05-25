@@ -1,8 +1,9 @@
 import { SweetError } from "@/apis/error";
-import { fetchFeedCommentListAPI, fetchFeedLkeListAPI } from "@/apis/feedApi";
+import { fetchFeedCommentListAPI, fetchFeedLkeListAPI, postFeedCommentAPI } from "@/apis/feedApi";
 import { Comment } from "@/models/domain/Feed/Comment";
 import { Like } from "@/models/domain/Feed/Like";
-import { commentDtoToDomain, likeDtoToDomain } from "@/models/mapper/Feed";
+import { postCommentResponseDtoToDomain, likeDtoToDomain } from "@/models/mapper/Feed";
+import { useUserStore } from "@/stores/useAuthStore";
 import { useCallback, useState } from "react";
 
 export const useFeed = () => {
@@ -11,6 +12,7 @@ export const useFeed = () => {
     const [isLast, setIsLast] = useState<boolean>(false);
     const [comments, setComments] = useState<Comment[]>([]);
     const [likes, setLikes] = useState<Like[]>([]);
+    const user = useUserStore(state => state.user);
 
     const getCommentList = useCallback((feedId: string) => {
         if (currentFeedId !== feedId) {
@@ -31,11 +33,11 @@ export const useFeed = () => {
 
                 setComments((prev) => {
                     if (res.number === 0) {
-                        return res.content.map(commentDtoToDomain);
+                        return res.content.map(postCommentResponseDtoToDomain);
                     } else {
                         return [
                             ...prev,
-                            ...res.content.map(commentDtoToDomain),
+                            ...res.content.map(postCommentResponseDtoToDomain),
                         ];
                     }
                 });
@@ -61,11 +63,41 @@ export const useFeed = () => {
                 }
             });
     }, []);
+    const postComment = useCallback((feedId: string, comment: string) => {
+        if (user) {
+            postFeedCommentAPI(Number(feedId), comment, user.id)
+                .then((res) => {
+                    setComments((prev) => [
+                        postCommentResponseDtoToDomain(res),
+                        ...prev,
+                    ]);
+                })
+                .catch((err) => {
+                    if (err instanceof SweetError) {
+                        console.log(err.errorMessage);
+                    }
+                });
+        } else {    //TODO: 나중에 지워져야 함.
+            postFeedCommentAPI(Number(feedId), comment, 1)
+                .then((res) => {
+                    setComments((prev) => [
+                        postCommentResponseDtoToDomain(res),
+                        ...prev,
+                    ]);
+                })
+                .catch((err) => {
+                    if (err instanceof SweetError) {
+                        console.log(err.errorMessage);
+                    }
+                });
+        }
+    }, [user]);
 
     return {
         comments,
         likes,
         getCommentList,
         getLikeList,
+        postComment,
     };
 };

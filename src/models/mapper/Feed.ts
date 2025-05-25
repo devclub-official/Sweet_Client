@@ -8,6 +8,7 @@ import { CommentDto } from "../dto/Feed/GetCommentListDto";
 import { Comment } from "../domain/Feed/Comment";
 import { Like } from "../domain/Feed/Like";
 import { GetLikeListDto } from "../dto/Feed/GetLikeListDto";
+import { PostCommentRequestDto, PostCommentResponseDto } from "../dto/Feed/PostCommentDto";
 
 const formatToFeedDate = (feedDate: string): string => {
   const date = new Date(feedDate);
@@ -73,4 +74,16 @@ export const likeDtoToDomain = (dto: GetLikeListDto): Like => ({
     profileImage: `${Config.MAIN_API_ORIGIN}${dto.profileImageUrl}`,
     nickname: dto.username,
     followStatus: FollowStatus.FOLLOWING,
+});
+
+export const stringToPostCommentRequestDto = (text: string): PostCommentRequestDto => ({
+    text: text,
+});
+
+export const postCommentResponseDtoToDomain = (dto: PostCommentResponseDto): Comment => ({
+    id: dto.commentId.toString(),
+    userId: dto.userId,
+    userName: dto.userName,
+    profileImageUrl: `${Config.MAIN_API_ORIGIN}${dto.profileImageUrl}`,
+    content: dto.text,
 });

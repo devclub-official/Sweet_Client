@@ -4,6 +4,8 @@ import { ContentDto } from "../dto/Feed/GetFeedListDto";
 import { GetFeedDetailDto } from "../dto/Feed/GetFeedDetailDto";
 import { CommentSummary, FeedDetail } from "../domain/Feed/FeedDetail";
 import { FollowStatus } from "../domain/Feed/FollowStatus";
+import { CommentDto } from "../dto/Feed/GetCommentListDto";
+import { Comment } from "../domain/Feed/Comment";
 
 const formatToFeedDate = (feedDate: string): string => {
     const date = new Date(feedDate);
@@ -26,9 +28,9 @@ export const contentDtoToDomain = (dto: ContentDto[]): FeedSummary[] => {
         title: item.title,
         authorId: item.authorId,
         authorName: item.authorName,
-        profileImage: `${Config.API_ORIGIN}${item.authorProfileImageUrl}`,
+        profileImage: `${Config.MAIN_API_ORIGIN}${item.authorProfileImageUrl}`,
         feedContent: item.feedContent,
-        imageUrls: item.imageUrls.map((image: string) => `${Config.API_ORIGIN}${image}`),
+        imageUrls: item.imageUrls.map((image: string) => `${Config.MAIN_API_ORIGIN}${image}`),
         date: formatToFeedDate(item.createdAt),
         isLiked: item.isLikedByCurrentUser,
         likeCnt: item.likeCount,
@@ -40,11 +42,11 @@ export const contentDtoToDomain = (dto: ContentDto[]): FeedSummary[] => {
 export const getFeedDetailDtoToDomain = (dto: GetFeedDetailDto): FeedDetail => ({
     id: dto.id,
     authorId: dto.authorId,
-    authorProfileImage: `${Config.API_ORIGIN}${dto.authorProfileImageUrl}`,
+    authorProfileImage: `${Config.MAIN_API_ORIGIN}${dto.authorProfileImageUrl}`,
     authorName: dto.authorName,
     title: dto.title,
     content: dto.feedContent,
-    imageUrls: dto.imageUrls.map((image) => `${Config.API_ORIGIN}${image}`),
+    imageUrls: dto.imageUrls.map((image) => `${Config.MAIN_API_ORIGIN}${image}`),
     followStatus: dto.visibility === '일촌' ? FollowStatus.FOLLOWING : FollowStatus.UNFOLLOWED,
     likeCount: dto.likeCount,
     commentCount: dto.commentCount,
@@ -57,4 +59,12 @@ export const getFeedDetailDtoToDomain = (dto: GetFeedDetailDto): FeedDetail => (
         comment: comment.text,
     })),
     date: formatToFeedDate(dto.createdAt),
+});
+
+export const commentDtoToDomain = (dto: CommentDto): Comment => ({
+    id: dto.commentId.toString(),
+    userId: dto.userId,
+    userName: dto.userName,
+    profileImageUrl: `${Config.MAIN_API_ORIGIN}${dto.profileImageUrl}`,
+    content: dto.text,
 });

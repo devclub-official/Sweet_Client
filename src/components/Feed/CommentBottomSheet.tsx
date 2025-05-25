@@ -1,25 +1,27 @@
 import { BottomSheetFlatList, BottomSheetFooter, BottomSheetFooterProps, BottomSheetHandleProps, BottomSheetModal, BottomSheetTextInput } from "@gorhom/bottom-sheet";
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { commonBottomSheetStyles } from "./styles/commonBottomSheetStyles";
 import { useBottomSheetCallbacks } from "./hooks/useBottomSheetCallbacks";
 import { Strings } from "./constants/strings";
 import { Image, StyleSheet, View } from "react-native";
 import { colors } from "@/theme/colors";
-import { Comment } from "@/models/domain/Feed/comment";
 import { Typo } from "../Typo";
 import { Svg } from "../Svg";
 import { FONTS } from '@/theme/fonts';
+import { Comment } from "@/models/domain/Feed/Comment";
+import { useFeed } from "./hooks/useFeed";
 
 interface CommentBottomSheetProps {
     bottomSheetRef: React.RefObject<BottomSheetModal | null>;
+    feedId: string;
     profileImage: string;
     feedAuthor: string;
-    comments: Comment[];
 }
 
-export const CommentBottomSheet = ({ bottomSheetRef, profileImage, feedAuthor, comments }: CommentBottomSheetProps) => {
+export const CommentBottomSheet = ({ bottomSheetRef, feedId, profileImage, feedAuthor }: CommentBottomSheetProps) => {
     const snapPoints = useMemo(() => ['50%', '90%'], []);
     const { renderBackdrop, renderHandle } = useBottomSheetCallbacks();
+    const { comments, getCommentList } = useFeed();
     const renderFooter = useCallback((footerProps: BottomSheetFooterProps) => (
         <BottomSheetFooter {...footerProps}>
             <View style={styles.footerContainer}>
@@ -43,17 +45,21 @@ export const CommentBottomSheet = ({ bottomSheetRef, profileImage, feedAuthor, c
             <Image
                 style={styles.itemProfileImage}
                 source={{
-                    uri: item.profileImage,
+                    uri: item.profileImageUrl,
                 }}
             />
             <View style={styles.itemContentContainer}>
-                <Typo color="CG1" font="ButtonSmallM">{item.commenter}</Typo>
+                <Typo color="CG1" font="ButtonSmallM">{item.userName}</Typo>
                 <Typo color="CG1" font="BodySmallR">{item.content}</Typo>
                 <Typo color="CG1" style={styles.itemCommentReplyTypo}>{Strings.REPLY}</Typo>
             </View>
             <Svg svgName="More" />
         </View>
     );
+
+    useEffect(() => {
+        getCommentList(feedId);
+    }, [feedId, getCommentList]);
 
     return (
         <BottomSheetModal
@@ -73,7 +79,10 @@ export const CommentBottomSheet = ({ bottomSheetRef, profileImage, feedAuthor, c
                 data={comments}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }: { item: Comment }) => renderItem(item)}
-                contentContainerStyle={styles.itemListContainer} />
+                contentContainerStyle={styles.itemListContainer}
+                onEndReached={() => {
+                    getCommentList(feedId);
+                }} />
         </BottomSheetModal>
     );
 };

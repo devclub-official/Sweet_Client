@@ -58,7 +58,11 @@ interface FeedDetailProps {
 }
 
 export const FeedDetail = ({ route }: FeedDetailProps) => {
-  const renderFollowTypo = () => <Typo color="PRI">{Strings.FOLLOW}</Typo>;
+  const renderFollowTypo = () => <Typo color="PRI" onPress={() => {
+    if (feed) {
+      followUser(feed.authorId);
+    }
+  }}>{Strings.FOLLOW}</Typo>;
 
   const renderRightHeader = () => (
     <View style={styles.headerRightContainer}>
@@ -86,7 +90,7 @@ export const FeedDetail = ({ route }: FeedDetailProps) => {
     });
   });
 
-  const { feed, likeFeed, unlikeFeed } = useFeedDetail(route.params?.id);
+  const { feed, likeFeed, unlikeFeed, followUser } = useFeedDetail(route.params?.id);
 
   return (
     <SafeAreaScreenWrapper>

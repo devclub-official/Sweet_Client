@@ -14,7 +14,7 @@ interface FeedFlatListProps {
 }
 
 export const FeedFlatList = ({ followStatus }: FeedFlatListProps) => {
-    const { feeds, getFeedList, likeFeed, unlikeFeed } = useFeedList();
+    const { feeds, getFeedList, likeFeed, unlikeFeed, followUser } = useFeedList();
     const { handlePresentModalPress } = useBottomSheetCallbacks();
     const likeBottomSheetModalRef = useRef<BottomSheetModal>(null);
     const commentBottomSheetModalRef = useRef<BottomSheetModal>(null);
@@ -30,6 +30,9 @@ export const FeedFlatList = ({ followStatus }: FeedFlatListProps) => {
                     <FeedItem
                         feed={item}
                         followStatus={followStatus}
+                        onPressFollow={() => {
+                            followUser(item.authorId);
+                        }}
                         onPressLikeIcon={((feedId: string) => {
                             if (item.isLiked) {
                                 unlikeFeed(feedId);

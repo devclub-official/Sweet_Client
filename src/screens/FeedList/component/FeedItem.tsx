@@ -48,21 +48,22 @@ const exercises: Exercise[] = [
 interface FeedItemProps {
     feed: FeedSummary;
     followStatus: FollowStatus;
+    onPressFollow: () => void;
     onPressLikeIcon: (feedId: string) => void;
     onPressLikeCount: (feedId: string) => void;
     onPressComment: (feed: FeedSummary) => void;
 }
 
-const renderFeedProfileRightComponent = (followStatus: FollowStatus, onPressOption: () => void) => (
+const renderFeedProfileRightComponent = (followStatus: FollowStatus, onPressOption: () => void, onPressFollow: () => void,) => (
     <View style={styles.profileRightContainer}>
-        {followStatus === FollowStatus.UNFOLLOWED ? <Typo color="PRI">{Strings.FOLLOW}</Typo> : null}
+        {followStatus === FollowStatus.UNFOLLOWED ? <Typo color="PRI" onPress={onPressFollow}>{Strings.FOLLOW}</Typo> : null}
         <TouchableOpacity onPress={onPressOption}>
             <Svg svgName="More" />
         </TouchableOpacity>
     </View>
 );
 
-export const FeedItem = ({ feed, followStatus, onPressLikeIcon, onPressLikeCount, onPressComment }: FeedItemProps) => {
+export const FeedItem = ({ feed, followStatus, onPressFollow, onPressLikeIcon, onPressLikeCount, onPressComment }: FeedItemProps) => {
     const feedOptionBottomSheetModalRef = useRef<BottomSheetModal>(null);
     const exerciseBottomSheetModalRef = useRef<BottomSheetModal>(null);
     const { handlePresentModalPress } = useBottomSheetCallbacks();
@@ -78,6 +79,7 @@ export const FeedItem = ({ feed, followStatus, onPressLikeIcon, onPressLikeCount
                     () => {
                         handlePresentModalPress(feedOptionBottomSheetModalRef);
                     },
+                    onPressFollow
                 )}
             />
 

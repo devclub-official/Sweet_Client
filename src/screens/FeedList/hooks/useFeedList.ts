@@ -1,5 +1,6 @@
 import {SweetError} from '@/apis/error';
 import {deleteFeedLike, fetchFeedListAPI, postFeedLike} from '@/apis/feedApi';
+import { postFollows } from '@/apis/followApi';
 import {FeedSummary} from '@/models/domain/Feed/FeedSummary';
 import {FollowStatus} from '@/models/domain/Feed/FollowStatus';
 import {contentDtoToDomain} from '@/models/mapper/Feed';
@@ -131,5 +132,55 @@ export const useFeedList = () => {
     }
   };
 
-  return {feeds, getFeedList, likeFeed, unlikeFeed};
+  const followUser = (userId: number) => {
+    if (user) {
+        postFollows(user.id, userId)
+            .then(() => {
+              setFeeds((prevFeeds) =>
+                prevFeeds.map((feed) =>
+                  feed.authorId === userId
+                    ? {
+                        ...feed,
+                        followStatus: FollowStatus.FOLLOWING,
+                      }
+                    : feed
+                )
+              );
+            })
+            .catch((err) => {
+                if (err instanceof SweetError) {
+                    console.log(err.errorMessage);
+                }
+            });
+    } else {
+        //TODO: 나중에 지워질 예정
+        postFollows(1, userId)
+          .then(() => {
+            console.log('followUser');
+            setFeeds((prevFeeds) =>
+              prevFeeds.map((feed) =>
+                feed.authorId === userId
+                  ? {
+                      ...feed,
+                      followStatus: FollowStatus.UNFOLLOWED,
+                    }
+                  : feed
+              )
+            );
+          })
+          .catch((err) => {
+              if (err instanceof SweetError) {
+                  console.log(err.errorMessage);
+              }
+          });
+    }
+};
+
+  return {
+    feeds,
+    getFeedList,
+    likeFeed,
+    unlikeFeed,
+    followUser,
+  };
 };

@@ -44,6 +44,7 @@ export const contentDtoToDomain = (dto: ContentDto[]): FeedSummary[] => {
         likeCnt: item.likeCount,
         commentCnt: item.commentCount,
         likeUserName: item.firstLikedUserName,
+        followStatus: item.visibility === '일촌' ? FollowStatus.FOLLOWING : FollowStatus.UNFOLLOWED,
     }));
 };
 

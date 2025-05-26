@@ -1,3 +1,5 @@
+import { FollowStatus } from "./FollowStatus";
+
 export interface FeedSummary {
     id: string;
     title: string;
@@ -11,4 +13,5 @@ export interface FeedSummary {
     likeCnt: number;
     commentCnt: number;
     likeUserName: string;
+    followStatus: FollowStatus;
 }

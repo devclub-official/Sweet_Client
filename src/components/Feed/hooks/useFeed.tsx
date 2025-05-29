@@ -1,8 +1,11 @@
 import { SweetError } from "@/apis/error";
 import { fetchFeedCommentListAPI, fetchFeedLkeListAPI, postFeedCommentAPI } from "@/apis/feedApi";
+import { fetchFollowStatus } from "@/apis/followApi";
 import { Comment } from "@/models/domain/Feed/Comment";
+import { FollowStatus } from "@/models/domain/Feed/FollowStatus";
 import { Like } from "@/models/domain/Feed/Like";
 import { postCommentResponseDtoToDomain, likeDtoToDomain, commentDtoToDomain } from "@/models/mapper/Feed";
+import { fetFollowStatusDtoToFollowStatus } from "@/models/mapper/Follow";
 import { useUserStore } from "@/stores/useAuthStore";
 import { useCallback, useState } from "react";
 
@@ -35,22 +38,36 @@ export const useFeed = () => {
             });
     }, []);
 
+    const getLikeList = useCallback(async (feedId: string) => {
+        try {
+            const res = await fetchFeedLkeListAPI(Number(feedId));
 
-    const getLikeList = useCallback((feedId: string) => {
-        fetchFeedLkeListAPI(Number(feedId))
-            .then((res) => {
-                if (res.length === 0) {
-                    setLikes([]);
-                } else {
-                    setLikes(res.map(likeDtoToDomain));
-                }
-            })
-            .catch((err) => {
-                if (err instanceof SweetError) {
-                    console.log(err.errorMessage);
+            const likePromises = res.map(async (like) => {
+                try {
+                    const followStatusRes = await fetchFollowStatus(user?.id ?? 1, like.userId);
+                    return {
+                        ...likeDtoToDomain(like),
+                        followStatus: fetFollowStatusDtoToFollowStatus(followStatusRes),
+                    };
+                } catch (err) {
+                    if (err instanceof SweetError) {
+                        console.log(err.errorMessage);
+                    }
+                    return {
+                        ...likeDtoToDomain(like),
+                        followStatus: FollowStatus.UNFOLLOWED,
+                    };
                 }
             });
-    }, []);
+
+            const likesWithFollowStatus = await Promise.all(likePromises);
+            setLikes(likesWithFollowStatus);
+        } catch (err) {
+            if (err instanceof SweetError) {
+                console.log(err.errorMessage);
+            }
+        }
+    }, [user]);
 
     const postComment = useCallback((feedId: string, comment: string) => {
         if (user) {

@@ -10,6 +10,7 @@ export interface GetFeedDetailDto {
     likeCount: number;
     isLikedByCurrentUser: boolean;
     firstLikedUserName: string;
+    firstLikedUserProfileImageUrl: string;
     commentCount: number;
     topComments: CommentDto[];
     shareCount: number;

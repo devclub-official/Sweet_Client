@@ -27,6 +27,7 @@ export interface ContentDto {
     likeCount: number;
     isLikedByCurrentUser: boolean;
     firstLikedUserName: string;
+    firstLikedUserProfileImageUrl: string;
     commentCount: number;
     shareCount: number;
     createdAt: string;

@@ -44,6 +44,7 @@ export const contentDtoToDomain = (dto: ContentDto[]): FeedSummary[] => {
         likeCnt: item.likeCount,
         commentCnt: item.commentCount,
         likeUserName: item.firstLikedUserName,
+        likeUserProfileImage: `${Config.MAIN_API_ORIGIN}${item.firstLikedUserProfileImageUrl}`,
         followStatus: item.visibility === '일촌' ? FollowStatus.FOLLOWING : FollowStatus.UNFOLLOWED,
     }));
 };
@@ -61,6 +62,7 @@ export const getFeedDetailDtoToDomain = (dto: GetFeedDetailDto): FeedDetail => (
     commentCount: dto.commentCount,
     isLiked: dto.isLikedByCurrentUser,
     firstLikedUserName: dto.firstLikedUserName,
+    firstLikedUserProfileImageUrl: `${Config.MAIN_API_ORIGIN}${dto.firstLikedUserProfileImageUrl}`,
     comments: dto.topComments.map((comment): CommentSummary => ({
         commentId: comment.commentId.toString(),
         commenterId: comment.userId,

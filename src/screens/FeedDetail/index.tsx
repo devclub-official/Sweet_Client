@@ -158,7 +158,7 @@ export const FeedDetail = ({ route }: FeedDetailProps) => {
               </View>
 
               {
-                feed.likeCount > 0 ? <LikeContainer style={styles.likeContainer} profileImage='' nickname={feed.firstLikedUserName} likeCount={feed.likeCount - 1} /> : null
+                feed.likeCount > 0 ? <LikeContainer style={styles.likeContainer} profileImage={feed.firstLikedUserProfileImageUrl} nickname={feed.firstLikedUserName} likeCount={feed.likeCount - 1} /> : null
               }
 
               <ContentItem

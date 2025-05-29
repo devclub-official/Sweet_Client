@@ -13,5 +13,6 @@ export interface FeedSummary {
     likeCnt: number;
     commentCnt: number;
     likeUserName: string;
+    likeUserProfileImage: string;
     followStatus: FollowStatus;
 }

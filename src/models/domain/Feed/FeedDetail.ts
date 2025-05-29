@@ -13,6 +13,7 @@ export interface FeedDetail {
     commentCount: number;
     isLiked: boolean;
     firstLikedUserName: string;
+    firstLikedUserProfileImageUrl: string;
     comments: CommentSummary[];
     date: string;
 }

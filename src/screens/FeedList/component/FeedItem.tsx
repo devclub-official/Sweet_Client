@@ -133,7 +133,7 @@ export const FeedItem = ({ feed, followStatus, onPressFollow, onPressLikeIcon, o
             </View>
 
             {
-                feed.likeCnt > 0 ? <LikeContainer style={styles.likeContainer} profileImage='' nickname={feed.likeUserName} likeCount={feed.likeCnt - 1} /> : null
+                feed.likeCnt > 0 ? <LikeContainer style={styles.likeContainer} profileImage={feed.likeUserProfileImage} nickname={feed.likeUserName} likeCount={feed.likeCnt - 1} /> : null
             }
 
             <ContentItem

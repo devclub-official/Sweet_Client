@@ -1,5 +1,3 @@
-import {TextStyle} from 'react-native';
-
 const FONT_WEIGHT = {
   light: {
     fontWeight: 300,

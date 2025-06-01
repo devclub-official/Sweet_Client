@@ -1,6 +1,12 @@
 import {SafeAreaScreenWrapper} from '@/components/SafeAreaScreenWrapper';
 import {useRef, useState} from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+  Keyboard,
+  StyleSheet,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import {OnboardingStart} from './components/OnboardingStart';
 import {BirthYear} from './components/BirthYear';
 import {InterestSports} from './components/InterestSports';
@@ -9,14 +15,9 @@ import {ProfileSetup} from './components/ProfileSetup';
 import {Button} from '@/components/Button';
 import {Svg} from '@/components/Svg';
 import {OnboardingFormData} from '@/models/domain/Onboard';
-import {OnboadingContext} from './context/OnboardingContext';
-import {
-  BottomSheetHandle,
-  BottomSheetModal,
-  BottomSheetView,
-} from '@gorhom/bottom-sheet';
-import {Typo} from '@/components/Typo';
-import {commonBottomSheetStyles} from '@/components/Feed/styles/commonBottomSheetStyles';
+import {OnboardingContext} from './context/OnboardingContext';
+import {BottomSheetModal} from '@gorhom/bottom-sheet';
+import {PermissionBottomSheet} from './components/PermissionBottomSheet';
 
 /**
  * STEP
@@ -31,14 +32,25 @@ export const Onboarding = () => {
   const [step, setStep] = useState(0);
   const [formData, setFormData] = useState<OnboardingFormData>({
     name: '',
+    birth: '',
+    interestSport: '',
+    region: '',
   });
   const ref = useRef<BottomSheetModal>(null);
 
+  console.log('formData ==>', formData);
   const handleFormDataChange = <T extends keyof OnboardingFormData>(
     key: T,
     value: OnboardingFormData[T],
   ) => {
     setFormData(prev => ({...prev, [key]: value}));
+  };
+  const handleNextPress = () => {
+    if (step === 0) {
+      ref.current?.present();
+    } else {
+      setStep(step + 1);
+    }
   };
 
   const renderButtonText = () => {
@@ -67,51 +79,43 @@ export const Onboarding = () => {
   };
 
   return (
-    <OnboadingContext.Provider
+    <OnboardingContext.Provider
       value={{...formData, onChange: handleFormDataChange}}>
       <SafeAreaScreenWrapper>
-        <View style={styles.formWrapper}>
-          {step !== 0 && (
-            <TouchableOpacity
-              onPress={() => {
-                setStep(step - 1);
-              }}>
-              <Svg svgName="ChevronLeft" />
-            </TouchableOpacity>
-          )}
-          <View style={styles.mainContent}>{renderScreen()}</View>
-          <Button
-            onPress={() => {
-              console.log(ref.current);
-              ref.current?.present();
-              // setStep(step + 1);
-            }}>
-            {renderButtonText()}
-          </Button>
-        </View>
-        <BottomSheetModal
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+          <View style={styles.formWrapper}>
+            {step !== 0 && (
+              <TouchableOpacity
+                onPress={() => {
+                  setStep(step - 1);
+                }}>
+                <Svg svgName="ChevronLeft" />
+              </TouchableOpacity>
+            )}
+
+            <View style={styles.mainContent}>
+              <InterestSports />
+            </View>
+            {/* <View style={styles.mainContent}>{renderScreen()}</View> */}
+
+            <Button onPress={handleNextPress}>{renderButtonText()}</Button>
+          </View>
+        </TouchableWithoutFeedback>
+
+        <PermissionBottomSheet
           ref={ref}
-          onChange={d => {
-            console.log('good ==> ', d);
+          onStateChange={state => console.log('state ==>', state)}
+          onConfirmPress={() => {
+            setStep(step + 1);
+            ref.current?.close();
           }}
-          backgroundStyle={commonBottomSheetStyles.background}
-          handleStyle={commonBottomSheetStyles.handle}
-          handleIndicatorStyle={commonBottomSheetStyles.handleIndicator}
-          handleComponent={props => {
-            return (
-              <BottomSheetHandle {...props}>
-                <Typo color="CG1" font="ButtonSmallM">
-                  테스트
-                </Typo>
-              </BottomSheetHandle>
-            );
-          }}>
-          <BottomSheetView>
-            <View style={{height: 500, backgroundColor: 'red'}} />
-          </BottomSheetView>
-        </BottomSheetModal>
+          onSkipPress={() => {
+            setStep(step + 1);
+            ref.current?.close();
+          }}
+        />
       </SafeAreaScreenWrapper>
-    </OnboadingContext.Provider>
+    </OnboardingContext.Provider>
   );
 };
 
@@ -124,5 +128,6 @@ const styles = StyleSheet.create({
   },
   mainContent: {
     flex: 1,
+    backgroundColor: 'pink',
   },
 });

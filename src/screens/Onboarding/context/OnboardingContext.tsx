@@ -8,6 +8,6 @@ interface OnboardingFormDataChange {
   ) => void;
 }
 
-export const OnboadingContext = createContext<
+export const OnboardingContext = createContext<
   (OnboardingFormData & OnboardingFormDataChange) | undefined
 >(undefined);

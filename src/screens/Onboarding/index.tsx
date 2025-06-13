@@ -38,7 +38,6 @@ export const Onboarding = () => {
   });
   const ref = useRef<BottomSheetModal>(null);
 
-  console.log('formData ==>', formData);
   const handleFormDataChange = <T extends keyof OnboardingFormData>(
     key: T,
     value: OnboardingFormData[T],
@@ -94,7 +93,7 @@ export const Onboarding = () => {
             )}
 
             <View style={styles.mainContent}>
-              <InterestSports />
+              <ActivityRegion />
             </View>
             {/* <View style={styles.mainContent}>{renderScreen()}</View> */}
 
@@ -128,6 +127,5 @@ const styles = StyleSheet.create({
   },
   mainContent: {
     flex: 1,
-    backgroundColor: 'pink',
   },
 });

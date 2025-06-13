@@ -93,3 +93,11 @@ export const INTEREST_SPORTS_ITEM_LIST: Array<{
     value: '배드민턴',
   },
 ];
+
+export const REGIONS: Array<{province: string; cities: string[]}> = [
+  {province: '서울', cities: ['영등포구', '서대문구', '강남구']},
+  {province: '경기', cities: ['영등포구', '서대문구', '강남구']},
+  {province: '충남', cities: ['영등포구', '서대문구', '강남구']},
+  {province: '충북', cities: ['영등포구', '서대문구', '강남구']},
+  {province: '전남', cities: ['영등포구', '서대문구', '강남구']},
+];

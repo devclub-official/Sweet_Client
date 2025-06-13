@@ -9,7 +9,9 @@ interface Props {
 export const OnboardingContentHeader = ({title, description}: Props) => {
   return (
     <View style={styles.wrapper}>
-      <Typo font="HeadSmallB">{title}</Typo>
+      <Typo font="HeadSmallB" style={styles.title}>
+        {title}
+      </Typo>
       <Typo font="BodyMediumR" color="CG15" style={styles.description}>
         {description}
       </Typo>
@@ -21,7 +23,11 @@ const styles = StyleSheet.create({
   wrapper: {
     alignItems: 'center',
   },
+  title: {
+    textAlign: 'center',
+  },
   description: {
     marginTop: 8,
+    textAlign: 'center',
   },
 });

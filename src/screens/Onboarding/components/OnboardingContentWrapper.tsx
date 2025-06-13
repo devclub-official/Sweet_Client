@@ -10,6 +10,6 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     paddingTop: 40,
-    alignItems: 'center',
+    // alignItems: 'center',
   },
 });

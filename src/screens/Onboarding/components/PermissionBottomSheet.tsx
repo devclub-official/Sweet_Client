@@ -11,7 +11,7 @@ import {Button} from '@/components/Button';
 import {BottomSheet} from '@/components/BottomSheet';
 
 interface Props {
-  onStateChange: (state: number) => void;
+  onStateChange?: (state: number) => void;
   onConfirmPress: () => void;
   onSkipPress: () => void;
 }

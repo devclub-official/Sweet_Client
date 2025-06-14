@@ -115,7 +115,6 @@ export const Onboarding = () => {
 
         <PermissionBottomSheet
           ref={ref}
-          onStateChange={state => console.log('state ==>', state)}
           onConfirmPress={() => {
             setStep(step + 1);
             ref.current?.close();

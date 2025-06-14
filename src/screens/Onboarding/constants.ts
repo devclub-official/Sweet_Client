@@ -96,8 +96,8 @@ export const INTEREST_SPORTS_ITEM_LIST: Array<{
 
 export const REGIONS: Array<{province: string; cities: string[]}> = [
   {province: '서울', cities: ['영등포구', '서대문구', '강남구']},
-  {province: '경기', cities: ['영등포구', '서대문구', '강남구']},
-  {province: '충남', cities: ['영등포구', '서대문구', '강남구']},
-  {province: '충북', cities: ['영등포구', '서대문구', '강남구']},
-  {province: '전남', cities: ['영등포구', '서대문구', '강남구']},
+  {province: '경기', cities: ['용인시', '성남시', '수원시']},
+  {province: '충남', cities: ['천안시', '아산시', '당진시']},
+  {province: '충북', cities: ['청주시', '제천시']},
+  {province: '전남', cities: ['여수시', '목포시', '순천시']},
 ];

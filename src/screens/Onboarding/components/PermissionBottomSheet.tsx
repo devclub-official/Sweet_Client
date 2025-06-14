@@ -8,7 +8,7 @@ import {PERMISSION_LIST} from '../constants';
 
 import {ScrollView} from 'react-native-gesture-handler';
 import {Button} from '@/components/Button';
-import {BottomModal} from '@/components/BottomModal';
+import {BottomSheet} from '@/components/BottomSheet';
 
 interface Props {
   onStateChange: (state: number) => void;
@@ -24,7 +24,7 @@ interface Props {
 export const PermissionBottomSheet = forwardRef<BottomSheetModal, Props>(
   ({onStateChange, onConfirmPress, onSkipPress}, ref) => {
     return (
-      <BottomModal
+      <BottomSheet
         ref={ref}
         onChange={onStateChange}
         handleComponent={() => null}>
@@ -67,7 +67,7 @@ export const PermissionBottomSheet = forwardRef<BottomSheetModal, Props>(
             </TouchableOpacity>
           </View>
         </View>
-      </BottomModal>
+      </BottomSheet>
     );
   },
 );

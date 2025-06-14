@@ -38,6 +38,19 @@ export const Onboarding = () => {
   });
   const ref = useRef<BottomSheetModal>(null);
 
+  const validation = () => {
+    // true를 반환하면 에러
+    switch (step) {
+      case 1:
+        return formData.birth.length < 4;
+      case 2:
+        return formData.interestSport === '';
+      case 3:
+        return formData.region === '';
+      case 4:
+        return formData.name === '';
+    }
+  };
   const handleFormDataChange = <T extends keyof OnboardingFormData>(
     key: T,
     value: OnboardingFormData[T],
@@ -92,12 +105,11 @@ export const Onboarding = () => {
               </TouchableOpacity>
             )}
 
-            <View style={styles.mainContent}>
-              <ActivityRegion />
-            </View>
-            {/* <View style={styles.mainContent}>{renderScreen()}</View> */}
+            <View style={styles.mainContent}>{renderScreen()}</View>
 
-            <Button onPress={handleNextPress}>{renderButtonText()}</Button>
+            <Button onPress={handleNextPress} disabled={validation()}>
+              {renderButtonText()}
+            </Button>
           </View>
         </TouchableWithoutFeedback>
 

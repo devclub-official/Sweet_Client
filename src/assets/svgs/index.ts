@@ -39,7 +39,6 @@ import OnboardingBadminton from './OnboardingBadminton';
 import OnboardingBasketball from './OnboardingBeskitball';
 import OnboardingBicycle from './OnboardingBicycle';
 import OnboardingClimbing from './OnboardingClimbing';
-import {OnboardingContentHeader} from '@/screens/Onboarding/components/OnboardingContentHeader';
 import OnboardingSwimming from './OnboardingSwimming';
 import OnboardingTennis from './OnboardingTennis';
 import OnboardingTreadmill from './OnboardingTreadmill';
@@ -48,6 +47,7 @@ import OnboardingSoccer from './OnboardingSoccer';
 import OnboardingWeight from './OnboardingWeight';
 import OnboardingYoga from './OnboardingYoga';
 import OnboardingPilates from './OnboardingPilates';
+import {PtptConsonant} from './PtptConsonant';
 
 export const svgMap = {
   ChevronLeft,
@@ -99,4 +99,5 @@ export const svgMap = {
   OnboardingWeight,
   OnboardingYoga,
   OnboardingPilates,
+  PtptConsonant,
 };

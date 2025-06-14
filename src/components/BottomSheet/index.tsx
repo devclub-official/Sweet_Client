@@ -18,7 +18,7 @@ interface Props extends BottomSheetModalProps {
   children: React.ReactNode;
 }
 
-export const BottomModal = forwardRef<BottomSheetModal, Props>(
+export const BottomSheet = forwardRef<BottomSheetModal, Props>(
   ({children, ...rest}: Props, ref) => {
     const insets = useSafeAreaInsets();
 
@@ -31,11 +31,11 @@ export const BottomModal = forwardRef<BottomSheetModal, Props>(
 
     return (
       <BottomSheetModal
-        {...rest}
         ref={ref}
         handleComponent={() => null}
         backdropComponent={renderBackdrop}
-        backgroundStyle={styles.wrapper}>
+        backgroundStyle={styles.wrapper}
+        {...rest}>
         <BottomSheetView style={{paddingBottom: insets.bottom}}>
           {children}
         </BottomSheetView>

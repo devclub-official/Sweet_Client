@@ -3,16 +3,20 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {OnboardingContentWrapper} from './OnboardingContentWrapper';
 import {OnboardingContentHeader} from './OnboardingContentHeader';
 import {colors} from '@/theme/colors';
-import {useContext, useRef} from 'react';
+import {useContext, useRef, useState} from 'react';
 import {OnboardingContext} from '../context/OnboardingContext';
 import {REGIONS} from '../constants';
-import {PermissionBottomSheet} from './PermissionBottomSheet';
 import {BottomSheetModal} from '@gorhom/bottom-sheet';
 import {Grid} from '@/components/Grid';
+import {CitySelectModal} from './CitySelectModal';
 
 export const ActivityRegion = () => {
   const context = useContext(OnboardingContext);
   const ref = useRef<BottomSheetModal>(null);
+  const [cities, setCities] = useState<string[]>([]);
+  const [province, city] = (context?.region || ' ').split(' ');
+  const selectedProvince = useRef('');
+
   return (
     <OnboardingContentWrapper>
       <OnboardingContentHeader
@@ -28,29 +32,42 @@ export const ActivityRegion = () => {
           columnGap={16}
           rowGap={16}
           renderItem={(size, {item}) => {
+            const isSelected = province === item.province;
             return (
               <TouchableOpacity
-                style={[styles.item, {width: size}]}
+                style={[
+                  styles.item,
+                  {width: size},
+                  isSelected && styles.selectedProvince,
+                ]}
                 onPress={() => {
-                  context?.onChange('interestSport', item.province);
+                  selectedProvince.current = item.province;
+                  setCities(item.cities);
+                  ref.current?.present();
                 }}>
                 <Typo font="SubSmallM" style={styles.sportName} color="CG5">
                   {item.province}
                 </Typo>
+                {isSelected && (
+                  <Typo font="SubSmallM" style={styles.sportName} color="CG5">
+                    {city}
+                  </Typo>
+                )}
               </TouchableOpacity>
             );
           }}
           numColumns={4}
         />
       </View>
-      <PermissionBottomSheet
+      <CitySelectModal
         ref={ref}
-        onStateChange={state => console.log('state ==>', state)}
-        onConfirmPress={() => {
-          ref.current?.close();
-        }}
-        onSkipPress={() => {
-          ref.current?.close();
+        cities={cities}
+        onCityChange={selectedCity => {
+          context?.onChange(
+            'region',
+            `${selectedProvince.current} ${selectedCity}`,
+          );
+          ref.current?.dismiss();
         }}
       />
     </OnboardingContentWrapper>
@@ -78,5 +95,9 @@ const styles = StyleSheet.create({
   },
   sportName: {
     marginTop: 8,
+  },
+  selectedProvince: {
+    borderWidth: 1,
+    borderColor: colors.PRI,
   },
 });

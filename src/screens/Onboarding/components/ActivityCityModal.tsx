@@ -1,4 +1,4 @@
-import {BottomModal} from '@/components/BottomModal';
+import {BottomModal} from '@/components/BottomSheet';
 import {BottomSheetModal} from '@gorhom/bottom-sheet';
 import {forwardRef} from 'react';
 import {View} from 'react-native';

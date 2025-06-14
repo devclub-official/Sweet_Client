@@ -30,6 +30,24 @@ import {ProfileCircle} from './ProfileCircle';
 import {Share} from './Share';
 import Calendar from './Calendar';
 import TodaysExercise from './TodaysExercise';
+import OnboardingHeart from './OnboardingHeart';
+import LightBell from './LightBell';
+import LightCamera from './LightCamera';
+import LightImage from './LightImage';
+import LightLocation from './LightLocation';
+import OnboardingBadminton from './OnboardingBadminton';
+import OnboardingBasketball from './OnboardingBeskitball';
+import OnboardingBicycle from './OnboardingBicycle';
+import OnboardingClimbing from './OnboardingClimbing';
+import OnboardingSwimming from './OnboardingSwimming';
+import OnboardingTennis from './OnboardingTennis';
+import OnboardingTreadmill from './OnboardingTreadmill';
+import OnboardingRunning from './OnboardingRunning';
+import OnboardingSoccer from './OnboardingSoccer';
+import OnboardingWeight from './OnboardingWeight';
+import OnboardingYoga from './OnboardingYoga';
+import OnboardingPilates from './OnboardingPilates';
+import {PtptConsonant} from './PtptConsonant';
 
 export const svgMap = {
   ChevronLeft,
@@ -64,4 +82,22 @@ export const svgMap = {
   Check,
   AlertCircle,
   TodaysExercise,
+  OnboardingHeart,
+  LightBell,
+  LightCamera,
+  LightImage,
+  LightLocation,
+  OnboardingBadminton,
+  OnboardingBasketball,
+  OnboardingBicycle,
+  OnboardingClimbing,
+  OnboardingSwimming,
+  OnboardingTennis,
+  OnboardingTreadmill,
+  OnboardingRunning,
+  OnboardingSoccer,
+  OnboardingWeight,
+  OnboardingYoga,
+  OnboardingPilates,
+  PtptConsonant,
 };

@@ -13,7 +13,7 @@ import { strings } from "@/constants/strings";
 import { useEditProfile } from "./hooks/useEditProfile";
 
 export const EditProfile = () => {
-    const { profile, newNickname, newIntroduce, setNewNickname, setNewIntroduce } = useEditProfile();
+    const { profile, newNickname, newIntroduce, setNewNickname, setNewIntroduce, updateProfile } = useEditProfile();
 
     return (
         <SafeAreaScreenWrapper>
@@ -25,7 +25,7 @@ export const EditProfile = () => {
                     <Image
                         style={styles.profileImage}
                         source={{
-                            uri: profile?.profileImage,
+                            uri: profile.profileImage,
                         }} />
                     <TouchableOpacity style={styles.cameraIcon}>
                         <Camera />
@@ -35,7 +35,7 @@ export const EditProfile = () => {
                     <Typo color="CG10" font="SubSmallM">{strings.NICKNAME}</Typo>
                     <Input
                         style={styles.input}
-                        defaultValue={profile?.nickname}
+                        defaultValue={profile.nickname}
                         value={newNickname}
                         onChangeText={setNewNickname} />
                 </View>
@@ -44,7 +44,7 @@ export const EditProfile = () => {
                     <View>
                         <Input
                             style={styles.input}
-                            defaultValue={profile?.introduce}
+                            defaultValue={profile.introduce}
                             value={newIntroduce}
                             maxLength={50}
                             multiline={true}
@@ -55,7 +55,9 @@ export const EditProfile = () => {
             </KeyboardAwareScrollView>
             <View style={styles.completeButtonContainer}>
                 <Button
-                    disabled={profile?.nickname !== newNickname && profile?.introduce !== newIntroduce && newNickname.length >= 1 ? false : true}>
+                    disabled={profile.nickname !== newNickname && profile.introduce !== newIntroduce && newNickname.length >= 1 ? false : true}
+                    onPress={updateProfile}
+                >
                     {editProfileStrings.COMPLETE}
                 </Button>
             </View>

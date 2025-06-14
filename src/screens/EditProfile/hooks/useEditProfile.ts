@@ -30,7 +30,7 @@ export const useEditProfile = () => {
                 console.log(err.errorMessage);
             }
         });
-    }, []);
+    }, [newNickname, newIntroduce]);
 
     useEffect(() => {
         fetchMyProfileAPI().then(res => {
@@ -46,7 +46,7 @@ export const useEditProfile = () => {
                 console.log(err.errorMessage);
             }
         });
-    }, [])
+    }, []);
 
     return {
         profile,

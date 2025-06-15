@@ -1,5 +1,5 @@
 import {ProfileInfo} from '@/models/domain/Profile/ProfileInfo';
-import {FlatList, Image, StyleSheet, View} from 'react-native';
+import {FlatList, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Button} from '../Button';
 import {ProfileType} from '@/models/domain/Profile/ProfileType';
 import {strings as stringsInProfile} from './constants/strings';
@@ -50,13 +50,25 @@ const renderButtonByProfileType = (
   }
 };
 
-const renderFeedItem = ({item}: {item: FeedInProfile}) => (
-  <Image
-    style={styles.feedItemImage}
-    source={{
-      uri: item.feedThumbnail,
+const renderFeedItem = (
+  {item}: {item: FeedInProfile}, 
+  navigation: NativeStackNavigationProp<RootStackParamList>['navigate'],
+) => (
+  <TouchableOpacity 
+    style={styles.feedItemImageContainer}
+    onPress={() => {
+      navigation(RootStackScreenList.FeedDetail, {
+        id: item.feedId,
+      });
     }}
-  />
+  >
+    <Image
+      style={styles.feedItemImage}
+      source={{
+        uri: item.feedThumbnail,
+      }}
+    />
+  </TouchableOpacity>
 );
 
 export const ProfileContainer = ({userId, isMyPage}: ProfileContainerProps) => {
@@ -66,7 +78,7 @@ export const ProfileContainer = ({userId, isMyPage}: ProfileContainerProps) => {
   return (
     <FlatList
       data={profileInfo.feeds}
-      renderItem={renderFeedItem}
+      renderItem={({ item }) => renderFeedItem({ item }, navigation.push)}
       keyExtractor={item => item.feedId.toString()}
       numColumns={3}
       ListHeaderComponent={
@@ -167,9 +179,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 8,
   },
-  feedItemImage: {
+  feedItemImageContainer: {
     margin: 1,
     width: '33.3%',
+  },
+  feedItemImage: {
     aspectRatio: 1,
   },
 });

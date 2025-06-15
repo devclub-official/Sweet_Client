@@ -163,6 +163,14 @@ const MyPageTab = () => {
           headerTitleAlign: 'center',
         })}
       />
+      <Stack.Screen
+        name={RootStackScreenList.FeedDetail}
+        component={FeedDetail}
+        options={props => ({
+          ...getDefaultHeaderOptions(props),
+          headerTitle: screenTitle.FeedDetail,
+        })}
+      />
     </Stack.Navigator>
   );
 };

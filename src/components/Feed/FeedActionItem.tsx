@@ -8,15 +8,16 @@ import { SvgNames } from "@/types/svg";
 interface FeedActionItemProps {
     svgName: SvgNames;
     count?: number;
-    onPress: () => void;
+    onPressIcon: () => void;
+    onPressText?: () => void;
 }
 
-export const FeedActionItem = ({ svgName, count, onPress }: FeedActionItemProps) => (
+export const FeedActionItem = ({ svgName, count, onPressIcon, onPressText }: FeedActionItemProps) => (
     <View style={styles.rootContainer}>
-        <TouchableOpacity onPress={onPress}>
+        <TouchableOpacity onPress={onPressIcon}>
             <Svg svgName={svgName} />
         </TouchableOpacity>
-        <Typo font="CaptionR">{count}</Typo>
+        <Typo font="CaptionR" onPress={onPressText}>{count}</Typo>
     </View>
 );
 

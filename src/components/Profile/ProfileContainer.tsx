@@ -16,7 +16,7 @@ import {Svg} from '../Svg';
 import { useProfile } from './hooks/useProfile';
 
 interface ProfileContainerProps {
-  userId: number;
+  userId?: number;
   isMyPage: boolean;
 }
 

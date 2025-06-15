@@ -10,6 +10,9 @@ import {useUserStore} from '@/stores/useAuthStore';
 import {getMe} from '@/apis/auth';
 import {PaperProvider} from 'react-native-paper';
 import {navigation} from '@/utils/navigation';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
+import {StyleSheet} from 'react-native';
 
 const defaultTheme = {
   ...DefaultTheme,
@@ -51,11 +54,21 @@ const App = () => {
     return null;
   }
   return (
-    <PaperProvider>
-      <NavigationContainer theme={defaultTheme} ref={navigationRef}>
-        {isLogined ? <RootStack /> : <AuthStack />}
-      </NavigationContainer>
-    </PaperProvider>
+    <GestureHandlerRootView style={styles.gestureHandler}>
+      <BottomSheetModalProvider>
+        <PaperProvider>
+          <NavigationContainer theme={defaultTheme} ref={navigationRef}>
+            {isLogined ? <RootStack /> : <AuthStack />}
+          </NavigationContainer>
+        </PaperProvider>
+      </BottomSheetModalProvider>
+    </GestureHandlerRootView>
   );
 };
 export default App;
+
+const styles = StyleSheet.create({
+  gestureHandler: {
+    flex: 1,
+  },
+});

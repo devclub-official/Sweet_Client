@@ -1,5 +1,3 @@
-import {TextStyle} from 'react-native';
-
 const FONT_WEIGHT = {
   light: {
     fontWeight: 300,
@@ -142,6 +140,12 @@ export const FONTS = {
     lineHeight: 16,
     letterSpacing: -0.2,
     ...FONT_WEIGHT.regular,
+  },
+  Pre08M: {
+    fontSize: 16,
+    lineHeight: 24,
+    letterSpacing: -0.2,
+    ...FONT_WEIGHT.medium,
   },
   Dosgothic01: {
     fontSize: 48,

@@ -101,6 +101,7 @@ export const FeedDetail = ({ route }: FeedDetailProps) => {
           <>
             <ScrollView contentContainerStyle={styles.rootContainer}>
               <FeedProfile
+                authorId={feed.authorId}
                 profileImage={feed.authorProfileImage}
                 author={feed.authorName}
                 date={feed.date}

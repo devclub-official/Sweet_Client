@@ -22,6 +22,7 @@ export const enum RootStackScreenList {
   EditProfile = 'EditProfile',
   TermsOfService = 'TermsOfService',
   Withdraw = 'Withdraw',
+  Profile = 'Profile',
 
   WithdrawReason = 'WithdrawReason',
   WithdrawWarning = 'WithdrawWarning',
@@ -41,6 +42,9 @@ interface FeedTabParam {
   [RootStackScreenList.CreateFeed]: undefined;
   [RootStackScreenList.FeedDetail]: {
     id: string;
+  };
+  [RootStackScreenList.Profile]: {
+    userId: number;
   };
 }
 interface MyPageTabParam {

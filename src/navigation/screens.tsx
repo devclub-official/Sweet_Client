@@ -30,6 +30,8 @@ import {
   StackNavigationProp,
 } from '@react-navigation/stack';
 import React from 'react';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import { Profile } from '@/screens/Profile';
 
 const Stack = createStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator();

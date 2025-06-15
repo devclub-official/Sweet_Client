@@ -2,12 +2,21 @@ import { PatchUserDto, PatchUserResponseDto } from "@/models/dto/User/PatchUserD
 import { SweetResponse } from "@/types/network";
 import { api } from "./common";
 import Config from "react-native-config";
+import { Asset } from "react-native-image-picker";
 
-export const patchUserAPI = (userInfo: PatchUserDto): Promise<SweetResponse<PatchUserResponseDto>> => {
+export const patchUserAPI = (profileImage: Asset | undefined, userInfo: PatchUserDto): Promise<SweetResponse<PatchUserResponseDto>> => {
     const user = Object.fromEntries(
         Object.entries(userInfo).filter(([_, value]) => value != null)
     );
     const formData = new FormData();
+
+    if (profileImage) {
+        formData.append('profileImage', {
+            url: profileImage.uri,
+            name: profileImage.fileName,
+            type: profileImage.type,
+        });
+    }
     formData.append('userInfo', JSON.stringify(user));
 
     return api.patch<SweetResponse<PatchUserResponseDto>>({

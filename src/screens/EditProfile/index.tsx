@@ -11,9 +11,22 @@ import { Button } from "@/components/Button";
 import { Camera } from "@/assets/svgs/Camera";
 import { strings } from "@/constants/strings";
 import { useEditProfile } from "./hooks/useEditProfile";
+import { imagePicker } from "@/libs/imagePicker";
 
 export const EditProfile = () => {
-    const { profile, newNickname, newIntroduce, setNewNickname, setNewIntroduce, updateProfile } = useEditProfile();
+    const { profile, newImage, newNickname, newIntroduce, setNewImage, setNewNickname, setNewIntroduce, updateProfile } = useEditProfile();
+
+    const handleImageUploadPress = async () => {
+        try {
+            const images = await imagePicker.getImage({
+                mediaType: 'photo',
+                selectionLimit: 1,
+            });
+            setNewImage(images[0]);
+        } catch (e) {
+            console.log(e);
+        }
+    };
 
     return (
         <SafeAreaScreenWrapper>
@@ -25,9 +38,9 @@ export const EditProfile = () => {
                     <Image
                         style={styles.profileImage}
                         source={{
-                            uri: profile.profileImage,
+                            uri: newImage?.uri ?? profile.profileImage,
                         }} />
-                    <TouchableOpacity style={styles.cameraIcon}>
+                    <TouchableOpacity style={styles.cameraIcon} onPress={handleImageUploadPress}>
                         <Camera />
                     </TouchableOpacity>
                 </View>

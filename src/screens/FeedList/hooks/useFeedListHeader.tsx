@@ -17,11 +17,7 @@ export const useFeedListHeader = () => {
           <Svg svgName="Plus" />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => {
-            navigation.navigate(RootStackScreenList.FeedDetail, {
-              id: '3',
-            });
-          }}>
+          onPress={() => {}}>
           <Svg svgName="NewAlarm" />
         </TouchableOpacity>
       </View>

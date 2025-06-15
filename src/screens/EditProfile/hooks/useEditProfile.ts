@@ -1,6 +1,5 @@
 import { SweetError } from "@/apis/error";
-import { fetchMyProfileAPI } from "@/apis/profile";
-import { patchUserAPI } from "@/apis/user";
+import { fetchMyProfileAPI, patchUserAPI } from "@/apis/user";
 import { EditProfile } from "@/models/domain/Profile/EditProfile";
 import { useCallback, useEffect, useState } from "react";
 import Config from "react-native-config";
@@ -40,12 +39,12 @@ export const useEditProfile = () => {
     useEffect(() => {
         fetchMyProfileAPI().then(res => {
             setProfile({
-                nickname: res.username,
-                profileImage: `${Config.MAIN_API_ORIGIN}${res.profileImage}`,
-                introduce: res.bio,
+                nickname: res.data.username,
+                profileImage: `${Config.MAIN_API_ORIGIN}${res.data.profileImage}`,
+                introduce: res.data.bio,
             });
-            setNewNickname(res.username);
-            setNewIntroduce(res.bio);
+            setNewNickname(res.data.username);
+            setNewIntroduce(res.data.bio);
         }).catch(err => {
             if (err instanceof SweetError) {
                 console.log(err.errorMessage);

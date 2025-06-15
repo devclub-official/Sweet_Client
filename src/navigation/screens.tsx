@@ -32,6 +32,7 @@ import {
 } from '@react-navigation/stack';
 import React from 'react';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import { Profile } from '@/screens/Profile';
 
 const Stack = createStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator();
@@ -79,7 +80,7 @@ const HomeTab = () => {
 };
 
 const FeedTab = () => {
-  const {renderHeaderTitle, renderHeaderRight} = useFeedListHeader();
+  const {renderHeaderTitle, renderFeedListHeaderRight, renderProfileHeaderRight} = useFeedListHeader();
 
   return (
     <Stack.Navigator>
@@ -91,7 +92,7 @@ const FeedTab = () => {
           headerLeft: undefined,
           headerTitleAlign: 'center',
           headerTitle: renderHeaderTitle,
-          headerRight: () => renderHeaderRight(props.navigation),
+          headerRight: () => renderFeedListHeaderRight(props.navigation),
         })}
       />
       <Stack.Screen
@@ -111,6 +112,15 @@ const FeedTab = () => {
             title: screenTitle[RootStackScreenList.CreateFeed],
           };
         }}
+      />
+      <Stack.Screen
+        name={RootStackScreenList.Profile}
+        component={Profile}
+        options={props => ({
+          ...getDefaultHeaderOptions(props),
+          headerTitle: '',
+          headerRight: renderProfileHeaderRight,
+        })}
       />
     </Stack.Navigator>
   );

@@ -1,7 +1,7 @@
 import {getMe, socialLogin} from '@/apis/auth';
 import {SweetError} from '@/apis/error';
 import {useUserStore} from '@/stores/useAuthStore';
-import {ResponseCode} from '@/types/network';
+import {ResponseCode, SweetResponse} from '@/types/network';
 import {tokenStorage} from '@/utils/tokenStorage';
 import appleAuth from '@invertase/react-native-apple-authentication';
 import {
@@ -13,7 +13,11 @@ import {useCallback} from 'react';
 import Config from 'react-native-config';
 import {useSweetNavigation} from './useNavigation';
 import {RootStackScreenList} from '@/types/navigation';
-import {SocialLoginProvider} from '@/models/dto/Auth/SignInDto';
+import {
+  SignInRequiredOnboardingResponseDto,
+  SignInResponseDto,
+  SocialLoginProvider,
+} from '@/models/dto/Auth/SignInDto';
 
 export const useSocialLogin = () => {
   const {setLoginUser} = useUserStore();
@@ -36,12 +40,20 @@ export const useSocialLogin = () => {
           accessToken,
         });
         if (response.code === ResponseCode.S0112) {
-          push(RootStackScreenList.Onboard);
+          const tempUserData =
+            response.data as SignInRequiredOnboardingResponseDto;
+          push(RootStackScreenList.Onboarding, {
+            image: tempUserData.tempUserInfo.profileImageUrl,
+            tempToken: tempUserData.tempToken,
+            nickName: tempUserData.tempUserInfo.nickname,
+          });
           return;
         }
+        const userResponse = response as SweetResponse<SignInResponseDto>;
+
         await tokenStorage.setTokens({
           accessToken,
-          refreshToken: response.data.accessToken,
+          refreshToken: userResponse.data.accessToken,
         });
         const me = await getMe();
         setLoginUser(me);

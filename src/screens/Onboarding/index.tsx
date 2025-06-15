@@ -18,6 +18,7 @@ import {OnboardingFormData} from '@/models/domain/Onboard';
 import {OnboardingContext} from './context/OnboardingContext';
 import {BottomSheetModal} from '@gorhom/bottom-sheet';
 import {PermissionBottomSheet} from './components/PermissionBottomSheet';
+import {RootStackScreenList, ScreenProps} from '@/types/navigation';
 
 /**
  * STEP
@@ -28,10 +29,17 @@ import {PermissionBottomSheet} from './components/PermissionBottomSheet';
  * 4: 이름, 프로필사진
  */
 
-export const Onboarding = () => {
+export const Onboarding = (
+  props: ScreenProps<RootStackScreenList.Onboarding>,
+) => {
+  const {
+    route: {params},
+  } = props;
+  const tempToken = params.tempToken;
+
   const [step, setStep] = useState(0);
   const [formData, setFormData] = useState<OnboardingFormData>({
-    name: '',
+    name: params.nickName || '',
     birth: '',
     interestSport: '',
     region: '',

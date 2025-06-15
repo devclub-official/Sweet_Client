@@ -8,3 +8,22 @@ export interface SignInResponseDto {
   accessToken: string;
   refreshToken: string;
 }
+export interface SignInRequiredOnboardingResponseDto {
+  status: string;
+  tempToken: string;
+  tokens?: string;
+  tempUserInfo: {
+    email?: string;
+    socialId: string;
+    socialType: string;
+    nickname?: string;
+    profileImageUrl?: string;
+  };
+  requiredFields: string[];
+  fieldDescriptions: {
+    phoneNumber: string;
+    nickname: string;
+    bio: string;
+    agreeTerms: string;
+  };
+}

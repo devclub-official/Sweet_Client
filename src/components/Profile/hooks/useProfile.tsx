@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from "react"
 import { ProfileInfo } from "@/models/domain/Profile/ProfileInfo";
-import { fetchMyProfileAPI, fetchUserProfileAPI } from "@/apis/profile";
-import { getMyProfileDtoToDomain, getUserProfileDtoToDomain } from "@/models/mapper/Profile";
+import { fetchUserProfileAPI } from "@/apis/profile";
+import { getUserProfileDtoToDomain, userInfoToDomain } from "@/models/mapper/Profile";
 import { SweetError } from "@/apis/error";
+import { fetchMyProfileAPI } from "@/apis/user";
 
 export const useProfile = (userId?: number, isMyPage: boolean) => {
     const [profileInfo, setProfileInfo] = useState<ProfileInfo>({
@@ -23,7 +24,7 @@ export const useProfile = (userId?: number, isMyPage: boolean) => {
     const getMyProfileInfo = useCallback(() => {
         fetchMyProfileAPI()
             .then(res => {
-                setProfileInfo(getMyProfileDtoToDomain(res));
+                setProfileInfo(userInfoToDomain(res.data));
             })
             .catch(err => {
                 if (err instanceof SweetError) {

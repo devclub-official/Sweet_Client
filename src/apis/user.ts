@@ -21,7 +21,7 @@ export const patchUserAPI = (profileImage: Asset | undefined, userInfo: PatchUse
     formData.append('userInfo', JSON.stringify(user));
 
     return api.patch<SweetResponse<PatchUserResponseDto>>({
-        url: `${Config.MAIN_API_ORIGIN}/api/users`,
+        url: `${Config.AUTH_API_ORIGIN}/api/users`,
         body: formData,
         isMultipart: true,
     });

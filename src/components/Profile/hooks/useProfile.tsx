@@ -4,8 +4,10 @@ import { fetchUserProfileAPI } from "@/apis/profile";
 import { getUserProfileDtoToDomain, userInfoToDomain } from "@/models/mapper/Profile";
 import { SweetError } from "@/apis/error";
 import { fetchMyProfileAPI } from "@/apis/user";
+import { useIsFocused } from "@react-navigation/native";
 
 export const useProfile = (userId?: number, isMyPage: boolean) => {
+    const isFocused = useIsFocused();
     const [profileInfo, setProfileInfo] = useState<ProfileInfo>({
         id: "-1",
         type: "SELF",
@@ -48,12 +50,14 @@ export const useProfile = (userId?: number, isMyPage: boolean) => {
     }, [userId]);
 
     useEffect(() => {
-        if (isMyPage) {
-            getMyProfileInfo();
-        } else {
-            getUserProfileInfo();
+        if (isFocused) {
+            if (isMyPage) {
+                getMyProfileInfo();
+            } else {
+                getUserProfileInfo();
+            }
         }
-    }, [isMyPage]);
+    }, [isFocused, isMyPage]);
 
     return {
         profileInfo,

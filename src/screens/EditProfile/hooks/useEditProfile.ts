@@ -25,7 +25,7 @@ export const useEditProfile = () => {
             }
         ).then(res => {
                 setProfile({
-                    profileImage: `${Config.MAIN_API_ORIGIN}${res.data.profileImage}`,
+                    profileImage: `${Config.AUTH_API_ORIGIN}${res.data.profileImage}`,
                     nickname: newNickname,
                     introduce: newIntroduce,
                 });
@@ -40,7 +40,7 @@ export const useEditProfile = () => {
         fetchMyProfileAPI().then(res => {
             setProfile({
                 nickname: res.data.username,
-                profileImage: `${Config.MAIN_API_ORIGIN}${res.data.profileImage}`,
+                profileImage: `${Config.AUTH_API_ORIGIN}${res.data.profileImage}`,
                 introduce: res.data.bio,
             });
             setNewNickname(res.data.username);

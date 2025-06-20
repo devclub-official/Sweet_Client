@@ -26,7 +26,7 @@ export const commentDtoToDomain = (dto: CommentDto): Comment => ({
     id: dto.commentId.toString(),
     userId: dto.userId,
     userName: dto.userName,
-    profileImageUrl: `${Config.MAIN_API_ORIGIN}${dto.profileImageUrl}`,
+    profileImageUrl: `${Config.AUTH_API_ORIGIN}${dto.profileImageUrl}`,
     content: dto.text,
 });
 
@@ -36,7 +36,7 @@ export const contentDtoToDomain = (dto: ContentDto[]): FeedSummary[] => {
         title: item.title,
         authorId: item.authorId,
         authorName: item.authorName,
-        profileImage: `${Config.MAIN_API_ORIGIN}${item.authorProfileImageUrl}`,
+        profileImage: `${Config.AUTH_API_ORIGIN}${item.authorProfileImageUrl}`,
         feedContent: item.feedContent,
         imageUrls: item.imageUrls.map((image: string) => `${Config.MAIN_API_ORIGIN}${image}`),
         date: formatToFeedDate(item.createdAt),
@@ -44,7 +44,7 @@ export const contentDtoToDomain = (dto: ContentDto[]): FeedSummary[] => {
         likeCnt: item.likeCount,
         commentCnt: item.commentCount,
         likeUserName: item.firstLikedUserName,
-        likeUserProfileImage: `${Config.MAIN_API_ORIGIN}${item.firstLikedUserProfileImageUrl}`,
+        likeUserProfileImage: `${Config.AUTH_API_ORIGIN}${item.firstLikedUserProfileImageUrl}`,
         followStatus: item.visibility === '일촌' ? FollowStatus.FOLLOWING : FollowStatus.UNFOLLOWED,
     }));
 };
@@ -52,7 +52,7 @@ export const contentDtoToDomain = (dto: ContentDto[]): FeedSummary[] => {
 export const getFeedDetailDtoToDomain = (dto: GetFeedDetailDto): FeedDetail => ({
     id: dto.id,
     authorId: dto.authorId,
-    authorProfileImage: `${Config.MAIN_API_ORIGIN}${dto.authorProfileImageUrl}`,
+    authorProfileImage: `${Config.AUTH_API_ORIGIN}${dto.authorProfileImageUrl}`,
     authorName: dto.authorName,
     title: dto.title,
     content: dto.feedContent,
@@ -62,7 +62,7 @@ export const getFeedDetailDtoToDomain = (dto: GetFeedDetailDto): FeedDetail => (
     commentCount: dto.commentCount,
     isLiked: dto.isLikedByCurrentUser,
     firstLikedUserName: dto.firstLikedUserName,
-    firstLikedUserProfileImageUrl: `${Config.MAIN_API_ORIGIN}${dto.firstLikedUserProfileImageUrl}`,
+    firstLikedUserProfileImageUrl: `${Config.AUTH_API_ORIGIN}${dto.firstLikedUserProfileImageUrl}`,
     comments: dto.topComments.map((comment): CommentSummary => ({
         commentId: comment.commentId.toString(),
         commenterId: comment.userId,
@@ -74,7 +74,7 @@ export const getFeedDetailDtoToDomain = (dto: GetFeedDetailDto): FeedDetail => (
 
 export const likeDtoToDomain = (dto: GetLikeListDto): Like => ({
     id: dto.userId.toString(),
-    profileImage: `${Config.MAIN_API_ORIGIN}${dto.profileImageUrl}`,
+    profileImage: `${Config.AUTH_API_ORIGIN}${dto.profileImageUrl}`,
     nickname: dto.username,
     followStatus: FollowStatus.FOLLOWING,
 });
@@ -87,6 +87,6 @@ export const postCommentResponseDtoToDomain = (dto: PostCommentResponseDto): Com
     id: dto.commentId.toString(),
     userId: dto.userId,
     userName: dto.userName,
-    profileImageUrl: `${Config.MAIN_API_ORIGIN}${dto.profileImageUrl}`,
+    profileImageUrl: `${Config.AUTH_API_ORIGIN}${dto.profileImageUrl}`,
     content: dto.text,
 });

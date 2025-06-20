@@ -13,7 +13,7 @@ export const patchUserAPI = (profileImage: Asset | undefined, userInfo: PatchUse
 
     if (profileImage) {
         formData.append('profileImage', {
-            url: profileImage.uri,
+            uri: profileImage.uri,
             name: profileImage.fileName,
             type: profileImage.type,
         });

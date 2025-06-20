@@ -2,6 +2,7 @@ import Config from 'react-native-config';
 import {
   SignInRequiredOnboardingResponseDto,
   SignInResponseDto,
+  SocialLoginCompleteRequestDto,
   SocialLoginRequestDto,
 } from '@/models/dto/Auth/SignInDto';
 import {api} from './common';
@@ -23,4 +24,18 @@ export const getMe = async () => {
     url: `${Config.AUTH_API_ORIGIN}/api/users`,
   });
   return me;
+};
+
+export const socialLoginComplete = async (
+  tempToken: string,
+  body: SocialLoginCompleteRequestDto,
+) => {
+  const res = await api.post<SweetResponse<SignInResponseDto>>({
+    url: `${Config.AUTH_API_ORIGIN}/social/signup/complete`,
+    body,
+    headers: {
+      Authorization: `Bearer ${tempToken}`,
+    },
+  });
+  return res;
 };

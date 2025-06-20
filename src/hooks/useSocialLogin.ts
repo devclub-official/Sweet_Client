@@ -49,11 +49,11 @@ export const useSocialLogin = () => {
           });
           return;
         }
-        const userResponse = response as SweetResponse<SignInResponseDto>;
+        const userResponse = response.data as SignInResponseDto;
 
         await tokenStorage.setTokens({
-          accessToken,
-          refreshToken: userResponse.data.accessToken,
+          accessToken: userResponse.accessToken,
+          refreshToken: userResponse.refreshToken,
         });
         const me = await getMe();
         setLoginUser(me);

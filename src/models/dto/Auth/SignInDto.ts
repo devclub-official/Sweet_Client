@@ -27,3 +27,12 @@ export interface SignInRequiredOnboardingResponseDto {
     agreeTerms: string;
   };
 }
+
+export interface SocialLoginCompleteRequestDto {
+  nickname: string;
+  birthDate: string;
+  location: string;
+  interestedSports: string[];
+  profileImageUrl: string;
+  agreeTerms: boolean;
+}

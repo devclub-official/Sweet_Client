@@ -3,6 +3,4 @@ export interface UserInfo {
   id: number;
   profileImage: string;
   username: string;
-  interestedSports?: string[] | null;
-  bio: string;
 }

@@ -2,6 +2,7 @@ import Config from "react-native-config";
 import { ProfileInfo } from "../domain/Profile/ProfileInfo";
 import { GetUserProfileDto } from "../dto/Profile/GetUserProfileDto";
 import { UserInfo } from "@/types/user";
+import { GetUserDto } from "../dto/User/GetUserDto";
 
 // export const getMyProfileDtoToDomain = (dto: GetMyProfileDto): ProfileInfo => ({
 //     id: dto.id.toString(),
@@ -44,7 +45,7 @@ import { UserInfo } from "@/types/user";
 //     ],
 // });
 
-export const userInfoToDomain = (dto: UserInfo): ProfileInfo => ({
+export const userInfoToDomain = (dto: GetUserDto): ProfileInfo => ({
     id: dto.id.toString(),
     type: "SELF",
     nickname: dto.username,

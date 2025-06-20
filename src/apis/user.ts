@@ -4,6 +4,7 @@ import { api } from "./common";
 import Config from "react-native-config";
 import { Asset } from "react-native-image-picker";
 import { UserInfo } from "@/types/user";
+import { GetUserDto } from "@/models/dto/User/GetUserDto";
 
 export const patchUserAPI = (profileImage: Asset | undefined, userInfo: PatchUserDto): Promise<SweetResponse<PatchUserResponseDto>> => {
     const user = Object.fromEntries(
@@ -27,7 +28,7 @@ export const patchUserAPI = (profileImage: Asset | undefined, userInfo: PatchUse
     });
 }
 
-export const fetchMyProfileAPI = (): Promise<SweetResponse<UserInfo>> =>
-    api.get<SweetResponse<UserInfo>>({
+export const fetchMyProfileAPI = (): Promise<SweetResponse<GetUserDto>> =>
+    api.get<SweetResponse<GetUserDto>>({
         url: `${Config.AUTH_API_ORIGIN}/api/users`,
     });

@@ -12,13 +12,15 @@ export const useFeedDetail = (id: number) => {
     const user = useUserStore(state => state.user);
 
     useEffect(() => {
-        fetchFeedDetailAPI(id)
-            .then((res) => {
-                setFeed(getFeedDetailDtoToDomain(res));
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        if (user) {
+            fetchFeedDetailAPI(id, user.id)
+                .then((res) => {
+                    setFeed(getFeedDetailDtoToDomain(res));
+                })
+                .catch((err) => {
+                    console.log(err);
+                }); 
+        }
     }, [id]);
 
     const likeFeed = () => {

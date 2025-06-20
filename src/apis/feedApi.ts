@@ -19,9 +19,9 @@ export const fetchFeedListAPI = (
     },
   });
 
-export const fetchFeedDetailAPI = (id: number): Promise<GetFeedDetailDto> =>
+export const fetchFeedDetailAPI = (id: number, userId: number): Promise<GetFeedDetailDto> =>
   api.get<GetFeedDetailDto>({
-    url: `${Config.MAIN_API_ORIGIN}/api/feeds/${id}`,
+    url: `${Config.MAIN_API_ORIGIN}/api/feeds/${id}?userId=${userId}`,
   });
 
 export const fetchFeedCommentListAPI = (

@@ -93,6 +93,7 @@ const request = async (url: string, option: RequestInit) => {
       throw new SweetError({
         errorMessage: data.message,
         statusCode: response.status,
+        errorCode: data.code,
       });
     }
   } else {

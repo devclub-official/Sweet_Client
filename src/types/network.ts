@@ -4,3 +4,7 @@ export interface SweetResponse<T> {
   message: string;
   success: boolean;
 }
+
+export const enum ResponseCode {
+  S0112 = 'S0112',
+}

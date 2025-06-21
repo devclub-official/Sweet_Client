@@ -10,11 +10,14 @@ import {useContext} from 'react';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {OnboardingContext} from '../context/OnboardingContext';
 
-export const ProfileSetup = () => {
+interface Props {
+  socialImage?: string;
+}
+export const ProfileSetup = ({socialImage}: Props) => {
   const context = useContext(OnboardingContext);
 
   const handleNameChange = (name: string) => {
-    context?.onChange('name', name);
+    context?.onChange('nickname', name);
   };
   const handleImageUpload = () => {
     launchImageLibrary(
@@ -58,7 +61,7 @@ export const ProfileSetup = () => {
             placeholder="입력하기"
             onChangeText={handleNameChange}
             placeholderTextColor={colors.CG10}
-            value={context?.name || ''}
+            value={context?.nickname || ''}
             style={styles.input}
           />
         </View>

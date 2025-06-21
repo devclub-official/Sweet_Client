@@ -11,6 +11,20 @@ import {Typo} from '@/components/Typo';
 export const InterestSports = () => {
   const context = useContext(OnboardingContext);
 
+  const handleSportPress = (sport: string) => {
+    const isSelected = (context?.interestedSports || []).includes(sport);
+    if (isSelected) {
+      context?.onChange(
+        'interestedSports',
+        context.interestedSports.filter(item => item !== sport),
+      );
+    } else {
+      context?.onChange(
+        'interestedSports',
+        context.interestedSports.concat(sport),
+      );
+    }
+  };
   return (
     <OnboardingContentWrapper>
       <OnboardingContentHeader
@@ -29,15 +43,14 @@ export const InterestSports = () => {
               <TouchableOpacity
                 style={styles.item}
                 onPress={() => {
-                  context?.onChange('interestSport', item.value);
+                  handleSportPress(item.value);
                 }}>
                 <Svg
                   svgName={item.svg}
                   options={{
-                    color:
-                      context?.interestSport === item.value
-                        ? colors.PRI
-                        : colors.B_500,
+                    color: context?.interestedSports.includes(item.value)
+                      ? colors.PRI
+                      : colors.B_500,
                   }}
                 />
                 <Typo font="SubSmallM" style={styles.sportName} color="CG5">

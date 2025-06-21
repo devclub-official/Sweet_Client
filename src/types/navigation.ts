@@ -3,6 +3,7 @@ import {
   ParamListBase,
   RouteProp,
 } from '@react-navigation/native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {StackScreenProps} from '@react-navigation/stack';
 
 export const enum RootStackScreenList {
@@ -62,7 +63,11 @@ export interface MainTabParam {
 export interface RootStackParamList extends ParamListBase {
   [RootStackScreenList.MainTab]: NavigatorScreenParams<MainTabParam>;
   [RootStackScreenList.Login]: undefined;
-  [RootStackScreenList.Onboarding]: undefined;
+  [RootStackScreenList.Onboarding]: {
+    tempToken: string;
+    image?: string;
+    nickName?: string;
+  };
 }
 export type RootStackScreenProps<T extends keyof RootStackParamList> =
   StackScreenProps<RootStackParamList, T>;
@@ -76,6 +81,8 @@ export type RouteParams<T extends keyof RootStackParamList> = RouteProp<
   RootStackParamList,
   T
 >;
+export type ScreenProps<T extends keyof RootStackParamList> =
+  NativeStackScreenProps<RootStackParamList, T>;
 
 declare global {
   namespace ReactNavigation {

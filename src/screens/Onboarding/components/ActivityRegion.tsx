@@ -14,7 +14,7 @@ export const ActivityRegion = () => {
   const context = useContext(OnboardingContext);
   const ref = useRef<BottomSheetModal>(null);
   const [cities, setCities] = useState<string[]>([]);
-  const [province, city] = (context?.region || ' ').split(' ');
+  const [province, city] = (context?.location || ' ').split(' ');
   const selectedProvince = useRef('');
 
   return (
@@ -64,7 +64,7 @@ export const ActivityRegion = () => {
         cities={cities}
         onCityChange={selectedCity => {
           context?.onChange(
-            'region',
+            'location',
             `${selectedProvince.current} ${selectedCity}`,
           );
           ref.current?.dismiss();

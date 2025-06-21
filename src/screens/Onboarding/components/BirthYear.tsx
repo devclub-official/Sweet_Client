@@ -19,7 +19,7 @@ export const BirthYear = () => {
   const handleBirthChange = (birth: string) => {
     const onlyDigits = birth.replace(/[^0-9]/g, '');
     if (onlyDigits.length <= 4) {
-      context?.onChange('birth', onlyDigits);
+      context?.onChange('birthDate', onlyDigits);
       if (onlyDigits.length === 4) {
         Keyboard.dismiss();
       }
@@ -37,7 +37,7 @@ export const BirthYear = () => {
             <TextInput
               ref={inputRef}
               autoFocus
-              value={context?.birth || ''}
+              value={context?.birthDate || ''}
               onChangeText={handleBirthChange}
               keyboardType="number-pad"
               style={styles.input}
@@ -46,7 +46,7 @@ export const BirthYear = () => {
             <View style={styles.boxWrapper}>
               {[...Array(4)].map((_, i) => (
                 <View key={i} style={styles.charBox}>
-                  <Typo font="HeadLargeB">{context?.birth[i] ?? ''}</Typo>
+                  <Typo font="HeadLargeB">{context?.birthDate[i] ?? ''}</Typo>
                 </View>
               ))}
             </View>

@@ -48,6 +48,7 @@ import OnboardingWeight from './OnboardingWeight';
 import OnboardingYoga from './OnboardingYoga';
 import OnboardingPilates from './OnboardingPilates';
 import {PtptConsonant} from './PtptConsonant';
+import { GroupFire } from './GroupFire';
 
 export const svgMap = {
   ChevronLeft,
@@ -100,4 +101,5 @@ export const svgMap = {
   OnboardingYoga,
   OnboardingPilates,
   PtptConsonant,
+  GroupFire,
 };

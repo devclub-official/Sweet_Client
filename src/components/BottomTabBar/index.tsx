@@ -13,6 +13,7 @@ interface Props {
 const TAB_BAR_ICON: Record<keyof MainTabParam, SvgNames> = {
   HomeTab: 'Home',
   FeedTab: 'Dumbbell',
+  GroupTab: 'GroupFire',
   MyPageTab: 'Profile',
 };
 

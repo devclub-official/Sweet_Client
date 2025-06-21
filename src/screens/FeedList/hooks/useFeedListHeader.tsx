@@ -7,7 +7,7 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native';
 export const useFeedListHeader = () => {
   const renderHeaderTitle = useCallback(() => <Svg svgName="Logo" />, []);
 
-  const renderHeaderRight = useCallback(
+  const renderFeedListHeaderRight = useCallback(
     (navigation: StackNavigationProp<RootStackParamList, string>) => (
       <View style={styles.headerRightContainer}>
         <TouchableOpacity
@@ -29,9 +29,23 @@ export const useFeedListHeader = () => {
     [],
   );
 
+  const renderProfileHeaderRight = useCallback(() => (
+      <View style={styles.headerRightContainer}>
+        <TouchableOpacity>
+          <Svg svgName="NewAlarm" />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Svg svgName="More" />
+        </TouchableOpacity>
+      </View>
+    ),
+    [],
+  );
+
   return {
     renderHeaderTitle,
-    renderHeaderRight,
+    renderFeedListHeaderRight,
+    renderProfileHeaderRight,
   };
 };
 

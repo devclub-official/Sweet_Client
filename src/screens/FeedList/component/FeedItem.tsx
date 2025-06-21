@@ -71,6 +71,7 @@ export const FeedItem = ({ feed, followStatus, onPressFollow, onPressLikeIcon, o
     return (
         <View style={styles.rootContainer}>
             <FeedProfile
+                authorId={feed.authorId}
                 profileImage={feed.profileImage}
                 author={feed.authorName}
                 date={feed.date}

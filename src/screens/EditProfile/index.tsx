@@ -11,9 +11,22 @@ import { Button } from "@/components/Button";
 import { Camera } from "@/assets/svgs/Camera";
 import { strings } from "@/constants/strings";
 import { useEditProfile } from "./hooks/useEditProfile";
+import { imagePicker } from "@/libs/imagePicker";
 
 export const EditProfile = () => {
-    const { profile, newNickname, newIntroduce, setNewNickname, setNewIntroduce } = useEditProfile();
+    const { profile, newImage, newNickname, newIntroduce, setNewImage, setNewNickname, setNewIntroduce, updateProfile } = useEditProfile();
+
+    const handleImageUploadPress = async () => {
+        try {
+            const images = await imagePicker.getImage({
+                mediaType: 'photo',
+                selectionLimit: 1,
+            });
+            setNewImage(images[0]);
+        } catch (e) {
+            console.log(e);
+        }
+    };
 
     return (
         <SafeAreaScreenWrapper>
@@ -25,9 +38,9 @@ export const EditProfile = () => {
                     <Image
                         style={styles.profileImage}
                         source={{
-                            uri: profile?.profileImage,
+                            uri: newImage?.uri ?? profile.profileImage,
                         }} />
-                    <TouchableOpacity style={styles.cameraIcon}>
+                    <TouchableOpacity style={styles.cameraIcon} onPress={handleImageUploadPress}>
                         <Camera />
                     </TouchableOpacity>
                 </View>
@@ -35,7 +48,7 @@ export const EditProfile = () => {
                     <Typo color="CG10" font="SubSmallM">{strings.NICKNAME}</Typo>
                     <Input
                         style={styles.input}
-                        defaultValue={profile?.nickname}
+                        defaultValue={profile.nickname}
                         value={newNickname}
                         onChangeText={setNewNickname} />
                 </View>
@@ -44,7 +57,7 @@ export const EditProfile = () => {
                     <View>
                         <Input
                             style={styles.input}
-                            defaultValue={profile?.introduce}
+                            defaultValue={profile.introduce}
                             value={newIntroduce}
                             maxLength={50}
                             multiline={true}
@@ -55,7 +68,9 @@ export const EditProfile = () => {
             </KeyboardAwareScrollView>
             <View style={styles.completeButtonContainer}>
                 <Button
-                    disabled={profile?.nickname !== newNickname && profile?.introduce !== newIntroduce && newNickname.length >= 1 ? false : true}>
+                    disabled={profile.nickname !== newNickname && profile.introduce !== newIntroduce && newNickname.length >= 1 ? false : true}
+                    onPress={updateProfile}
+                >
                     {editProfileStrings.COMPLETE}
                 </Button>
             </View>

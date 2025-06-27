@@ -1,5 +1,5 @@
 import {ProfileInfo} from '@/models/domain/Profile/ProfileInfo';
-import {FlatList, Image, StyleSheet, View} from 'react-native';
+import {FlatList, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Button} from '../Button';
 import {ProfileType} from '@/models/domain/Profile/ProfileType';
 import {strings as stringsInProfile} from './constants/strings';
@@ -13,9 +13,10 @@ import {useSweetNavigation} from '@/hooks/useNavigation';
 import {RootStackParamList, RootStackScreenList} from '@/types/navigation';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {Svg} from '../Svg';
+import { useProfile } from './hooks/useProfile';
 
 interface ProfileContainerProps {
-  userId: String;
+  userId?: number;
   isMyPage: boolean;
 }
 
@@ -49,63 +50,35 @@ const renderButtonByProfileType = (
   }
 };
 
-const renderFeedItem = ({item}: {item: FeedInProfile}) => (
-  <Image
-    style={styles.feedItemImage}
-    source={{
-      uri: item.feedThumbnail,
+const renderFeedItem = (
+  {item}: {item: FeedInProfile}, 
+  navigation: NativeStackNavigationProp<RootStackParamList>['navigate'],
+) => (
+  <TouchableOpacity 
+    style={styles.feedItemImageContainer}
+    onPress={() => {
+      navigation(RootStackScreenList.FeedDetail, {
+        id: item.feedId,
+      });
     }}
-  />
+  >
+    <Image
+      style={styles.feedItemImage}
+      source={{
+        uri: item.feedThumbnail,
+      }}
+    />
+  </TouchableOpacity>
 );
 
 export const ProfileContainer = ({userId, isMyPage}: ProfileContainerProps) => {
-  const profile: ProfileInfo = {
-    id: '',
-    type: 'SELF',
-    nickname: 'pt_jiyeon',
-    profileImage:
-      'https://plus.unsplash.com/premium_photo-1672784159872-32eb1f00ef45?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    introduce: '반가워요 :)',
-    feedCount: '5',
-    followerCount: '1,568',
-    followingCount: '12',
-    isOnWorkoutStreak: true,
-    workoutStatusMessage: '연속 5일 운동 기록 중',
-    favoriteWorkout: '나의 최애 운동은 ? [필라테스]',
-    feeds: [
-      {
-        feedId: 1,
-        feedThumbnail:
-          'https://images.unsplash.com/photo-1591258370814-01609b341790?q=80&w=3072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      },
-      {
-        feedId: 2,
-        feedThumbnail:
-          'https://images.unsplash.com/photo-1641913640860-ab4c2bfb2bb0?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      },
-      {
-        feedId: 3,
-        feedThumbnail:
-          'https://images.unsplash.com/photo-1717500252573-d31d4bf5ddf1?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      },
-      {
-        feedId: 4,
-        feedThumbnail:
-          'https://images.unsplash.com/photo-1717500250573-a76fce75ffb3?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      },
-      {
-        feedId: 5,
-        feedThumbnail:
-          'https://images.unsplash.com/photo-1717500252179-2811af29e4f7?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      },
-    ],
-  };
   const navigation = useSweetNavigation();
+  const { profileInfo } = useProfile(userId, isMyPage);
 
   return (
     <FlatList
-      data={profile.feeds}
-      renderItem={renderFeedItem}
+      data={profileInfo.feeds}
+      renderItem={({ item }) => renderFeedItem({ item }, navigation.push)}
       keyExtractor={item => item.feedId.toString()}
       numColumns={3}
       ListHeaderComponent={
@@ -115,33 +88,33 @@ export const ProfileContainer = ({userId, isMyPage}: ProfileContainerProps) => {
               <Image
                 style={styles.profileImage}
                 source={{
-                  uri: profile.profileImage,
+                  uri: profileInfo.profileImage,
                 }}
               />
               <View style={styles.statsContainer}>
-                <StatItem stat={profile.feedCount} statName={strings.FEED} />
+                <StatItem stat={profileInfo.feedCount} statName={strings.FEED} />
                 <StatItem
-                  stat={profile.followerCount}
+                  stat={profileInfo.followerCount}
                   statName={strings.FOLLOWER}
                 />
                 <StatItem
-                  stat={profile.followingCount}
+                  stat={profileInfo.followingCount}
                   statName={strings.FOLLOWING}
                 />
               </View>
             </View>
             <Typo color="CG1" font="SubSmallM">
-              {profile.nickname}
+              {profileInfo.nickname}
             </Typo>
             <Typo color="CG1" font="CaptionR" style={styles.introduceTypo}>
-              {profile.introduce}
+              {profileInfo.introduce}
             </Typo>
 
-            {renderButtonByProfileType(profile.type, navigation.push)}
+            {renderButtonByProfileType(profileInfo.type, navigation.push)}
           </View>
           <View style={styles.workoutSummaryContainer}>
             <View style={styles.workoutSummaryTypoContainer}>
-              {profile.isOnWorkoutStreak ? (
+              {profileInfo.isOnWorkoutStreak ? (
                 <Svg svgName="Fire" />
               ) : (
                 <Svg
@@ -150,7 +123,7 @@ export const ProfileContainer = ({userId, isMyPage}: ProfileContainerProps) => {
                 />
               )}
               <Typo color="CG10" font="Pre03M">
-                {profile.workoutStatusMessage}
+                {profileInfo.workoutStatusMessage}
               </Typo>
             </View>
             <View style={styles.workoutSummaryTypoContainer}>
@@ -161,7 +134,7 @@ export const ProfileContainer = ({userId, isMyPage}: ProfileContainerProps) => {
                 fill={colors.B_50}
               />
               <Typo color="CG10" font="Pre03M">
-                {profile.favoriteWorkout}
+                {profileInfo.favoriteWorkout}
               </Typo>
             </View>
           </View>
@@ -206,9 +179,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 8,
   },
-  feedItemImage: {
+  feedItemImageContainer: {
     margin: 1,
     width: '33.3%',
+  },
+  feedItemImage: {
     aspectRatio: 1,
   },
 });

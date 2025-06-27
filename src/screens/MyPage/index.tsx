@@ -8,7 +8,7 @@ export const MyPage = () => {
     <SafeAreaScreenWrapper>
       <AppStatusBar backgroundColor={colors.B_BASE_PRI} />
 
-      <ProfileContainer userId="" isMyPage={true} />
+      <ProfileContainer isMyPage={true} />
     </SafeAreaScreenWrapper>
   );
 };

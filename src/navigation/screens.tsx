@@ -32,6 +32,7 @@ import {
 import React from 'react';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import { Profile } from '@/screens/Profile';
+import { Group } from '@/screens/Group';
 
 const Stack = createStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator();
@@ -124,6 +125,18 @@ const FeedTab = () => {
     </Stack.Navigator>
   );
 };
+
+const GroupTab = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name={RootStackScreenList.Group}
+        component={Group}
+      />
+    </Stack.Navigator>
+  );
+};
+
 const MyPageTab = () => {
   const {renderHeaderRight} = useMyPage();
 
@@ -183,6 +196,11 @@ const TabScreen = () => {
       <Tab.Screen
         name={RootStackScreenList.FeedTab}
         component={FeedTab}
+        options={{headerShown: false}}
+      />
+      <Tab.Screen
+        name={RootStackScreenList.GroupTab}
+        component={GroupTab}
         options={{headerShown: false}}
       />
       <Tab.Screen

@@ -10,6 +10,7 @@ export const enum RootStackScreenList {
   MainTab = 'MainTab',
   HomeTab = 'HomeTab',
   FeedTab = 'FeedTab',
+  GroupTab = 'GroupTab',
   MyPageTab = 'MyPageTab',
 
   Home = 'Home',
@@ -24,6 +25,7 @@ export const enum RootStackScreenList {
   TermsOfService = 'TermsOfService',
   Withdraw = 'Withdraw',
   Profile = 'Profile',
+  Group = 'Group',
 
   WithdrawReason = 'WithdrawReason',
   WithdrawWarning = 'WithdrawWarning',
@@ -48,6 +50,9 @@ interface FeedTabParam {
     userId: number;
   };
 }
+interface GroupTabParam {
+  [RootStackScreenList.Group]: undefined;
+}
 interface MyPageTabParam {
   [RootStackScreenList.MyPage]: undefined;
   [RootStackScreenList.Setting]: undefined;
@@ -58,6 +63,7 @@ interface MyPageTabParam {
 export interface MainTabParam {
   [RootStackScreenList.HomeTab]: NavigatorScreenParams<HomeTabParam>;
   [RootStackScreenList.FeedTab]: NavigatorScreenParams<FeedTabParam>;
+  [RootStackScreenList.GroupTab]: NavigatorScreenParams<GroupTabParam>;
   [RootStackScreenList.MyPageTab]: NavigatorScreenParams<MyPageTabParam>;
 }
 export interface RootStackParamList extends ParamListBase {

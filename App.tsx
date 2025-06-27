@@ -35,7 +35,6 @@ const App = () => {
         if (token) {
           const me = await getMe();
           setLoginUser(me);
-        } else {
         }
         setCheckLogin(true);
       } catch (e) {
